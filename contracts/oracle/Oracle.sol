@@ -1,5 +1,9 @@
 pragma solidity >=0.4.22 <0.8.0;
 
+import "./ExternalAccessible.sol";
+import "./Ownable.sol";
+import "./OracleMaster.sol";
+
 contract Oracle is Ownable, ExternalAccessible {
     uint256 public creationDate;
     uint256 public lastProof;

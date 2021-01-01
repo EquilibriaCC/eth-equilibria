@@ -1,5 +1,8 @@
 pragma solidity >=0.4.22 <0.8.0;
 
+import "./ExternalAccessible.sol";
+import "./SafeMath.sol";
+
 contract DataStorage is ExternalAccessible {
     using SafeMath for *;
     uint256 public _totalSupply;

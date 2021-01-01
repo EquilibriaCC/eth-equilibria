@@ -1,5 +1,13 @@
 pragma solidity >=0.4.22 <0.8.0;
 
+import "./ExternalAccessible.sol";
+import "./SafeMath.sol";
+import "./DataStorage.sol";
+import "./wXEQ.sol";
+import "./wXEQSwaps.sol";
+import "./OracleTask.sol";
+import "./Oracle.sol";
+
 contract OracleMaster is ExternalAccessible {
     
     using SafeMath for *;

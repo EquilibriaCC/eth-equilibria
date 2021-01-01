@@ -1,5 +1,8 @@
 pragma solidity >=0.4.22 <0.8.0;
 
+import "./SafeMath.sol";
+import "./DataStorage.sol";
+import "./wXEQ.sol";
 
 contract SoftStaking {
     using SafeMath for *;

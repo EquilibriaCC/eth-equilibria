@@ -1,5 +1,12 @@
 pragma solidity >=0.4.22 <0.8.0;
 
+import "./ExternalAccessible.sol";
+import "./Ownable.sol";
+import "./SafeMath.sol";
+import "./wXEQ.sol";
+import "./wXEQStaking.sol";
+import "./OracleMaster.sol";
+
 contract XEQSwaps is ExternalAccessible, Ownable {
     using SafeMath for *;
     
