@@ -134,7 +134,6 @@ contract wXEQ is ExternalAccessible {
         uint256 allow = allowance(account, msg.sender);
         dataStorage.updateAllowed(account, msg.sender, allow.sub(amount));
         assert(allow.sub(amount) == allowance(account, msg.sender));
-        emit Transfer(account, address(0), amount);
         _burn(account, amount);
     }
 

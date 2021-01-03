@@ -86,10 +86,10 @@ contract SoftStaking {
             withdrawRewards();
         }
         firstBlock[msg.sender] = block.number;
-        wXEQContract._burnFrom(msg.sender, amount);
         stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].add(amount);
         lastClaim[msg.sender] = block.number;
         totalStaked = totalStaked.add(amount);
+        wXEQContract._burnFrom(msg.sender, amount);
     }
     
     function removeStake(uint256 amount) public returns (bool) {
