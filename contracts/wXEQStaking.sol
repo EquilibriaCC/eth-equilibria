@@ -96,15 +96,14 @@ contract SoftStaking {
         require(amount <= stakeHoldersStakeAmount[msg.sender]);
         checkPayout();
         withdrawRewards();
-        wXEQContract.mint(msg.sender, amount);
         firstBlock[msg.sender] = block.number;
         if (stakeHoldersStakeAmount[msg.sender] == 0) {
             numberOfStakes = numberOfStakes.sub(1);
             lastClaim[msg.sender] = 0;
         }
-        wXEQContract.mint(msg.sender, amount);
         stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].sub(amount);
         totalStaked = totalStaked.sub(amount);
+        wXEQContract.mint(msg.sender, amount);
     }
     
     function withdrawRewards() public returns (uint256) {
