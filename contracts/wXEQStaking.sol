@@ -1,7 +1,8 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.8.0;
 
-import "./SafeMath.sol";
-import "./DataStorage.sol";
+import "./tools/SafeMath.sol";
+import "./tools/DataStorage.sol";
 import "./wXEQ.sol";
 
 contract SoftStaking {

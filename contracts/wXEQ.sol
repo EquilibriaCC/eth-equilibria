@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.8.0;
-import "https://github.com/smartcontractkit/chainlink/blob/develop/evm-contracts/src/v0.7/interfaces/AggregatorInterface.sol";
-import "./DataStorage.sol";
-import "./ExternalAccessible.sol";
-import "./SafeMath.sol";
+import "./oracle/AggregatorInterface.sol";
+import "./tools/DataStorage.sol";
+import "./tools/ExternalAccessible.sol";
+import "./tools/SafeMath.sol";
 
 contract wXEQ is ExternalAccessible {
 
@@ -31,8 +32,8 @@ contract wXEQ is ExternalAccessible {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    constructor(address back) {
-        dataStorage = DataStorage(back);
+    constructor (address _masterContract) {
+        dataStorage = DataStorage(_masterContract);
         _decimals = 18;
         _name = "Wrapped Equilibria";
         _symbol = "wXEQ";

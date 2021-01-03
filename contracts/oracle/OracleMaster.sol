@@ -1,12 +1,13 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.8.0;
 
-import "./ExternalAccessible.sol";
-import "./SafeMath.sol";
-import "./DataStorage.sol";
-import "./wXEQ.sol";
-import "./wXEQSwaps.sol";
+import "../tools/ExternalAccessible.sol";
+import "../tools/SafeMath.sol";
+import "../tools/DataStorage.sol";
 import "./OracleTask.sol";
 import "./Oracle.sol";
+import "../wXEQ.sol";
+import "../wXEQSwaps.sol";
 
 contract OracleMaster is ExternalAccessible {
     

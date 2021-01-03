@@ -1,7 +1,8 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.8.0;
 
-import "./ExternalAccessible.sol";
-import "./Ownable.sol";
+import "../tools/ExternalAccessible.sol";
+import "../tools/Ownable.sol";
 import "./OracleMaster.sol";
 
 contract Oracle is Ownable, ExternalAccessible {

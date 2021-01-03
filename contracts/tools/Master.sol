@@ -1,4 +1,15 @@
-pragma solidity >=0.4.22 <0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.4.25 <0.8.0;
+
+import "../wXEQ.sol";
+import "../wXEQSale.sol";
+import "../wXEQStaking.sol";
+import "../wXEQSwaps.sol";
+import "./DataStorage.sol";
+import "./Accessible.sol";
+import "./Upgradeable.sol";
+import "./SafeMath.sol";
+
 
 contract Master is Accessible, Upgradeable {
     using SafeMath for uint256;
@@ -27,11 +38,30 @@ contract Master is Accessible, Upgradeable {
         access.push(address(softStakingContract));
         access.push(address(swapContract));
         access.push(address(this));
-
     }
     
     function getOracleContract() public view returns (address) {
         return address(oracleContract);
+    }
+
+    function getWXEQContract() public view returns (address) {
+        return address(wXEQContract);
+    }
+
+    function getWXEQSaleContract() public view returns (address) {
+        return address(presaleContract);
+    }
+
+    function getWXEQStakingContract() public view returns (address) {
+        return address(softStakingContract);
+    }
+
+    function getWXEQSwapContract() public view returns (address) {
+        return address(swapContract);
+    }
+
+    function getDataStorageContract() public view returns (address) {
+        return address(backupContract);
     }
 
 }
