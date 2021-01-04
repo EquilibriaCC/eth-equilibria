@@ -1,10 +1,9 @@
-// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.8.0;
 
 import "./tools/Ownable.sol";
 import "./tools/SafeMath.sol";
 import "./wXEQ.sol";
-
+import "./oracle/AggregatorInterface.sol";
 
 contract PreSale is Ownable {
     using SafeMath for *;
@@ -15,17 +14,16 @@ contract PreSale is Ownable {
     uint256 public ethMinted;
     uint256 public wXEQminted;
     uint256 exchangeRate;
-    uint256 xeqRate;
     uint256 stakingBonusEndBlock;
     uint stakingBonusHit;
     bool presaleActive;
     uint256 cap;
     uint256 minGoal;
     bool hasStakingBonus;
-
-    mapping(string => address) oracles;
-    mapping(string => address) tokensAccepted;
-
+    
+    address ETHUSD;
+    uint256 public lastETHPrice;
+    
     constructor(address xeq, address t) payable {
         transferOwnership(t);
         wXEQcontract = wXEQ(xeq);
@@ -35,7 +33,7 @@ contract PreSale is Ownable {
         presaleActive = true;
         cap = 10000000.mul(10.pow(18));
         minGoal = 5000000.mul(10.pow(18));
-        xeqRate = 1500000;
+        ETHUSD = address(0x9326BFA02ADD2366b30bacB125260Af641031331);
     }
     
     event Withdraw(address indexed from, uint256 amount, uint256 blockHeight);
@@ -57,7 +55,7 @@ contract PreSale is Ownable {
     }
     
     function checkPresale(uint256 val) public view returns (bool) {
-        if (wXEQminted.add(val.mul(10.pow(18))) >= cap) {
+        if (wXEQminted.add(val) >= cap) {
             return false;
         } else if (block.timestamp > finalBlock && wXEQminted >= minGoal) {
             return false;
@@ -66,53 +64,26 @@ contract PreSale is Ownable {
         }
     }
     
-    function calculateAmount(string memory token, uint256 val) public view returns (uint256) {
+    function calculateAmount(uint256 _ethAmount) public view returns (uint256) {
+        uint256 ethAmount = _ethAmount;
+        uint256 rate =  15.mul(10.pow(16));
         
-        require(oracles[token] != address(0));
-        AggregatorInterface oracle = AggregatorInterface(oracles[token]);
-        uint256 exchange_rate = uint256(oracle.latestAnswer()).div(xeqRate);
-
-        return val.div(exchange_rate);
+        uint256 price = lastETHPrice;
+        return price.mul(10.pow(10)).div(rate).mul(10.pow(18)).mul(ethAmount).div(10*10**17);
     }
     
-    function getTokenAddress(string memory token) public view returns (address) {
-        require(tokensAccepted[token] != address(0));
-        return tokensAccepted[token];
-    }
-    
-    function getOracleAddress(string memory token) public view returns (address) {
-        require(oracles[token] != address(0));
-        return oracles[token];
-    }
-    
-    function haveToken(string memory token) public view returns (bool) {
-        return oracles[token] != address(0);
-    }
-    
-    function addToken(string memory token, address _oracle_address, address _token_address) public onlyOwner returns (bool) {
-        require(_oracle_address != address(0));
-        require(_token_address != address(0));
-        if(haveToken(token))
-            return false;
+    function getAmount(uint256 _ethAmount) public returns (uint256) {
+        uint256 ethAmount = _ethAmount;
+        uint256 rate =  15.mul(10.pow(16));
         
-        oracles[token] = _oracle_address;
-        tokensAccepted[token] = _token_address;
-        return true;
+        AggregatorInterface priceFeed = AggregatorInterface(ETHUSD);
+        uint256 price = uint256(priceFeed.latestAnswer());
+        return price.mul(10.pow(10)).div(rate).mul(10.pow(18)).mul(ethAmount).div(10*10**17);
     }
     
-    function removeToken(string memory token) public onlyOwner returns (bool) {
-        require(haveToken(token));
-            
-        delete oracles[token];
-        delete tokensAccepted[token];
-        return true;
-    }
-    
-    function updateToken(string memory token, address _oracle_address, address _token_address) public onlyOwner returns (bool) {
-        require(_oracle_address != address(0));
-        require(_token_address != address(0));
-        oracles[token] = _oracle_address;
-        tokensAccepted[token] = _token_address;
+    function updateETHOracle(address _oracleAddress) public onlyOwner returns (bool) {
+        require(_oracleAddress != address(0));
+        ETHUSD = _oracleAddress;
         return true;
     }
     
@@ -172,14 +143,12 @@ contract PreSale is Ownable {
     }
 
     fallback () external presaleIsActive payable {
-        uint256 xeqVal = calculateAmount("eth", msg.value);
-        // require(checkPresale(xeqVal));
-        // checkStakingBonus();
-        wXEQminted = wXEQminted.add(xeqVal.mul(10.pow(18)));
+        uint256 xeqVal = getAmount(msg.value);
+        require(checkPresale(xeqVal));
+        wXEQminted = wXEQminted.add(xeqVal);
         ethMinted = ethMinted.add(msg.value);
         uint256 ogBalance = wXEQcontract.balanceOf(msg.sender);
-        wXEQcontract.mint(msg.sender, xeqVal.mul(10.pow(18)));
-        // assert(wXEQcontract.balanceOf(msg.sender) == ogBalance + (xeqVal * 10**18));
+        wXEQcontract.mint(msg.sender, xeqVal);
         emit Mint(msg.sender, msg.value, xeqVal);
     }
 

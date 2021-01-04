@@ -1,164 +1,150 @@
 pragma solidity >=0.4.22 <0.8.0;
 
-import "./Ownable.sol";
-import "./SafeMath.sol";
+import "./tools/SafeMath.sol";
+import "./tools/DataStorage.sol";
 import "./wXEQ.sol";
 
-
-contract PreSale is Ownable {
+contract SoftStaking {
     using SafeMath for *;
-
-    address payable public teamAdd;
-    wXEQ wXEQcontract;
-    uint256 finalBlock;
-    uint256 public ethMinted;
-    uint256 public wXEQminted;
-    uint256 exchangeRate;
-    uint256 stakingBonusEndBlock;
-    uint stakingBonusHit;
-    bool presaleActive;
-    uint256 cap;
-    uint256 minGoal;
-    bool hasStakingBonus;
+    DataStorage public dataStorage;
+    wXEQ public wXEQContract;
+    address[] public stakeholders;
+    mapping(address => uint256) stakeHoldersStakeAmount;
+    mapping(address => uint256) lastClaim;
+    mapping(address => uint256) unlockBlock;
+    mapping(address => uint256) firstBlock;
+    mapping(address => bool) partOfPool;
+    uint256 public numberOfPoolStakers;
+    uint256 public numberOfStakes;
+    uint256 public dailyPool;
+    uint256 public lastPoolRefresh;
+    uint256 numberofNodesAtRefresh;
+    uint256 public totalMinted;
+    uint256 public totalStaked;
+    uint256 public maxPayouts;
+    uint256[] public payouts;
+    uint256[] payoutBlock;
+    uint256[] payoutPoolSize;
+    uint256 public lastPayoutBlock;
+    uint256 dailyBlock;
     
-    address ETHUSD;
-    uint256 public lastETHPrice;
-    
-    constructor(address xeq, address t) payable {
-        transferOwnership(t);
-        wXEQcontract = wXEQ(xeq);
-        finalBlock = block.timestamp + (90 days);
-        exchangeRate = 230000000000000;
-        stakingBonusHit = 1;
-        presaleActive = true;
-        cap = 10000000.mul(10.pow(18));
-        minGoal = 5000000.mul(10.pow(18));
-        ETHUSD = address(0x9326BFA02ADD2366b30bacB125260Af641031331);
+    constructor(address d, address s) {
+        dataStorage = DataStorage(d);
+        wXEQContract = wXEQ(s);
+        lastPoolRefresh = block.number;
+        numberOfPoolStakers = 0;
+        numberOfStakes = 0;
+        totalMinted = 0;
+        totalStaked = 0;
+        maxPayouts = 730;
+        dailyPool = 720;
+        dailyBlock = 10; // 1080
+        payouts.push(0);
+        payoutPoolSize.push(0);
+        payoutBlock.push(block.number);
     }
     
-    event Withdraw(address indexed from, uint256 amount, uint256 blockHeight);
-    event Mint(address indexed from, uint256 ethAmount, uint256 XEQAmount);
-    event ExhangeRateChanged(uint256 rate);
-    event PreSaleStateChanged(bool isActive);
+    event NewPayout(address indexed from, uint256 payout, uint256 block, uint256 poolSize);
+    event Bal(uint256 bal);
     
-    modifier presaleIsActive() {
-        require(presaleActive);
-        _;
-    }
-    
-    function wXEQLeft() public view returns (uint256) {
-        return cap.sub(wXEQminted);
-    }
-    
-    function finalPresaleBlock() public view returns (uint256) {
-        return finalBlock;
-    }
-    
-    function checkPresale(uint256 val) public view returns (bool) {
-        if (wXEQminted.add(val) >= cap) {
-            return false;
-        } else if (block.timestamp > finalBlock && wXEQminted >= minGoal) {
-            return false;
-        } else {
-            return true;
+    function checkPayout() public {
+        if (block.number > lastPayoutBlock.add(dailyBlock)) {
+            uint256 payout = dailyPool.mul(10.pow(18));
+            uint256 multiplier = dataStorage.getStakingMultiplier();
+            if (multiplier > 0) {
+                payout = payout.mul(multiplier);
+            }
+            uint256 bal = dataStorage.balanceOf(address(this));
+            if (bal > 0) {
+                payout = payout.add(bal);
+                emit Bal(bal);
+                emit Bal(payout);
+                wXEQContract._burn(address(this), bal);
+            }
+            payouts.push(payout);
+            payoutBlock.push(block.number);
+            payoutPoolSize.push(totalStaked);
+            lastPayoutBlock = block.number;
+            // assert(payoutPoolSize.length == payoutBlock.length && payoutBlock.length == payouts.length);
+            if (payouts.length > maxPayouts) {
+                delete payouts[0];
+            }
+            emit NewPayout(address(this), payout, block.number, totalStaked);
         }
     }
     
-    function calculateAmount(uint256 _ethAmount) public view returns (uint256) {
-        uint256 ethAmount = _ethAmount;
-        uint256 rate =  15.mul(10.pow(16));
-        
-        uint256 price = lastETHPrice;
-        return price.mul(10.pow(10)).div(rate).mul(10.pow(18)).mul(ethAmount).div(10*10**17);
-    }
-    
-    function getAmount(uint256 _ethAmount) public returns (uint256) {
-        uint256 ethAmount = _ethAmount;
-        uint256 rate =  15.mul(10.pow(16));
-        
-        AggregatorInterface priceFeed = AggregatorInterface(ETHUSD);
-        uint256 price = uint256(priceFeed.latestAnswer());
-        return price.mul(10.pow(10)).div(rate).mul(10.pow(18)).mul(ethAmount).div(10*10**17);
-    }
-    
-    function updateETHOracle(address _oracleAddress) public onlyOwner returns (bool) {
-        require(_oracleAddress != address(0));
-        ETHUSD = _oracleAddress;
-        return true;
-    }
-    
-    function updateExchangeRate(uint256 val) public onlyOwner returns (bool) {
-        exchangeRate = val;
-        emit ExhangeRateChanged(exchangeRate);
-    }
-    
-    function endPresale() public onlyOwner presaleIsActive returns (bool) {
-        presaleActive = false;
-        emit PreSaleStateChanged(presaleActive);
-    }
-    
-    function startPresale(uint256 numberOfDays, uint256 c, uint256 min) public onlyOwner returns (bool) {
-        require(!presaleActive);
-        require(numberOfDays != 0);
-        presaleActive = true;
-        finalBlock = block.timestamp + (numberOfDays.mul(1 days));
-        cap = c;
-        minGoal = min;
-        emit PreSaleStateChanged(presaleActive);
-    }
-    
-    function checkStakingDate() internal {
-        if (stakingBonusHit == 1) {
-            stakingBonusEndBlock = block.number.add(30.mul(6500));
-        } else if (stakingBonusHit != 1 && block.number > stakingBonusEndBlock) {
-            stakingBonusEndBlock = block.number.add(30.mul(6500));
+    function addStake(uint256 amount) public returns (bool) {
+        require(dataStorage.balanceOf(msg.sender) >= amount);
+        require(dataStorage.allowance(msg.sender, address(this)) >= amount);
+        require(msg.sender != address(0));
+        if (stakeHoldersStakeAmount[msg.sender] == 0) {
+            numberOfStakes = numberOfStakes.add(1);
         } else {
-            stakingBonusEndBlock = stakingBonusEndBlock.add(30.mul(6500));
+            checkPayout();
+            withdrawRewards();
         }
+        firstBlock[msg.sender] = block.number;
+        stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].add(amount);
+        lastClaim[msg.sender] = block.number;
+        totalStaked = totalStaked.add(amount);
+        wXEQContract._burnFrom(msg.sender, amount);
     }
     
-    function checkStakingBonus() external {
-        if (hasStakingBonus) {
-            if (wXEQminted > 9750000.mul(10.pow(18))) {
-                if (stakingBonusHit <= 3) {
-                    stakingBonusHit = 4;
-                    checkStakingDate();
-                }
-            } else if (wXEQminted > 7500000.mul(10.pow(18))) {
-                if (stakingBonusHit <= 2) {
-                    stakingBonusHit = 3;
-                    checkStakingDate();
-                }
-            } else if (wXEQminted > 500000.mul(10.pow(18))) {
-                if (stakingBonusHit == 1) {
-                    stakingBonusHit = 2;
-                    checkStakingDate();
+    function removeStake(uint256 amount) public returns (bool) {
+        require(amount <= stakeHoldersStakeAmount[msg.sender]);
+        checkPayout();
+        withdrawRewards();
+        firstBlock[msg.sender] = block.number;
+        if (stakeHoldersStakeAmount[msg.sender] == 0) {
+            numberOfStakes = numberOfStakes.sub(1);
+            lastClaim[msg.sender] = 0;
+        }
+        stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].sub(amount);
+        totalStaked = totalStaked.sub(amount);
+        wXEQContract.mint(msg.sender, amount);
+    }
+    
+    function withdrawRewards() public returns (uint256) {
+        uint256 reward = pendingRewards(msg.sender);
+        if (reward == 0) {
+            return 0;
+        }
+        lastClaim[msg.sender] = block.number;
+        wXEQContract.mint(msg.sender, reward);
+        return reward;
+    }
+    
+    function pendingRewards(address addy) public view returns (uint256) {
+        uint256 payout = 0;
+        if (stakeHoldersStakeAmount[addy] != 0 && lastClaim[addy] < lastPayoutBlock) {
+            for (uint i = payouts.length - 1; i > 0; i--) {
+                if (payoutBlock[i] > lastClaim[addy]) {
+                    payout = payout.add((stakeHoldersStakeAmount[addy].mul((10.pow(18))).div(payoutPoolSize[i].mul(payouts[i].div(10.pow(18))))));
+                } else {
+                    break;
                 }
             }
+            return payout;
         }
+        return payout;
     }
     
-    function stakingBonus() public view returns (uint256, uint256) {
-        return (stakingBonusHit, stakingBonusEndBlock);
-    }
-
-    fallback () external presaleIsActive payable {
-        uint256 xeqVal = getAmount(msg.value);
-        require(checkPresale(xeqVal));
-        wXEQminted = wXEQminted.add(xeqVal);
-        ethMinted = ethMinted.add(msg.value);
-        uint256 ogBalance = wXEQcontract.balanceOf(msg.sender);
-        wXEQcontract.mint(msg.sender, xeqVal);
-        emit Mint(msg.sender, msg.value, xeqVal);
-    }
-
-    function withdraw(uint256 amount) public onlyOwner {
-        require(amount <= ethBalance());
-        teamAdd.transfer(amount);
-        emit Withdraw(msg.sender, amount, block.number);
+    function checkArrays() public view returns (uint256, uint256, uint256) {
+        return (payouts.length, payoutBlock.length, payoutPoolSize.length);
     }
     
-    function ethBalance() public view returns (uint256) {
-        return address(this).balance;
+    function getStake(address addy) public view returns (uint256) {
+        return stakeHoldersStakeAmount[addy];
     }
+    
+    function totalAmountStaked() public view returns (uint256) {
+        return totalStaked;
+    }
+    
+    function getLastClaim(address addy) public view returns (uint256, uint256) {
+        return (lastClaim[addy], block.number);
+    }
+
 }
+
+// todo - finish staking validation - soft staking - node staking rewards after input - staking pool - staking multiplier
