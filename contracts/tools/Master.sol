@@ -15,7 +15,7 @@ contract Master is Accessible, Upgradeable {
     using SafeMath for uint256;
     
     wXEQ public wXEQContract;
-    PreSale public presaleContract;
+    address public presaleContract;
     DataStorage public backupContract;
     OracleMaster public oracleContract;
     SoftStaking public softStakingContract;
@@ -25,19 +25,25 @@ contract Master is Accessible, Upgradeable {
     uint256 devFeeVal2;
 
     constructor() {
-        backupContract = new DataStorage();
-        wXEQContract = new wXEQ(address(backupContract));
-        presaleContract = new PreSale(address(wXEQContract), contractCreator);
-        oracleContract = new OracleMaster(backupContract, address(wXEQContract));
-        softStakingContract = new SoftStaking(address(backupContract), address(wXEQContract));
-        swapContract = new XEQSwaps(address(wXEQContract), address(backupContract), address(this), address(oracleContract));
+        masterContract = address(this);
+    access.push(msg.sender);
+        access.push(address(this));
+    }
+
+    function updateAddress(address w, address d, address pre, address staking, address swap) public onlyOwner returns (bool) {
+        masterContract = address(this);
+        wXEQContract = wXEQ(address(w));
+        backupContract = DataStorage(address(d));
+        presaleContract = address(pre);
+        softStakingContract = SoftStaking(address(staking));
+        swapContract = XEQSwaps(address(swap));
         access.push(address(wXEQContract));
-        access.push(address(presaleContract));
         access.push(address(backupContract));
-        access.push(address(oracleContract));
+        access.push(pre);
+        access.push(address(backupContract));
         access.push(address(softStakingContract));
         access.push(address(swapContract));
-        access.push(address(this));
+        return true;
     }
     
     function getOracleContract() public view returns (address) {
