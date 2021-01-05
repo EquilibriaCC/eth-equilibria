@@ -86,24 +86,24 @@ contract wXEQ is ExternalAccessible {
     function allowance(address owner,address spender) public view returns (uint256) {
         return dataStorage.allowance(owner, spender);
     }
-
+    
     function decreaseAllowance(address spender,uint256 subtractedValue) public returns (bool) {
         require(spender != address(0));
         uint256 allow = dataStorage.allowance(msg.sender, spender);
         dataStorage.updateAllowed(msg.sender, spender, allow.sub(subtractedValue));
         assert(allow.sub(subtractedValue) == dataStorage.allowance(msg.sender, spender));
-        emit Approval(msg.sender, spender, _allowed[msg.sender][spender]);
+        emit Approval(msg.sender, spender, dataStorage.allowance(msg.sender, spender));
         return true;
     }
 
     function transferFrom(address _from,address to,uint256 value) public returns (bool){
-        require(value <= _balances[_from]);
-        require(value <= _allowed[_from][msg.sender]);
         require(to != address(0));
-
-        _balances[_from] = _balances[_from].sub(value);
-        _balances[to] = _balances[to].add(value);
-        _allowed[_from][msg.sender] = _allowed[_from][msg.sender].sub(value);
+        require(value <= dataStorage.balanceOf(_from));
+        require(value <= dataStorage.allowance(_from, msg.sender));
+        
+        dataStorage.updateBalance(_from, dataStorage.balanceOf(_from).sub(value));
+        dataStorage.updateBalance(to, dataStorage.balanceOf(to).add(value));
+        dataStorage.updateAllowed(_from, msg.sender, dataStorage.allowance(_from, msg.sender).sub(value));
         emit Transfer(_from, to, value);
         return true;
     }
@@ -114,7 +114,7 @@ contract wXEQ is ExternalAccessible {
         require(allow.add(addedValue) <= dataStorage.balanceOf(msg.sender));
         dataStorage.updateAllowed(msg.sender, spender, allow.add(addedValue));
         assert(allow.add(addedValue) == dataStorage.allowance(msg.sender, spender));
-        emit Approval(msg.sender, spender, _allowed[msg.sender][spender]);
+        emit Approval(msg.sender, spender, dataStorage.allowance(msg.sender, spender));
         return true;
     }
 
@@ -130,10 +130,10 @@ contract wXEQ is ExternalAccessible {
     }
 
     function _burnFrom(address account, uint256 amount) public {
-        require(amount <= allowance(account, msg.sender));
-        uint256 allow = allowance(account, msg.sender);
+        require(amount <= dataStorage.allowance(account, msg.sender));
+        uint256 allow = dataStorage.allowance(account, msg.sender);
         dataStorage.updateAllowed(account, msg.sender, allow.sub(amount));
-        assert(allow.sub(amount) == allowance(account, msg.sender));
+        assert(allow.sub(amount) == dataStorage.allowance(account, msg.sender));
         _burn(account, amount);
     }
 
