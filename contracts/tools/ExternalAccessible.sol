@@ -8,15 +8,17 @@ contract HasMaster {
         require(msg.sender == masterContract);
         masterContract == addy;
         assert(addy == masterContract);
+        return true;
     }
 }
 
 contract ExternalAccessible is HasMaster {
-    
+
     function checkAccess() public returns (bool) {
-        bytes memory payload = abi.encodeWithSignature("checkAccess()");
+        bytes memory payload = abi.encodeWithSignature("checkAccessAddy(address)", msg.sender);
         (bool success, bytes memory returnData) = masterContract.call(payload);
-        require(success);
+        bool data = abi.decode(returnData, (bool));
+        require(data);
         return true;
     }
 
