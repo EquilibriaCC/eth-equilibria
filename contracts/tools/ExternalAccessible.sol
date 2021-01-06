@@ -22,6 +22,13 @@ contract ExternalAccessible is HasMaster {
         return true;
     }
 
+//    function checkAccess() public view returns (bool) {
+//        bytes memory payload = abi.encodeWithSignature("checkAccessAddy", msg.sender);
+//        (bool success, bytes memory returnData) = masterContract.call(payload);
+//        require(success);
+//        return true;
+//    }
+
     modifier hasAccess() {
         require(checkAccess());
         _;

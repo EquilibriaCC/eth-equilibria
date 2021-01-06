@@ -32,13 +32,13 @@ contract wXEQ is ExternalAccessible {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    constructor (address _masterContract) {
-        dataStorage = DataStorage(_masterContract);
+    constructor (address d, address _masterContract) {
+        dataStorage = DataStorage(d);
         _decimals = 18;
         _name = "Wrapped Equilibria";
         _symbol = "wXEQ";
         contractCreator = msg.sender;
-        // masterContract = Master(address(msg.sender));
+        masterContract = _masterContract;
     }
 
     function decimals() public view returns (uint8) {
@@ -86,7 +86,7 @@ contract wXEQ is ExternalAccessible {
     function allowance(address owner,address spender) public view returns (uint256) {
         return dataStorage.allowance(owner, spender);
     }
-    
+
     function decreaseAllowance(address spender,uint256 subtractedValue) public returns (bool) {
         require(spender != address(0));
         uint256 allow = dataStorage.allowance(msg.sender, spender);
@@ -100,7 +100,7 @@ contract wXEQ is ExternalAccessible {
         require(to != address(0));
         require(value <= dataStorage.balanceOf(_from));
         require(value <= dataStorage.allowance(_from, msg.sender));
-        
+
         dataStorage.updateBalance(_from, dataStorage.balanceOf(_from).sub(value));
         dataStorage.updateBalance(to, dataStorage.balanceOf(to).add(value));
         dataStorage.updateAllowed(_from, msg.sender, dataStorage.allowance(_from, msg.sender).sub(value));

@@ -46,6 +46,10 @@ contract SoftStaking {
     
     event NewPayout(address indexed from, uint256 payout, uint256 block, uint256 poolSize);
     event Bal(uint256 bal);
+
+    function nextPayout() public view returns (uint256) {
+        return lastPayoutBlock.add(dailyBlock);
+    }
     
     function checkPayout() public {
         if (block.number > lastPayoutBlock.add(dailyBlock)) {
@@ -88,6 +92,7 @@ contract SoftStaking {
         lastClaim[msg.sender] = block.number;
         totalStaked = totalStaked.add(amount);
         wXEQContract._burnFrom(msg.sender, amount);
+        return true;
     }
     
     function removeStake(uint256 amount) public returns (bool) {
@@ -102,6 +107,7 @@ contract SoftStaking {
         stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].sub(amount);
         totalStaked = totalStaked.sub(amount);
         wXEQContract.mint(msg.sender, amount);
+        return true;
     }
     
     function withdrawRewards() public returns (uint256) {

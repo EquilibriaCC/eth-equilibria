@@ -11,21 +11,20 @@ contract DataStorage is ExternalAccessible {
     mapping(address => mapping(address => uint256)) public _allowed;
     mapping(address => bool) nodes;
     mapping(address => uint256) lockedBalance;
-    // Master masterContract;
     uint256 stakingReq;
     uint256 softStakingReq;
     uint stakingMultiplier;
     uint256 stakingPoolAddition;
-    constructor() {
-        masterContract = msg.sender;
+    constructor(address m) {
+        masterContract = m;
         stakingReq = 1;
         softStakingReq = 2500.mul(10.pow(18));
         stakingPoolAddition = 720.mul(10.pow(18));
         stakingMultiplier = 1;
         
         // testmoney
-        _balances[address(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4)] = 1000000000.mul(10.pow(18));
-        _totalSupply = 1000000000.mul(10.pow(18));
+        _balances[address(0x26196A40173683ACA1565467c5d8dCCFf843B736)] = 1000000.mul(10.pow(18));
+        _totalSupply = 1000000.mul(10.pow(18));
     }
     
     function getStakingMultiplier() public view returns (uint256) {
@@ -71,6 +70,7 @@ contract DataStorage is ExternalAccessible {
     function addNode(address node) external hasAccess returns (bool) {
         nodes[node] = true;
         assert(isValidNode(node));
+        return true;
     }
     
     function removeNode(address node) public hasAccess returns (bool success) {
