@@ -23,11 +23,14 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import Allowance from "./components/Allowance";
 import TransitionsModal from "./components/StakingModal";
 import PresaleModal from "./components/PreSaleModal";
+import SmartContractModal from "./components/SmartContractModal";
+import PoolPercent from "./components/PoolPercent";
+import RemoveStakeModal from "./components/RemoveStakeModal";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0};
+        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0, stakeClick: 0};
     }
 
     componentDidMount() {
@@ -47,104 +50,165 @@ class App extends React.Component {
         });
     }
 
+    handleStakeClick() {
+        let s = this.state.stakeClick
+        s++
+        if (s > 2)
+            s = 0
+        this.setState({stakeClick: s})
+    }
+
+    stakingBox() {
+        if (this.state.stakeClick === 0) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "margin-left": "auto",
+                    "margin-right": "auto",
+                    "padding-bottom": "0px"
+                }}>
+                    <h1>Account Info</h1>
+                    <h2>Balance</h2>
+
+                    <Balance drizzle={this.props.drizzle}
+                             drizzleState={this.state.drizzleState}
+                    />
+                    <h2>Staking Pool %</h2>
+                    <PoolPercent drizzle={this.props.drizzle}
+                                 drizzleState={this.state.drizzleState}
+                    />
+                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Stake</h3>
+                    </button>
+
+                </div>
+            )
+        } else if (this.state.stakeClick === 1) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "margin-left": "auto",
+                    "margin-right": "auto",
+                    "padding-bottom": "0px"
+                }}>
+                    <h1>Staking Stats</h1>
+                    <h2>Current Stake</h2>
+                    <GetStake drizzle={this.props.drizzle}
+                              drizzleState={this.state.drizzleState}
+                    />
+
+                    <h2>Staking Pool %</h2>
+                    <PoolPercent drizzle={this.props.drizzle}
+                                 drizzleState={this.state.drizzleState}
+                    />
+                    <h2>Pending Rewards</h2>
+                    <PendingRewards drizzle={this.props.drizzle}
+                                    drizzleState={this.state.drizzleState}
+                    />
+
+                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Next</h3>
+                    </button>
+
+                </div>
+            )
+        } else if (this.state.stakeClick === 2) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "margin-left": "auto",
+                    "margin-right": "auto",
+                    "padding-bottom": "0px"
+                }}>
+                    <h1>Change Stake</h1>
+
+                    <TransitionsModal
+                        drizzle={this.props.drizzle}
+                        drizzleState={this.state.drizzleState}/>
+                        <RemoveStakeModal      drizzle={this.props.drizzle}
+                                          drizzleState={this.state.drizzleState}/>
+                        <WithdrawStake drizzle={this.props.drizzle}
+                                       drizzleState={this.state.drizzleState}/>
+                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Restart</h3>
+                    </button>
+
+                </div>
+            )
+        }
+    }
+
     componentWillUnmount() {
         this.unsubscribe();
     }
 
     render() {
         if (this.state.loading) return "Loading Drizzle...";
-        console.log(this.state.drizzleState, this.props)
-
 
         return (
-            <Container fluid>
+            <Container fluid style={{"background-color":"#252525"}}>
 
                 <div className="App">
                     <div id={"header"}>
-                        <h1 style={{"font-size":"60px"}}>Equilibria</h1>
+                        <h1 style={{"font-size": "60px"}}>Wrapped Equilibria</h1>
                     </div>
                     <div id={"body"}>
                         <Grid container spacing={10}
                               style={{"margin-left": "auto", "margin-right": "auto", "width": "70%"}}>
-                            <Grid container item xs={12} lg={6}  style={{"margin-top": window.outerHeight / 8}}>
+                            <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
                                 <Grid container item xs={12} spacing={3}>
-
-                                <div id={"dataContainer"} style={{
-                                    "width": "80%",
-                                    "margin-left": "auto",
-                                    "margin-right": "auto",
-                                    "padding-bottom": "0px"
-                                }}>
-                                    <h1>Account Info</h1>
-                                    <h2>Balance</h2>
-
-                                    <Balance drizzle={this.props.drizzle}
-                                             drizzleState={this.state.drizzleState}
-                                    />
-                                    <h2>Staked wXEQ</h2>
-                                    <GetStake drizzle={this.props.drizzle}
-                                              drizzleState={this.state.drizzleState}
-                                    />
-                                    <h2>Pending Rewards</h2>
-
-                                    <PendingRewards drizzle={this.props.drizzle}
-                                                    drizzleState={this.state.drizzleState}
-                                    />
-                                    <TransitionsModal
-                                        drizzle={this.props.drizzle}
-                                        drizzleState={this.state.drizzleState}/>
-                                    <PresaleModal
-                                        drizzle={this.props.drizzle}
-                                        drizzleState={this.state.drizzleState}/>
-
-                                </div>
+                                    {this.stakingBox()
+                                    }
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6}  style={{"margin-top": window.outerHeight / 8}}>
+                            <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
                                 <Grid container item xs={12} spacing={3}>
                                     <div id={"dataContainer"}
                                          style={{"width": "80%", "margin-left": "auto", "margin-right": "auto"}}>
                                         <PresaleInfo drizzle={this.props.drizzle}
                                                      drizzleState={this.state.drizzleState}/>
+                                        <PresaleModal
+                                            drizzle={this.props.drizzle}
+                                            drizzleState={this.state.drizzleState}/>
                                     </div>
                                 </Grid>
                             </Grid>
 
                         </Grid>
-                        <Grid container spacing={10}
-                              style={{"margin-left": "auto", "margin-right": "auto", "width": "80%"}}>
-                            <Grid container item xs={12} spacing={3}>
-                                <div id={"dataContainer"}
-                                     style={{"width": "80%", "margin-left": "auto", "margin-right": "auto"}}>
-                                    <h1>Contract Addresses</h1>
-                                    <BasicTable drizzle={this.props.drizzle}
-                                                drizzleState={this.state.drizzleState}/>
-                                </div>
-                            </Grid>
-                        </Grid>
-                        <div style={{"width":"40%", "margin-left":"auto", "margin-right":"auto"}}>
-                            <Grid container spacing={10}
-                                  style={{"margin-left": "auto", "margin-right": "auto", "width": "100%"}}>
-                                <Grid container item xs={4} spacing={3}>
+                        <div style={{
+                            "width": "100%",
+                            "height": "70px",
+                            "margin-left": "auto",
+                            "margin-right": "auto",
+                            "background-color": "#252525",
+                            "margin-top": "10%"
+                        }}>
 
-                                        <TelegramIcon/>
+                            <Grid container xs={12}
+                                  style={{"width": "30%", "margin-left": "auto", "margin-right": "auto", "margin-bottom":"0"
+                                  }}>
+                                <Grid container item xs={1} style={{"margin-left":"auto"}}>
+                                    <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"} >
+
+                                        <TelegramIcon style={{"color": "#fff", "margin": "auto", "height":"80px"}}/>
+                                    </a>
                                 </Grid>
-                                <Grid container item xs={4} spacing={3}>
+                                <Grid container item xs={1} style={{"margin-left":"auto", "margin-right":"auto"}}>
+                                    <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"}  >
 
-                                        <TwitterIcon/>
+                                        <TwitterIcon style={{"color": "#fff", "margin": "auto", "height":"80px"}} />
+                                    </a>
                                 </Grid>
-                                <Grid container item xs={4} spacing={3}>
-
-                                        <GitHubIcon />
+                                <Grid container item xs={1} style={{"margin-right":"auto"}}>
+                                    <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"}  >
+                                        <GitHubIcon style={{"color": "#fff", "margin": "auto", "height":"80px"}}/>
+                                    </a>
                                 </Grid>
                             </Grid>
                         </div>
                     </div>
-                    <ReadOwner
-                        drizzle={this.props.drizzle}
-                        drizzleState={this.state.drizzleState}
-                    />
+                    {/*<ReadOwner*/}
+                    {/*    drizzle={this.props.drizzle}*/}
+                    {/*    drizzleState={this.state.drizzleState}*/}
+                    {/*/>*/}
                 </div>
             </Container>
 

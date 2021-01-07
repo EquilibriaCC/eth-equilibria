@@ -15,8 +15,15 @@ class AddStake extends React.Component {
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.SoftStaking
-        value = BigInt(value) * BigInt(10**18)
+        // for (value <= 1)
+        value = Math.round(value * (10**10))
+        value = BigInt(value) * BigInt(10**8)
 
+        let appCoins = 0
+        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value))
+        if (value > appCoins)
+            return
 
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
@@ -50,9 +57,12 @@ class AddStake extends React.Component {
 
 
     render() {
+        let appCoins = 0
+        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value)/10**18).toLocaleString()
         return (
             <div>
-                <h3>Lock wXEQ and Earn Rewards</h3>
+                <h3>Lock wXEQ and Earn Rewards (you currently have {appCoins} approved)</h3>
 
                 <input type="text" id={"inputText"} placeholder={"Amount to Stake"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>

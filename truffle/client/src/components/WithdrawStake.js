@@ -49,7 +49,7 @@ class WithdrawStake extends React.Component {
     render() {
         return (
             <div >
-                <button id={"submitButton"} onClick={() => {this.setValue()}}><p>Withdraw</p></button>
+                <button id={"submitButton"} onClick={() => {this.setValue()}}><h3>Withdraw</h3></button>
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
             </div>
         );
