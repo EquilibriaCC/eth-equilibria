@@ -13,7 +13,6 @@ contract PreSale is Ownable {
     uint256 public finalBlock;
     uint256 public ethMinted;
     uint256 public wXEQminted;
-    uint256 public exchangeRate;
     uint256 public stakingBonusEndBlock;
     uint public stakingBonusHit;
     bool public presaleActive;
@@ -29,7 +28,6 @@ contract PreSale is Ownable {
         transferOwnership(t);
         wXEQcontract = wXEQ(xeq);
         finalBlock = block.timestamp + (90 days);
-        exchangeRate = 230000000000000;
         stakingBonusHit = 1;
         presaleActive = true;
         cap = 10000000.mul(10.pow(18));
@@ -70,6 +68,7 @@ contract PreSale is Ownable {
         uint256 ethAmount = _ethAmount;
         AggregatorInterface priceFeed = AggregatorInterface(ETHUSD);
         uint256 price = uint256(priceFeed.latestAnswer());
+        lastETHPrice = price;
         require(price.mul(10.pow(10)).div(xeqRate).mul(10.pow(18)).mul(ethAmount).div(10*10**17) != 0);
         return price.mul(10.pow(10)).div(xeqRate).mul(10.pow(18)).mul(ethAmount).div(10*10**17);
     }
@@ -82,7 +81,7 @@ contract PreSale is Ownable {
 
     function updateExchangeRate(uint256 val) public onlyOwner returns (bool) {
         xeqRate = val;
-        emit ExhangeRateChanged(exchangeRate);
+        emit ExhangeRateChanged(xeqRate);
         return true;
     }
 
@@ -152,7 +151,6 @@ contract PreSale is Ownable {
         require(checkPresale(xeqVal));
         wXEQminted = wXEQminted.add(xeqVal);
         ethMinted = ethMinted.add(msg.value);
-//        uint256 ogBalance = wXEQcontract.balanceOf(msg.sender);
         wXEQcontract.mint(msg.sender, xeqVal);
         emit Mint(msg.sender, msg.value, xeqVal);
     }

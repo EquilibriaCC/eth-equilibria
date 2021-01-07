@@ -7,14 +7,14 @@ class PresaleInfo extends React.Component {
         const { drizzle } = this.props;
         const saleContract = drizzle.contracts.PreSale
 
-        // let dataKeySale = saleContract.methods["ethMinted"].cacheCall();
-        // dataKeySale = saleContract.methods["wXEQminted"].cacheCall();
-        // dataKeySale = saleContract.methods["presaleActive"].cacheCall();
-        // dataKeySale = saleContract.methods["xeqRate"].cacheCall();
-        // dataKeySale = saleContract.methods["finalBlock"].cacheCall();
-        // dataKeySale = saleContract.methods["cap"].cacheCall();
-        // dataKeySale = saleContract.methods["minGoal"].cacheCall();
-        // dataKeySale = saleContract.methods["wXEQLeft"].cacheCall();
+        // saleContract.methods["ethMinted"].cacheCall();
+        // saleContract.methods["wXEQminted"].cacheCall();
+        //saleContract.methods["presaleActive"].cacheCall();
+        //saleContract.methods["xeqRate"].cacheCall();
+        //saleContract.methods["finalBlock"].cacheCall();
+        // saleContract.methods["cap"].cacheCall();
+        // saleContract.methods["minGoal"].cacheCall();
+        // saleContract.methods["wXEQLeft"].cacheCall();
 
         // fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd\n')
         //     .then(function(response) {
@@ -27,7 +27,7 @@ class PresaleInfo extends React.Component {
 
 
         // save the `dataKey` to local component state for later reference
-        // this.setState({ dataKeySale });
+        //this.setState({ dataKeySale });
 
     }
 
@@ -38,13 +38,16 @@ class PresaleInfo extends React.Component {
         let finalBlock = 0
         let cap = 0
         let wXEQLeft = 0
+        let lastEthPrice = 0
         try {
-            wXEQMinted = this.props.drizzleState.contracts.PreSale["wXEQminted"][this.state.dataKeySale].value
-            ethMinted = this.props.drizzleState.contracts.PreSale["ethMinted"][this.state.dataKeySale].value
-            finalBlock = this.props.drizzleState.contracts.PreSale["finalBlock"][this.state.dataKeySale].value
-            cap = this.props.drizzleState.contracts.PreSale["cap"][this.state.dataKeySale].value
-            wXEQLeft = this.props.drizzleState.contracts.PreSale["wXEQLeft"][this.state.dataKeySale].value
+            wXEQMinted = this.props.drizzleState.contracts.PreSale["wXEQminted"]["0x0"].value
+            ethMinted = this.props.drizzleState.contracts.PreSale["ethMinted"]["0x0"].value
+            finalBlock = this.props.drizzleState.contracts.PreSale["finalBlock"]["0x0"].value
+            cap = this.props.drizzleState.contracts.PreSale["cap"]["0x0"].value
+            wXEQLeft = this.props.drizzleState.contracts.PreSale["wXEQLeft"]["0x0"].value
+            lastEthPrice = this.props.drizzleState.contracts.PreSale["lastETHPrice"]["0x0"].value
         } catch {
+
         }
         return (
             <div>
@@ -54,7 +57,7 @@ class PresaleInfo extends React.Component {
                 <h2>Exchange Rate</h2>
                 <p id={"bigNumber"}>$0.15</p>
                 <h2>Last ETH Price</h2>
-                <p id={"bigNumber"}>{this.state.ethPrice}</p>
+                <p id={"bigNumber"}>{lastEthPrice}</p>
                 <h2>Total wXEQ Created</h2>
                 <p id={"bigNumber"}>{(Number(wXEQMinted)/(10**18)).toLocaleString()}</p>
                 <h2>Total ETH Raised</h2>
