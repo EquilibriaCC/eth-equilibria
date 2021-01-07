@@ -9,6 +9,7 @@ import ApproveCoins from "./Approve";
 import RemoveStake from "./RemoveStake";
 import Grid from '@material-ui/core/Grid';
 import WithdrawStake from "./WithdrawStake";
+import Allowance from "./Allowance";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
     },
 }));
-let copied = false
-export default function PresaleModal(props) {
+
+export default function RemoveStakeModal(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -36,24 +37,9 @@ export default function PresaleModal(props) {
         setOpen(false);
     };
 
-    const copyToClipboard = str => {
-        const el = document.createElement('textarea');
-        el.value = str;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-    };
-
-    let ethamount = 0
-    if (Object.keys(props.drizzleState.contracts.PreSale.ethMinted).length > 0)
-        ethamount = (Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString()
-    let text = props.drizzle.contracts.PreSale.address
-    // if (copied)
-    //     text = "Copied"
     return (
         <div className={"App"} style={{"background":"transparent", "padding-bottom":"30px"}}>
-            <button id={"submitButton"} onClick={handleOpen}><h3>Presale</h3></button>
+            <button id={"submitButton"} onClick={handleOpen}><h3>Remove Stake</h3></button>
 
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -68,21 +54,18 @@ export default function PresaleModal(props) {
                 }}
             >
                 <Fade in={open} style={{"width":"80%"}}>
-                    <div className={"App"} style={{"background":"transparent", "width":"80%"}} id={"modalPopup"} >
+                    <div className={"App"} style={{"background":"transparent", "width":"60%"}} id={"modalPopup"} >
                         <Grid container spacing={10} id={"modalPopup"}
                         style={{"margin-left": "auto", "margin-right": "auto"}}>
-                        <Grid container item xs={12} >
-                                <div id={"dataContainer"} style={{
-                                    "width": "80%",
-                                    "margin-left": "auto",
-                                    "margin-right": "auto",
-                                }}>
-                                    <h1>wXEQ Presale</h1>
-                                    <h3><button style={{"width":"40%"}} onClick={copyToClipboard(props.drizzle.contracts.PreSale.address)} id={"submitButton"}><p>{text}</p></button></h3>
-                                    <p>Send ETH to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
-                                    <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: | Remaining wXEQ for sale: </p>
+                            <Grid container item xs={12}>
+                                <div id={"dataContainer"}
+                                     style={{"width": "90%", "margin-left": "auto", "margin-right": "auto"}}>
+                                    <h1>Remove Stake</h1>
+                                    <RemoveStake
+                                        drizzle={props.drizzle}
+                                        drizzleState={props.drizzleState}/>
                                 </div>
-                        </Grid>
+                            </Grid>
                     </Grid>
                     </div>
                 </Fade>

@@ -12,6 +12,7 @@ class Balance extends React.Component {
         // let drizzle know we want to watch the `myString` method
         let dataKeyXEQ = contract.methods["balanceOf"].cacheCall(drizzle.store.getState().accounts[0]);
         let dataKeyStaking = stakingContract.methods["getStake"].cacheCall(drizzle.store.getState().accounts[0]);
+        drizzle.contracts.wXEQ.methods["allowance"].cacheCall(drizzle.store.getState().accounts[0], drizzle.contracts.SoftStaking.address);
 
         // save the `dataKey` to local component state for later reference
         this.setState({ dataKeyXEQ, dataKeyStaking });

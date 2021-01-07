@@ -10,6 +10,7 @@ import Master from "./contracts/Master.json";
 import wXEQ from "./contracts/wXEQ.json"
 import softStaking from "./contracts/SoftStaking.json"
 import presale from "./contracts/PreSale.json"
+import SmartContractModal from "./components/SmartContractModal";
 
 // let drizzle know what contracts we want and how to access our test blockchain
 const options = {
@@ -24,5 +25,5 @@ const options = {
 
 // setup the drizzle store and drizzle
 const drizzle = new Drizzle(options);
-
-ReactDOM.render(<App drizzle={drizzle} />, document.getElementById('root'));
+// <SmartContractModal/>
+ReactDOM.render(<App drizzle={drizzle} style={{"background-color":"#252525"}} />, document.getElementById('root'));

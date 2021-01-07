@@ -38,8 +38,8 @@ export default function TransitionsModal(props) {
     };
 
     return (
-        <div className={"App"} style={{"background":"transparent"}}>
-            <button id={"submitButton"} onClick={handleOpen}><h3>Stake</h3></button>
+        <div className={"App"} style={{"background":"transparent", "padding-bottom":"30px"}}>
+            <button id={"submitButton"} onClick={handleOpen}><h3>Add Stake</h3></button>
 
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -54,10 +54,11 @@ export default function TransitionsModal(props) {
                 }}
             >
                 <Fade in={open} style={{"width":"80%"}}>
-                    <div className={"App"} style={{"background":"transparent", "width":"80%"}} id={"modalPopup"} >
+                    <div className={"App"} style={{"background":"transparent", "width":"60%"}} id={"modalPopup"} >
                         <Grid container spacing={10} id={"modalPopup"}
                         style={{"margin-left": "auto", "margin-right": "auto"}}>
                         <Grid container item xs={12} >
+
                             <Grid container item xs={12} lg={6} >
                                 <div id={"dataContainer"}
                                      style={{"width": "80%", "margin-left": "auto", "margin-right": "auto"}}>
@@ -67,42 +68,7 @@ export default function TransitionsModal(props) {
                                         drizzleState={props.drizzleState}/>
                                 </div>
                             </Grid>
-                            <Grid container item xs={12} lg={6} >
-                                <div id={"dataContainer"} style={{
-                                    "width": "80%",
-                                    "margin-left": "auto",
-                                    "margin-right": "auto",
-                                    // "margin-top": "20px"
-                                }}>
-                                    <Allowance drizzle={props.drizzle}
-                                               drizzleState={props.drizzleState}
-                                    />
-                                </div>
-                            </Grid>
-                        </Grid>
 
-                            <Grid container item xs={12}>
-                                <div id={"dataContainer"}
-                                     style={{"width": "90%", "margin-left": "auto", "margin-right": "auto"}}>
-                                    <h1>Withdraw Staking Rewards</h1>
-                                    <WithdrawStake drizzle={props.drizzle}
-                                                   drizzleState={props.drizzleState}
-                                    />
-                                </div>
-                            </Grid>
-                            <Grid container item xs={12} lg={6} >
-                                <div id={"dataContainer"}  style={{
-                                    "width": "80%",
-                                    "margin-left": "auto",
-                                    "margin-right": "auto",
-                                    // "margin-top": "20px"
-                                }}>
-                                    <h1>Remove Stake</h1>
-                                    <RemoveStake
-                                        drizzle={props.drizzle}
-                                        drizzleState={props.drizzleState}/>
-                                </div>
-                            </Grid>
                             <Grid container item xs={12} lg={6} >
                                 <div id={"dataContainer"} style={{
                                     "width": "80%",
@@ -116,7 +82,7 @@ export default function TransitionsModal(props) {
                                         drizzleState={props.drizzleState}/>
                                 </div>
                             </Grid>
-
+                        </Grid>
                     </Grid>
                     </div>
                 </Fade>

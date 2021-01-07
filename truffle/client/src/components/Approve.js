@@ -16,8 +16,8 @@ class ApproveCoins extends React.Component {
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.wXEQ;
-        value = BigInt(value) * BigInt(10**18)
-        console.log(this.state.stakingAddress)
+        value = Math.round(value * (10**10))
+        value = BigInt(value) * BigInt(10**8)
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
         instance.methods.approve(this.state.stakingAddress, value
@@ -66,7 +66,7 @@ class ApproveCoins extends React.Component {
     render() {
         return (
             <div>
-                <h3>Approve Coins for Staking (Required before staking)</h3>
+                <h3>Approve Coins for Staking (required before staking)</h3>
                 <input type="text" id={"inputText"} placeholder={"Amount to Approve"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
             </div>

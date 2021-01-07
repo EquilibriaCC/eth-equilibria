@@ -15,7 +15,14 @@ class RemoveStake extends React.Component {
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.SoftStaking
-        value = BigInt(value) * BigInt(10**18)
+        value = Math.round(value * (10**10))
+        value = BigInt(value) * BigInt(10**8)
+
+        let appCoins = 0
+        if (Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.SoftStaking.getStake[Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake)[0]].value))
+        if (value > appCoins)
+            return
 
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
@@ -49,9 +56,12 @@ class RemoveStake extends React.Component {
 
 
     render() {
+        let appCoins = 0
+        if (Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.SoftStaking.getStake[Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake)[0]].value)/10**18).toLocaleString()
         return (
             <div>
-                <h3>Unlock some of your wXEQ from the staking pool</h3>
+                <h3>Unlock some of your wXEQ from the staking pool (You currently have {appCoins} wXEQ locked)</h3>
                 <input type="text" id={"inputText"} placeholder={"Amount to Remove"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
             </div>

@@ -11,7 +11,11 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
-        backgroundColor: "#252525"
+        backgroundColor: "#252525",
+        width: "70%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        borderRadius: "25px"
     },
 });
 
@@ -43,8 +47,8 @@ export default function BasicTable(props) {
     // }
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+        <TableContainer component={Paper} style={{"background-color":"transparent"}} id={"modalPopup"}>
+            <Table className={classes.table} aria-label="simple table" id={"modalPopup"}>
                 <TableHead>
                     <TableRow>
                         <TableCell><h2>Contract Name</h2></TableCell>
