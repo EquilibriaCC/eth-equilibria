@@ -17809,63 +17809,13 @@
         }
       },
       "links": {},
-      "address": "0x041aD70cFC39A8e64Ac318Bc4436182005bF584C",
-      "transactionHash": "0xf94e37ddd8c6042177817b89c56682b9fac005f8e3112a3d0bc9b35c6e3bea4e"
-    },
-    "5777": {
-      "events": {
-        "0x4cbc68300ba50b79342fe46302ad77a03c12b8e45f659004864ece7d977be40a": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "bal",
-              "type": "uint256"
-            }
-          ],
-          "name": "Bal",
-          "type": "event"
-        },
-        "0xf3b018817282d2441f16847acdee53a0c3482facf4625adc68a6cbbe8c8c958b": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "payout",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "block",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "poolSize",
-              "type": "uint256"
-            }
-          ],
-          "name": "NewPayout",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x041aD70cFC39A8e64Ac318Bc4436182005bF584C",
-      "transactionHash": "0x011b13f3c6064bc7a73c20bb5954361e8824aa28c51fad2f536911e3bdfd1eae"
+      "address": "0xCfc17d34b9Ac96A7ed2e6cE73C20a56CF51cAB9D",
+      "transactionHash": "0xf2bd6e563b6ce2639810c963a0ba30a8e3d5eba28663f62cfef9c22331aa9f56"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-07T07:19:36.814Z",
+  "updatedAt": "2021-01-07T09:35:41.384Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

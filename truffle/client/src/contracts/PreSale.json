@@ -19237,114 +19237,13 @@
         }
       },
       "links": {},
-      "address": "0xA17d659b0EF4060B823E764C1E536E0A2eb41945",
-      "transactionHash": "0x9a3609b0cec8ac0b0c52e1d6069f7451dd1e275299b392092f8c6f6edf934607"
-    },
-    "5777": {
-      "events": {
-        "0x825ccabf96629393f58034824978cb97f5362930d6e3df3e41b56bd78b9c3134": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "rate",
-              "type": "uint256"
-            }
-          ],
-          "name": "ExhangeRateChanged",
-          "type": "event"
-        },
-        "0x4c209b5fc8ad50758f13e2e1088ba56a560dff690a1c6fef26394f4c03821c4f": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "ethAmount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "XEQAmount",
-              "type": "uint256"
-            }
-          ],
-          "name": "Mint",
-          "type": "event"
-        },
-        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "previousOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "newOwner",
-              "type": "address"
-            }
-          ],
-          "name": "OwnershipTransferred",
-          "type": "event"
-        },
-        "0x1d1042e89d35bce0bafd010c98cdd21ab1f87093edd7424183dba418c2c47b5d": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "bool",
-              "name": "isActive",
-              "type": "bool"
-            }
-          ],
-          "name": "PreSaleStateChanged",
-          "type": "event"
-        },
-        "0xf279e6a1f5e320cca91135676d9cb6e44ca8a08c0b88342bcdb1144f6511b568": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "blockHeight",
-              "type": "uint256"
-            }
-          ],
-          "name": "Withdraw",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xA17d659b0EF4060B823E764C1E536E0A2eb41945",
-      "transactionHash": "0xf5435958e43ae3aa3a25a1fb1d1a4255faeee11afe41d56253bac4c48001fd24"
+      "address": "0xE6d182d9136eFe06E0aB8507204B8010fb28652c",
+      "transactionHash": "0x872df671a96498b93937f41a342c31380fb5740f7a5fc7af68cdac3e93d0aafc"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-07T07:19:36.796Z",
+  "updatedAt": "2021-01-07T09:35:41.371Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

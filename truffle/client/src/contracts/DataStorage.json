@@ -8701,18 +8701,13 @@
     "42": {
       "events": {},
       "links": {},
-      "address": "0x52d63DC258e713c758a6FCF334fbc87572E86900",
-      "transactionHash": "0x33860580907c0a5cdf2d53f3f602dd4c8229159d619a481e435bdc7fd80e1eca"
-    },
-    "5777": {
-      "events": {},
-      "links": {},
-      "address": "0x6f400b4441AB8C7cc03247d0eEd4AaeF29cAeBC0",
-      "transactionHash": "0xddf66bdd524695d3af034a1045f39142b822246d0b3a27af89ff96c0443d502b"
+      "address": "0x4C286A534af466594faA6CC449fB174e1eed7948",
+      "transactionHash": "0xdd77c238a4fa28da8323523874b872838127581d40559152b43d56f0e3660f9d"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-07T07:19:36.753Z",
+  "updatedAt": "2021-01-07T09:35:41.346Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
