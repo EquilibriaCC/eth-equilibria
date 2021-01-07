@@ -13,5 +13,6 @@ contract Upgradeable is Ownable {
     
     function newMaster(address addy) public onlyOwner returns (bool) {
         masterContract = addy;
+        return true;
     }
 }

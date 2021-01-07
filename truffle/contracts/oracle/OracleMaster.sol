@@ -83,6 +83,7 @@ contract OracleMaster is ExternalAccessible {
         wXEQContract.mint(msg.sender, amount);
         owedRewards[node] = 0;
         assert(owedRewards[node] == 0);
+        return (true, amount);
     }
     
     function removeOracle() external returns (bool) {
