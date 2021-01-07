@@ -7,7 +7,7 @@ class Allowance extends React.Component {
         const { drizzle } = this.props;
         let stakingAddress = drizzle.contracts.SoftStaking.address
         let wxeq = drizzle.contracts.wXEQ
-        let dataKey = wxeq.methods["allowance"].cacheCall(drizzle.store.getState().accounts[0], stakingAddress);
+        let dataKey = wxeq.methods["allowanceOf"].cacheCall(drizzle.store.getState().accounts[0], stakingAddress);
 
         this.setState({stakingAddress: stakingAddress, dataKey: dataKey})
     }
@@ -15,7 +15,7 @@ class Allowance extends React.Component {
     render() {
         let approvedCoins = 0
         try {
-            approvedCoins = this.props.drizzleState.contracts.wXEQ.allowance[this.state.dataKey].value
+            approvedCoins = this.props.drizzleState.contracts.wXEQ.allowanceOf[this.state.dataKey].value
         } catch{}
         let coins = (Number(approvedCoins)/(10**18)).toLocaleString()
         let coinDisplay = <p id={"bigNumber"} style={{"font-size":"50px"}}>{(Number(approvedCoins)/(10**18)).toLocaleString()}</p>
