@@ -15,10 +15,9 @@ class AddStake extends React.Component {
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.SoftStaking
-        // for (value <= 1)
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
-
+        console.log(value)
         let appCoins = 0
         if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
             appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value))
@@ -27,18 +26,13 @@ class AddStake extends React.Component {
 
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        instance.methods.addStake(value
-        )
-            .estimateGas()
-            .then(gasAmount => {
+
                 const stackId = contract.methods["addStake"].cacheSend( value,
-                    { from: drizzleState.accounts[0], gas: gasAmount }
+                    { from: drizzleState.accounts[0]}
                 );
                 this.setState({ stackId });
-            })
-            .catch(error => {
-                console.log(47, error);
-            });
+      
+
     };
 
     getTxStatus = () => {

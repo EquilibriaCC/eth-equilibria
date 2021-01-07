@@ -62,7 +62,7 @@ export default function TransitionsModal(props) {
                             <Grid container item xs={12} lg={6} >
                                 <div id={"dataContainer"}
                                      style={{"width": "80%", "margin-left": "auto", "margin-right": "auto"}}>
-                                    <h1>Approve Tokens</h1>
+                                    <h6>Approve Tokens</h6>
                                     <ApproveCoins
                                         drizzle={props.drizzle}
                                         drizzleState={props.drizzleState}/>

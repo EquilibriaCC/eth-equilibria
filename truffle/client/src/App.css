@@ -1,55 +1,55 @@
-@font-face {
-  font-family: 'Product Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
-}
+
 
 p {
   color: #fff;
-  font-family: 'Product Sans', serif;
+  font-family: 'Inter var';
+  font-weight: 100px;
 }
 
 #bigNumber {
   color: #fff;
-  font-family: 'Product Sans', serif;
+  font-family: 'Inter var';
   font-size: 20px;
   color: #0af586;
   opacity: 1;
 }
 
+
+.ontop {
+  position: relative;
+}
 #dataContainer {
-  border-radius: 25px;
+  font-family: Inter;
+  border-radius: 30px;
   margin-right: auto;
   margin-left: auto;
-  background-color: #252525;
   width: 80%;
-  -moz-box-shadow: 0px 8px 8px #000; width: 200px;
+  background-color: rgb(44, 47, 54);
   /*-webkit-box-shadow: 0px 8px 8px #000; width: 200px;*/
-  box-shadow: 2px 2px 5px #000;
+  box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
 }
 /*#ef101e*/
 h1 {
   color: #fff;
-  font-family: 'Product Sans', serif;
+  font-family: 'Inter var', serif;
   font-size: 40px;
 }
 
 #submitButton {
-  border-radius: 10px;
-  background-color: #14afde;
+  border-radius: 30px;
+  background-color: #2172e5;
   width: 50%;
-  box-shadow: 2px 2px 5px #000;
-  border-color: #252525;
+  border-color: #25252500;
+  border-width: 0px;
   outline: none;
   cursor: pointer;
   transition: background-color 0.5s ease;
-
-
+  box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
+  opacity: 1;
 }
 /*#0b617b*/
 #submitButton:hover {
-  background-color: #198b56;
+  background-color: #1851a0;
 
 }
 #submitButton:hover::after {
@@ -82,16 +82,32 @@ h1 {
 
 h2 {
   color: #fff;
-  font-family: 'Product Sans', serif;
+  font-family: 'Inter var', serif;
   font-size: 22px;
   text-align: center;
 }
 
 h3 {
   color: #fff;
-  font-family: 'Product Sans', serif;
+  font-family: 'Inter var', serif;
   font-size: 18px;
   text-align: center;
+}
+
+h6 {
+  color: #fff;
+  font-family: 'Inter var', serif;
+  text-align: center;
+  font-weight: 300; 
+  font-size: 18px;
+}
+
+h5 {
+  color: #fff;
+  font-family: 'Inter var', serif;
+  text-align: center;
+  font-weight: 300; 
+  font-size: 25px;
 }
 
 #header {
@@ -113,7 +129,7 @@ h3 {
 
 #inputText {
   font-size: 16px;
-  font-family: 'Product Sans', serif;
+  font-family: 'Inter var', serif;
 }
 
 .App {
@@ -125,6 +141,10 @@ h3 {
   -o-background-size: cover;
   background-size: cover;
   width: 100%;
+  font-family: 'Inter var';
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-feature-settings: "ss01", "ss02", "cv01", "cv03";
 }
 
 .App-logo {
@@ -147,6 +167,7 @@ h3 {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  font-family: 'Inter var';
 }
 
 .App-link {

@@ -37,17 +37,26 @@ export default function PresaleModal(props) {
     };
 
     const copyToClipboard = str => {
-        const el = document.createElement('textarea');
-        el.value = str;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
+        // const el = document.createElement('textarea');
+        // el.value = str;
+        // document.body.appendChild(el);
+        // el.select();
+        // document.execCommand('copy');
+        // document.body.removeChild(el);
     };
 
     let ethamount = 0
+    let wXEQ_Minted = 0
+    let remaining = 0
+
     if (Object.keys(props.drizzleState.contracts.PreSale.ethMinted).length > 0)
         ethamount = (Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString()
+
+    if (Object.keys(props.drizzleState.contracts.PreSale.wXEQminted).length > 0)
+        wXEQ_Minted = (Number(props.drizzleState.contracts.PreSale.wXEQminted["0x0"].value)/(10**18)).toLocaleString()
+
+    if (Object.keys(props.drizzleState.contracts.PreSale.wXEQLeft).length > 0)
+        remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
     let text = props.drizzle.contracts.PreSale.address
     // if (copied)
     //     text = "Copied"
@@ -80,7 +89,7 @@ export default function PresaleModal(props) {
                                     <h1>wXEQ Presale</h1>
                                     <h3><button style={{"width":"40%"}} onClick={copyToClipboard(props.drizzle.contracts.PreSale.address)} id={"submitButton"}><p>{text}</p></button></h3>
                                     <p>Send ETH to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
-                                    <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: | Remaining wXEQ for sale: </p>
+                                    <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: {wXEQ_Minted} | Remaining wXEQ for sale: {remaining}</p>
                                 </div>
                         </Grid>
                     </Grid>

@@ -5,150 +5,116 @@ import "./tools/DataStorage.sol";
 import "./wXEQ.sol";
 
 contract SoftStaking {
+    
     using SafeMath for *;
     DataStorage public dataStorage;
     wXEQ public wXEQContract;
-    address[] public stakeholders;
-    mapping(address => uint256) stakeHoldersStakeAmount;
-    mapping(address => uint256) lastClaim;
-    mapping(address => uint256) unlockBlock;
-    mapping(address => uint256) firstBlock;
-    mapping(address => bool) partOfPool;
-    uint256 public numberOfPoolStakers;
-    uint256 public numberOfStakes;
-    uint256 public dailyPool;
-    uint256 public lastPoolRefresh;
-    uint256 numberofNodesAtRefresh;
-    uint256 public totalMinted;
-    uint256 public totalStaked;
-    uint256 public maxPayouts;
-    uint256[] public payouts;
-    uint256[] payoutBlock;
-    uint256[] payoutPoolSize;
-    uint256 public lastPayoutBlock;
-    uint256 dailyBlock;
-    
-    constructor(address d, address s) {
-        dataStorage = DataStorage(d);
-        wXEQContract = wXEQ(s);
-        lastPoolRefresh = block.number;
-        numberOfPoolStakers = 0;
-        numberOfStakes = 0;
-        totalMinted = 0;
-        totalStaked = 0;
-        maxPayouts = 730;
-        dailyPool = 720;
-        dailyBlock = 10; // 1080
-        payouts.push(0);
-        payoutPoolSize.push(0);
-        payoutBlock.push(block.number);
-    }
-    
-    event NewPayout(address indexed from, uint256 payout, uint256 block, uint256 poolSize);
-    event Bal(uint256 bal);
 
-    function nextPayout() public view returns (uint256) {
-        return lastPayoutBlock.add(dailyBlock);
+    struct UserInfo {
+        uint256 amount; // SUSHI stake amount
+        uint256 share;
+        uint256 rewardDebt;
     }
-    
-    function checkPayout() public {
-        if (block.number > lastPayoutBlock.add(dailyBlock)) {
-            uint256 payout = dailyPool.mul(10.pow(18));
-            uint256 multiplier = dataStorage.getStakingMultiplier();
-            if (multiplier > 0) {
-                payout = payout.mul(multiplier);
+
+    uint256 rewardPerBlock;
+
+    uint256 public accSushiPerShare;
+    uint256 public ackSushiBalance;
+    uint256 public totalShares;
+    uint256 public dailyReward; 
+    mapping (address => UserInfo) public userInfo;
+
+    mapping (uint8 => uint256) public extraEpochReward; 
+    mapping (uint8 => uint256) public stakingbonuses; 
+
+    uint256 public epoch;
+    constructor(address _wxeq, address _dataStorage) public {
+
+        wXEQContract = wXEQ(_wxeq);
+        dataStorage = DataStorage(_dataStorage);
+        epoch = 1;
+        dailyReward = (110.mul(10.pow(14))); // .11 wXEQ per block
+    }
+
+     function cleanup() public {
+        // Update multiplier
+
+        if (epoch > 1) {
+            if (stakingbonuses[block.number] >= block.number + 6532)
+        }
+
+        uint256 reductionTimes = block.number.sub(lastMultiplerProcessBlock);
+        uint256 fraction = 1e18;
+        uint256 acc = reductionPerBlock;
+        while (reductionTimes > 0) {
+            if (reductionTimes & 1 != 0) {
+                fraction = fraction.mul(acc).div(1e18);
             }
-            uint256 bal = dataStorage.balanceOf(address(this));
-            if (bal > 0) {
-                payout = payout.add(bal);
-                emit Bal(bal);
-                emit Bal(payout);
-                wXEQContract._burn(address(this), bal);
-            }
-            payouts.push(payout);
-            payoutBlock.push(block.number);
-            payoutPoolSize.push(totalStaked);
-            lastPayoutBlock = block.number;
-            // assert(payoutPoolSize.length == payoutBlock.length && payoutBlock.length == payouts.length);
-            if (payouts.length > maxPayouts) {
-                delete payouts[0];
-            }
-            emit NewPayout(address(this), payout, block.number, totalStaked);
+            acc = acc.mul(acc).div(1e18);
+            reductionTimes = reductionTimes / 2;
+        }
+        multiplier = multiplier.mul(fraction).div(1e18);
+        lastMultiplerProcessBlock = block.number;
+        // Update accSushiPerShare / ackSushiBalance
+        if (totalShares > 0) {
+            uint256 additionalSushi = sushi.balanceOf(address(this)).sub(ackSushiBalance);
+            accSushiPerShare = accSushiPerShare.add(additionalSushi.mul(1e12).div(totalShares));
+            ackSushiBalance = ackSushiBalance.add(additionalSushi);
         }
     }
-    
-    function addStake(uint256 amount) public returns (bool) {
-        require(dataStorage.balanceOf(msg.sender) >= amount);
-        require(dataStorage.allowance(msg.sender, address(this)) >= amount);
-        require(msg.sender != address(0));
-        if (stakeHoldersStakeAmount[msg.sender] == 0) {
-            numberOfStakes = numberOfStakes.add(1);
+
+    function createStakingBonus(uint256 starting_block, uint256 end_block, uint256 _amount) public {
+        require(starting_block > block.number);
+        require(end_block >= block.number + 6532); //Must be atleast 1 day's worth
+
+
+    }
+
+    // Get user pending reward. May be outdated until someone calls cleanup.
+    function getPendingReward(address _user) public view returns (uint256) {
+        UserInfo storage user = userInfo[_user];
+        return user.share.mul(accSushiPerShare).div(1e12).sub(user.rewardDebt);
+    }
+
+    // Enter the restaurant. Pay some SUSHIs. Earn some shares.
+    function enter(uint256 _amount) public {
+        cleanup();
+        safeSushiTransfer(msg.sender, getPendingReward(msg.sender));
+        sushi.transferFrom(msg.sender, address(this), _amount);
+        ackSushiBalance = ackSushiBalance.add(_amount);
+        UserInfo storage user = userInfo[msg.sender];
+        uint256 moreShare = _amount.mul(multiplier).div(1e18);
+        user.amount = user.amount.add(_amount);
+        totalShares = totalShares.add(moreShare);
+        user.share = user.share.add(moreShare);
+        user.rewardDebt = user.share.mul(accSushiPerShare).div(1e12);
+        emit Enter(msg.sender, _amount);
+    }
+
+    // Leave the restaurant. Claim back your SUSHIs.
+    function leave(uint256 _amount) public {
+        cleanup();
+        safeSushiTransfer(msg.sender, getPendingReward(msg.sender));
+        UserInfo storage user = userInfo[msg.sender];
+        uint256 lessShare = user.share.mul(_amount).div(user.amount);
+        user.amount = user.amount.sub(_amount);
+        totalShares = totalShares.sub(lessShare);
+        user.share = user.share.sub(lessShare);
+        user.rewardDebt = user.share.mul(accSushiPerShare).div(1e12);
+        safeSushiTransfer(msg.sender, _amount);
+        emit Leave(msg.sender, _amount);
+    }
+
+    // Safe sushi transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
+    function safeSushiTransfer(address _to, uint256 _amount) internal {
+        uint256 sushiBal = sushi.balanceOf(address(this));
+        if (_amount > sushiBal) {
+            sushi.transfer(_to, sushiBal);
+            ackSushiBalance = ackSushiBalance.sub(sushiBal);
         } else {
-            checkPayout();
-            withdrawRewards();
+            sushi.transfer(_to, _amount);
+            ackSushiBalance = ackSushiBalance.sub(_amount);
         }
-        firstBlock[msg.sender] = block.number;
-        stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].add(amount);
-        lastClaim[msg.sender] = block.number;
-        totalStaked = totalStaked.add(amount);
-        wXEQContract._burnFrom(msg.sender, amount);
-        return true;
-    }
-    
-    function removeStake(uint256 amount) public returns (bool) {
-        require(amount <= stakeHoldersStakeAmount[msg.sender]);
-        checkPayout();
-        withdrawRewards();
-        firstBlock[msg.sender] = block.number;
-        if (stakeHoldersStakeAmount[msg.sender] == 0) {
-            numberOfStakes = numberOfStakes.sub(1);
-            lastClaim[msg.sender] = 0;
-        }
-        stakeHoldersStakeAmount[msg.sender] = stakeHoldersStakeAmount[msg.sender].sub(amount);
-        totalStaked = totalStaked.sub(amount);
-        wXEQContract.mint(msg.sender, amount);
-        return true;
-    }
-    
-    function withdrawRewards() public returns (uint256) {
-        uint256 reward = pendingRewards(msg.sender);
-        if (reward == 0) {
-            return 0;
-        }
-        lastClaim[msg.sender] = block.number;
-        wXEQContract.mint(msg.sender, reward);
-        return reward;
-    }
-    
-    function pendingRewards(address addy) public view returns (uint256) {
-        uint256 payout = 0;
-        if (stakeHoldersStakeAmount[addy] != 0 && lastClaim[addy] < lastPayoutBlock) {
-            for (uint i = payouts.length - 1; i > 0; i--) {
-                if (payoutBlock[i] > lastClaim[addy]) {
-                    payout = payout.add((stakeHoldersStakeAmount[addy].mul((10.pow(18))).div(payoutPoolSize[i].mul(payouts[i].div(10.pow(18))))));
-                } else {
-                    break;
-                }
-            }
-            return payout;
-        }
-        return payout;
-    }
-    
-    function checkArrays() public view returns (uint256, uint256, uint256) {
-        return (payouts.length, payoutBlock.length, payoutPoolSize.length);
-    }
-    
-    function getStake(address addy) public view returns (uint256) {
-        return stakeHoldersStakeAmount[addy];
-    }
-    
-    function totalAmountStaked() public view returns (uint256) {
-        return totalStaked;
-    }
-    
-    function getLastClaim(address addy) public view returns (uint256, uint256) {
-        return (lastClaim[addy], block.number);
     }
 
 }

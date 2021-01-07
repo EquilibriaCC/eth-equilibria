@@ -1,4 +1,7 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import { ToastContainer, toast } from 'react-toastify';
 /* global BigInt */
 
 class ApproveCoins extends React.Component {
@@ -18,20 +21,19 @@ class ApproveCoins extends React.Component {
         const contract = drizzle.contracts.wXEQ;
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
-
-        const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        instance.methods.approve(this.state.stakingAddress, value
-        )
-            .estimateGas()
-            .then(gasAmount => {
-                const stackId = contract.methods["approve"].cacheSend(this.state.stakingAddress, value, {
-                    from: drizzleState.accounts[0], gas: gasAmount
-                });
-                this.setState({ stackId });
-            })
-            .catch(error => {
-                console.log(47, error);
-            });
+        // const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
+        // instance.methods.approve(this.state.stakingAddress, value
+        // )
+        //     .estimateGas()
+        //     .then(gasAmount => {
+        //         const stackId = contract.methods["approve"].cacheSend(this.state.stakingAddress, value, {
+        //             from: drizzleState.accounts[0], gas: gasAmount
+        //         });
+        //         this.setState({ stackId });
+        //     })
+        //     .catch(error => {
+        //         console.log(47, error);
+        //     });
 
         // let drizzle know we want to call the `set` method with `value`
         const stackId = contract.methods["approve"].cacheSend(this.state.stakingAddress, value, {
@@ -65,9 +67,10 @@ class ApproveCoins extends React.Component {
 
     render() {
         return (
+            
             <div>
-                <h3>Approve Coins for Staking (required before staking)</h3>
-                <input type="text" id={"inputText"} placeholder={"Amount to Approve"} onKeyDown={this.handleKeyDown} />
+                <h6>Approve Coins for Staking (required before staking)</h6>
+                <TextField id="outline-basic" label="Amount to Approve" onKeyDown={this.handleKeyDown} variant="filled"/ >
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
             </div>
         );

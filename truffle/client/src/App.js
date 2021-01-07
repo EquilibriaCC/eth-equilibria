@@ -26,6 +26,8 @@ import PresaleModal from "./components/PreSaleModal";
 import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
 import RemoveStakeModal from "./components/RemoveStakeModal";
+import Loader from 'react-loader-spinner'
+import { css } from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class App extends React.Component {
     constructor(props) {
@@ -127,7 +129,7 @@ class App extends React.Component {
                                           drizzleState={this.state.drizzleState}/>
                         <WithdrawStake drizzle={this.props.drizzle}
                                        drizzleState={this.state.drizzleState}/>
-                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Restart</h3>
+                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Back</h3>
                     </button>
 
                 </div>
@@ -140,14 +142,28 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.state.loading) return "Loading Drizzle...";
+        if (this.state.loading) return (<div 
+            style={{background: "rgb(17,17,17)",
+            background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)"}}>
+            <Loader style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} //3 secs
+
+     />
+     </div>
+     
+     
+     );
 
         return (
             <Container fluid style={{"background-color":"#252525"}}>
 
                 <div className="App">
                     <div id={"header"}>
-                        <h1 style={{"font-size": "60px"}}>Wrapped Equilibria</h1>
+                        <h2 style={{"font-size": "60px"}}>Wrapped Equilibria Dashboard</h2>
                     </div>
                     <div id={"body"}>
                         <Grid container spacing={10}
