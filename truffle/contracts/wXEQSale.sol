@@ -36,6 +36,7 @@ contract PreSale is Ownable {
         minGoal = 5000000.mul(10.pow(18));
         xeqRate = 15.mul(10.pow(16));
         ETHUSD = address(0x9326BFA02ADD2366b30bacB125260Af641031331);
+        teamAdd = payable(0x85784C07ed86b6225f1128Cfd4fCF858e6Bf10bE);
     }
 
     event Withdraw(address indexed from, uint256 amount, uint256 blockHeight);
