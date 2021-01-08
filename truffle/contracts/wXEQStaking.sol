@@ -32,6 +32,7 @@ contract SoftStaking is ExternalAccessible, Ownable {
         dataStorage = DataStorage(_dataStorage);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
         masterContract = _master;
+        transferOwnership(_master);
     }
 
     function changeStakingReward(uint256 _reward) public onlyOwner returns (bool) {
