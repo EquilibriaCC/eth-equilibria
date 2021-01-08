@@ -29,19 +29,19 @@ contract XEQSwaps is ExternalAccessible, Ownable {
     mapping(address => bool[]) swapComplete;
     bool swapBacks;
     
-    constructor(address w, address d, address s, address o) {
+    constructor(address w, address d, address s, address o, address _master) {
         wXEQContract = wXEQ(w);
         dataStorage = DataStorage(d);
         stakingPool = SoftStaking(s);
-        masterContract = msg.sender;
+        masterContract = _master;
         oracleContract = OracleMaster(o);
         wXEQMinted = 0;
         XEQMinted = 0;
         transferOwnership(o);
-        teamAmount = 1000;
-        burntAmount = 5000;
-        stakePoolAmount = 4000;
-        devFeePercent = 50;
+        teamAmount = 4000;
+        burntAmount = 1000;
+        stakePoolAmount = 5000;
+        devFeePercent = 100;
     }
     
     event NewMint(address indexed account, uint256 amount, uint256 devFee, uint256 amountBurnt, uint256 amountForStakePool);
@@ -89,6 +89,24 @@ contract XEQSwaps is ExternalAccessible, Ownable {
     function setDevFee(uint256 val) public hasAccess returns (bool) {
         devFeePercent = val;
         assert(devFeePercent == val);
+        return true;
+    }
+
+     function setBurntAmount(uint256 val) public hasAccess returns (bool) {
+        burntAmount = val;
+        assert(burntAmount == val);
+        return true;
+    }
+
+    function setTeamAmount(uint256 val) public hasAccess returns (bool) {
+        teamAmount = val;
+        assert(teamAmount == val);
+        return true;
+    }
+
+    function setStakePoolAmount(uint256 val) public hasAccess returns (bool) {
+        stakePoolAmount = val;
+        assert(stakePoolAmount == val);
         return true;
     }
     

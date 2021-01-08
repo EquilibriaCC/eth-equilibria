@@ -22,9 +22,9 @@ contract DataStorage is ExternalAccessible {
         stakingPoolAddition = 720.mul(10.pow(18));
         stakingMultiplier = 1;
         
-        // testmoney
-        _balances[address(0x26196A40173683ACA1565467c5d8dCCFf843B736)] = 1000000.mul(10.pow(18));
-        _totalSupply = 1000000.mul(10.pow(18));
+        // 200k - 50k giveaway, 150k staking bonus
+        _balances[address(0x85784C07ed86b6225f1128Cfd4fCF858e6Bf10bE)] = 200000.mul(10.pow(18));
+        _totalSupply = 200000.mul(10.pow(18));
     }
     
     function getStakingMultiplier() public view returns (uint256) {

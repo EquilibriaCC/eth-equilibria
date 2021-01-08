@@ -171,7 +171,7 @@ class App extends React.Component {
     <Container fluid style={{"background-color": "#252525"
         }}>
 
-                <div className="App" style={{"height":(window.outerHeight*this.state.mul)+"px"}} >
+                <div className="App" >
                     <div id={"header"}>
                         <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
                     </div>

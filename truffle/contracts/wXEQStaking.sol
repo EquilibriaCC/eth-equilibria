@@ -41,17 +41,21 @@ contract SoftStaking is Ownable {
     function getPendingReward(address _user) public view returns (uint256) {
         UserInfo storage user = userInfo[_user];
         uint256 user_time = block.number - user.stakingBlock;
+        uint256 baseReward = user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
+
+        return baseReward.mul(user_time).div(1e18);
+    }
+
+    function getFeeReward(address _user) public view returns (uint256) {
+        UserInfo storage user = userInfo[_user];
+        uint256 user_time = block.number - user.stakingBlock;
         uint256 fees = dataStorage.balanceOf(address(this));
         uint256 my_fees = user.amount.mul(10.pow(18)).div(totalStaked).mul(fees);
 
-        //Must be in pool for 3 days to claim oracle/swap fees.
         if (user_time <= 6520.mul(3)) {
             my_fees = 0;
         }
-
-        uint256 baseReward = user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
-
-        return baseReward.mul(user_time).add(my_fees).div(1e18);
+        return my_fees.div(1e18);
     }
 
     function enter(uint256 _amount) public {
@@ -74,24 +78,34 @@ contract SoftStaking is Ownable {
     function leave(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount > 0);
-        uint256 rewards = getPendingReward(msg.sender);
-        require(rewards > 0);
+
         user.amount = user.amount.sub(_amount);
         user.stakingBlock = 0;
         totalStaked = totalStaked.sub(_amount);
-        uint256 withdrawAmount = _amount.add(rewards);
-        wXEQContract.mint(msg.sender, withdrawAmount);
+        
+        uint256 base_reward = getPendingReward(msg.sender);
+        uint256 fee_reward = getFeeReward(msg.sender);
+        require(base_reward > 0);
+        user.stakingBlock = block.number;
+        wXEQContract.mint(msg.sender, base_reward);
+        if (fee_reward > 0) {
+            wXEQContract.transfer(msg.sender, fee_reward);
+        }
         emit Leave(msg.sender, _amount);
     }
 
     function withdrawRewards() public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount > 0);
-        uint256 rewards = getPendingReward(msg.sender);
-        require(rewards > 0);
+        uint256 base_reward = getPendingReward(msg.sender);
+        uint256 fee_reward = getFeeReward(msg.sender);
+        require(base_reward > 0);
         user.stakingBlock = block.number;
-        wXEQContract.mint(msg.sender, rewards);
-        emit WithdrawRewards(msg.sender, rewards);
+        wXEQContract.mint(msg.sender, base_reward);
+        if (fee_reward > 0) {
+            wXEQContract.transfer(msg.sender, fee_reward);
+        }
+        emit WithdrawRewards(msg.sender, base_reward.add(fee_reward));
     }
 
 }

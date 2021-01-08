@@ -39,6 +39,7 @@ export default function PresaleModal(props) {
     let ethamount = 0
     let wXEQ_Minted = 0
     let remaining = 0
+    let ethPrice = 0
 
     if (Object.keys(props.drizzleState.contracts.PreSale.ethMinted).length > 0)
         ethamount = (Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString()
@@ -48,6 +49,8 @@ export default function PresaleModal(props) {
 
     if (Object.keys(props.drizzleState.contracts.PreSale.wXEQLeft).length > 0)
         remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
+    if (Object.keys(props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
+        ethPrice = (Number(props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8)).toLocaleString()
     let text = props.drizzle.contracts.PreSale.address
     // if (copied)
     //     text = "Copied"
@@ -79,7 +82,7 @@ export default function PresaleModal(props) {
                                 }}>
                                     <h1>wXEQ Presale</h1>
                                     <h3><button style={{"width":"40%"}} onClick={() => {navigator.clipboard.writeText(text)}} id={"submitButton"}><p>{text.substring(0, 10)}...{text.substring(text.length-4, text.length)}</p></button></h3>
-                                    <p>Send ETH to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
+                                    <p>Send ETH (${ethPrice}) to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
                                     <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: {wXEQ_Minted} | Remaining wXEQ for sale: {remaining}</p>
                                 </div>
                         </Grid>

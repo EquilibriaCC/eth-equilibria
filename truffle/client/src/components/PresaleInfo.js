@@ -10,6 +10,7 @@ class PresaleInfo extends React.Component {
         let dataKey = this.props.drizzle.contracts.PreSale.methods["wXEQLeft"].cacheCall();
         dataKey = this.props.drizzle.contracts.PreSale.methods["ethMinted"].cacheCall();
         dataKey = this.props.drizzle.contracts.PreSale.methods["wXEQminted"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSale.methods["lastETHPrice"].cacheCall();
 
         this.setState({dataKey: dataKey})
     }
