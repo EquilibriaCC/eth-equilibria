@@ -15,8 +15,6 @@ class RemoveStake extends React.Component {
 
         // save the `dataKey` to local component state for later reference
         this.setState({ dataKeyStaking });
-
-
     }
 
     handleKeyDown = e => {
@@ -35,19 +33,10 @@ class RemoveStake extends React.Component {
 
         let appCoins = 0
 
-        const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        instance.methods.leave(value
-        )
-            .estimateGas()
-            .then(gasAmount => {
-                const stackId = contract.methods["leave"].cacheSend( value,
-                    { from: drizzleState.accounts[0], gas: gasAmount }
-                );
-                this.setState({ stackId });
-            })
-            .catch(error => {
-                console.log(47, error);
-            });
+        const stackId = contract.methods["leave"].cacheSend( value,
+            { from: drizzleState.accounts[0]}
+        );
+        this.setState({ stackId });
     };
 
     getTxStatus = () => {

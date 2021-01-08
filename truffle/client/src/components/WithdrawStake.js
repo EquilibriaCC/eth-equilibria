@@ -16,19 +16,12 @@ class WithdrawStake extends React.Component {
         const contract = drizzle.contracts.SoftStaking
 
 
-        const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        instance.methods.withdrawRewards(
-        )
-            .estimateGas()
-            .then(gasAmount => {
-                const stackId = contract.methods["withdrawRewards"].cacheSend(
-                    { from: drizzleState.accounts[0], gas: gasAmount }
-                );
-                this.setState({ stackId });
-            })
-            .catch(error => {
-                console.log(47, error);
-            });
+   
+        const stackId = contract.methods["withdrawRewards"].cacheSend(
+            { from: drizzleState.accounts[0] }
+        );
+        this.setState({ stackId });
+       
     };
 
     getTxStatus = () => {
