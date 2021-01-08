@@ -1,11 +1,12 @@
 pragma solidity >=0.4.22 <0.8.0;
 
 import "./tools/Ownable.sol";
+import "./tools/ExternalAccessible.sol";
 import "./tools/SafeMath.sol";
 import "./tools/DataStorage.sol";
 import "./wXEQ.sol";
 
-contract SoftStaking is Ownable {
+contract SoftStaking is ExternalAccessible, Ownable {
     
     using SafeMath for *;
     DataStorage public dataStorage;
@@ -25,11 +26,12 @@ contract SoftStaking is Ownable {
 
     mapping (address => UserInfo) public userInfo;
 
-    constructor(address _wxeq, address _dataStorage) public {
+    constructor(address _wxeq, address _dataStorage, address _master) public {
 
         wXEQContract = wXEQ(_wxeq);
         dataStorage = DataStorage(_dataStorage);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
+        masterContract = _master;
     }
 
     function changeStakingReward(uint256 _reward) public onlyOwner returns (bool) {
