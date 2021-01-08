@@ -2,7 +2,22 @@ import React from "react";
 /* global BigInt */
 
 class RemoveStake extends React.Component {
-    state = { stackId: null, val: 0};
+    state = { stackId: null, val: 0, dataKeyStaking: null};
+
+
+    componentDidMount() {
+
+        const { drizzle } = this.props;
+        const contract = drizzle.contracts.wXEQ;
+        const stakingContract = drizzle.contracts.SoftStaking
+
+        let dataKeyStaking = stakingContract.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
+
+        // save the `dataKey` to local component state for later reference
+        this.setState({ dataKeyStaking });
+
+
+    }
 
     handleKeyDown = e => {
             if (e.keyCode === 13) {
@@ -19,18 +34,13 @@ class RemoveStake extends React.Component {
         value = BigInt(value) * BigInt(10**8)
 
         let appCoins = 0
-        if (Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake).length > 0)
-            appCoins = (Number(this.props.drizzleState.contracts.SoftStaking.getStake[Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake)[0]].value))
-        if (value > appCoins)
-            return
-
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        instance.methods.removeStake(value
+        instance.methods.leave(value
         )
             .estimateGas()
             .then(gasAmount => {
-                const stackId = contract.methods["removeStake"].cacheSend( value,
+                const stackId = contract.methods["leave"].cacheSend( value,
                     { from: drizzleState.accounts[0], gas: gasAmount }
                 );
                 this.setState({ stackId });
@@ -57,8 +67,12 @@ class RemoveStake extends React.Component {
 
     render() {
         let appCoins = 0
-        if (Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake).length > 0)
-            appCoins = (Number(this.props.drizzleState.contracts.SoftStaking.getStake[Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake)[0]].value)/10**18).toLocaleString()
+        try {
+            appCoins = (Number(this.props.drizzleState.contracts.SoftStaking["userInfo"][this.state.dataKeyStaking].value.amount)/(10**18)).toLocaleString()
+        } catch {
+
+        }
+
         return (
             <div>
                 <h3>Unlock some of your wXEQ from the staking pool<br/>(You currently have {appCoins} wXEQ staked)</h3>

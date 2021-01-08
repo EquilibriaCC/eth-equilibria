@@ -5,15 +5,13 @@ class Balance extends React.Component {
 
     componentDidMount() {
         const { drizzle } = this.props;
-        console.log(drizzle)
         const contract = drizzle.contracts.wXEQ;
         const stakingContract = drizzle.contracts.SoftStaking
 
         // let drizzle know we want to watch the `myString` method
         let dataKeyXEQ = contract.methods["balanceOf"].cacheCall(drizzle.store.getState().accounts[0]);
-        let dataKeyStaking = stakingContract.methods["getStake"].cacheCall(drizzle.store.getState().accounts[0]);
-        console.log(drizzle.contracts)
-        drizzle.contracts.wXEQ.methods["allowanceOf"].cacheCall(drizzle.store.getState().accounts[0], drizzle.contracts.SoftStaking.address);
+        let dataKeyStaking = stakingContract.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
+        drizzle.contracts.wXEQ.methods["allowance"].cacheCall(drizzle.store.getState().accounts[0], drizzle.contracts.SoftStaking.address);
 
         // save the `dataKey` to local component state for later reference
         this.setState({ dataKeyXEQ, dataKeyStaking });
@@ -21,7 +19,7 @@ class Balance extends React.Component {
 
     render() {
         try {
-            let balance = ((Number(this.props.drizzleState.contracts.wXEQ["balanceOf"][this.state.dataKeyXEQ].value)/(10**18)) + (Number(this.props.drizzleState.contracts.SoftStaking["getStake"][this.state.dataKeyStaking].value)/(10**18))).toLocaleString()
+            let balance = (Number(this.props.drizzleState.contracts.wXEQ["balanceOf"][this.state.dataKeyXEQ].value)/(10**18) + Number(this.props.drizzleState.contracts.SoftStaking["userInfo"][this.state.dataKeyStaking].value.amount)/(10**18)).toLocaleString()
             if (balance === "0") {
                 return (
                     <div>

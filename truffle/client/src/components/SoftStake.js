@@ -21,15 +21,15 @@ class AddStake extends React.Component {
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
         let appCoins = 0
-        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf).length > 0)
-            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowanceOf[Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf)[0]].value))
+        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value))
         if (value > appCoins)
             return
 
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
 
-                const stackId = contract.methods["addStake"].cacheSend( value,
+                const stackId = contract.methods["enter"].cacheSend( value,
                     { from: drizzleState.accounts[0]}
                 );
                 this.setState({ stackId });
@@ -54,8 +54,8 @@ class AddStake extends React.Component {
 
     render() {
         let appCoins = 0
-        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf).length > 0)
-            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowanceOf[Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf)[0]].value)/10**18).toLocaleString()
+        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value)/10**18).toLocaleString()
         return (
             <div>
                 <h6>Lock wXEQ and Earn Rewards<br/>(you currently have {appCoins} approved)</h6>

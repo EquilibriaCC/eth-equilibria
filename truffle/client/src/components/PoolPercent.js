@@ -7,11 +7,12 @@ class PoolPercent extends React.Component {
         const { drizzle } = this.props;
         let stakingAddress = drizzle.contracts.SoftStaking.address
         let wxeq = drizzle.contracts.wXEQ
-        let dataKey = this.props.drizzle.contracts.SoftStaking.methods["pendingRewards"].cacheCall(drizzle.store.getState().accounts[0]);
+        let dataKey = this.props.drizzle.contracts.SoftStaking.methods["getPendingReward"].cacheCall(drizzle.store.getState().accounts[0]);
         dataKey = this.props.drizzle.contracts.SoftStaking.methods["totalStaked"].cacheCall();
+        let dataKeyStaking = this.props.drizzle.contracts.SoftStaking.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
 
 
-        this.setState({stakingAddress: stakingAddress, dataKey: dataKey})
+        this.setState({stakingAddress: stakingAddress, dataKey: dataKey, dataKeyStaking : dataKeyStaking })
     }
 
     componentDidMount() {
@@ -20,12 +21,12 @@ class PoolPercent extends React.Component {
 
     render() {
         let approvedCoins = 0
+        let staked = 0;
         try {
-            let key = Object.keys(this.props.drizzleState.contracts.SoftStaking["getStake"])[0]
-            approvedCoins = this.props.drizzleState.contracts.SoftStaking["getStake"][key].value/this.props.drizzleState.contracts.SoftStaking["totalStaked"][this.state.dataKey].value
+           staked = this.props.drizzleState.contracts.SoftStaking["userInfo"][this.state.dataKeyStaking].value.amount
+           approvedCoins = staked/this.props.drizzleState.contracts.SoftStaking["totalStaked"][this.state.dataKey].value
         } catch{}
         let coins = (Number(approvedCoins))
-        console.log(coins)
         let coinDisplay = <p id={"bigNumber"} >{(Number(approvedCoins)*100).toFixed(4)}%</p>
         if (coins === 0)
             coinDisplay = <p id={"bigNumber"} style={{"color":"#ef101e"}}>{(Number(approvedCoins)/(10**18)*100).toLocaleString()}%</p>

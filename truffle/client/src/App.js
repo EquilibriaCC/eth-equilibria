@@ -7,6 +7,7 @@ import ReadOwner from "./ReadOwner"
 import ApproveCoins from "./components/Approve";
 import AddStake from "./components/SoftStake";
 import RemoveStake from "./components/RemoveStake";
+import RemoveStakeModal from "./components/RemoveStakeModal";
 import WithdrawStake from "./components/WithdrawStake";
 import ForceRewardUpdate from "./components/ForceRewardUpdate";
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +26,6 @@ import TransitionsModal from "./components/StakingModal";
 import PresaleModal from "./components/PreSaleModal";
 import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
-import RemoveStakeModal from "./components/RemoveStakeModal";
 import Loader from 'react-loader-spinner'
 import {css} from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import TextField from "@material-ui/core/TextField";
@@ -137,7 +137,7 @@ class App extends React.Component {
                                    drizzleState={this.state.drizzleState}/>
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
-                    }}><h3>Restart</h3>
+                    }}><h3>Back</h3>
                     </button>
 
                 </div>
@@ -152,7 +152,7 @@ class App extends React.Component {
     render() {
         if (this.state.loading) return (<div
                 style={{
-                    background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)"
+                    background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)",
                 }}>
                 <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
                         type="Puff"
@@ -168,13 +168,14 @@ class App extends React.Component {
         );
 
         return (
-            <Container fluid style={{"background-color": "#252525"}}>
+    <Container fluid style={{"background-color": "#252525"
+        }}>
 
                 <div className="App" >
                     <div id={"header"}>
                         <h2 style={{"font-size": "60px"}}>Wrapped Equilibria Dashboard</h2>
                     </div>
-                    <div id={"body"} style={{"height":(window.outerHeight*0.639*this.state.mul)+"px"}}>
+                    <div id={"body"} style={{"position":"relative"}}>
                         <Grid container spacing={10}
                               style={{"margin-left": "auto", "margin-right": "auto", "width": "70%"}}>
                             <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
@@ -204,21 +205,9 @@ class App extends React.Component {
                     {/*    drizzleState={this.state.drizzleState}*/}
                     {/*/>*/}
                 </div>
-                <div style={{
-                    "width": "100%",
-                    "height": "92px",
-                    "margin-left": "auto",
-                    "margin-right": "auto",
-                    "background-color": "#252525",
-                }}>
-
-                    <Grid container xs={12}
-                          style={{
-                              "width": "30%",
-                              "margin-left": "auto",
-                              "margin-right": "auto",
-                              "margin-bottom": "0"
-                          }}>
+                <div class={"footer"}>
+                    <Grid container xm={12}
+                         >
                         <Grid container item xs={1} style={{"margin-left": "auto", "margin-top": "8px"}}>
                             <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"}>
 
@@ -238,6 +227,9 @@ class App extends React.Component {
                             </a>
                         </Grid>
                     </Grid>
+
+
+                   
                 </div>
             </Container>
 

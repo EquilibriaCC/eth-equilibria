@@ -11,7 +11,7 @@ class GetStake extends React.Component {
 
         // let drizzle know we want to watch the `myString` method
         // let dataKeyXEQ = contract.methods["balanceOf"].cacheCall(drizzle.store.getState().accounts[0]);
-        let dataKeyStaking = stakingContract.methods["getStake"].cacheCall(drizzle.store.getState().accounts[0]);
+        let dataKeyStaking = stakingContract.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
 
         // save the `dataKey` to local component state for later reference
         this.setState({ dataKeyStaking });
@@ -19,7 +19,7 @@ class GetStake extends React.Component {
 
     render() {
         try {
-            let stake = (Number(this.props.drizzleState.contracts.SoftStaking["getStake"][this.state.dataKeyStaking].value)/(10**18)).toLocaleString()
+            let stake = (Number(this.props.drizzleState.contracts.SoftStaking["userInfo"][this.state.dataKeyStaking].value.amount)/(10**18)).toLocaleString()
             if (stake === "0") {
                 return <p id={"bigNumber"} style={{"color":"#ef101e"}}>{stake}</p>
             }

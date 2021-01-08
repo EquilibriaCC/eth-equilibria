@@ -23,7 +23,7 @@ class ReadOwner extends React.Component {
         let dataKeyStaking = stakingContract.methods["totalStaked"].cacheCall();
         dataKeyStaking = stakingContract.methods["totalMinted"].cacheCall();
         dataKeyStaking = stakingContract.methods["lastPayoutBlock"].cacheCall();
-        dataKeyStaking = stakingContract.methods["pendingRewards"].cacheCall(drizzle.store.getState().accounts[0]);
+        dataKeyStaking = stakingContract.methods["getPendingReward"].cacheCall(drizzle.store.getState().accounts[0]);
         dataKeyStaking = stakingContract.methods["getStake"].cacheCall(drizzle.store.getState().accounts[0]);
 
         let dataKeySale = saleContract.methods["ethMinted"].cacheCall();
@@ -73,8 +73,8 @@ class ReadOwner extends React.Component {
             // console.log(this.props.drizzleState.contracts.SoftStaking, this.state.dataKeyStaking)
 
             totalStaked = this.props.drizzleState.contracts.SoftStaking["totalStaked"][this.state.dataKey].value
-            myStake = this.props.drizzleState.contracts.SoftStaking["getStake"][this.state.dataKeyStaking].value
-            pendingRewards = this.props.drizzleState.contracts.SoftStaking["pendingRewards"][this.state.dataKeyStaking].value
+            //myStake = this.props.drizzleState.contracts.SoftStaking["getStake"][this.state.dataKeyStaking].value
+            pendingRewards = this.props.drizzleState.contracts.SoftStaking["getPendingReward"][this.state.dataKeyStaking].value
             lastPayout = this.props.drizzleState.contracts.SoftStaking["lastPayoutBlock"][this.state.dataKey].value
 
             // wXEQMinted = this.props.drizzleState.contracts.PreSale["wXEQminted"][this.state.dataKeySale].value
