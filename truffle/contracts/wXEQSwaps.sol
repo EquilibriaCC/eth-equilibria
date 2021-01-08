@@ -4,7 +4,6 @@ pragma solidity >=0.4.22 <0.8.0;
 import "./tools/ExternalAccessible.sol";
 import "./tools/Ownable.sol";
 import "./tools/SafeMath.sol";
-import "./oracle/OracleMaster.sol";
 import "./wXEQ.sol";
 import "./wXEQStaking.sol";
 
@@ -14,7 +13,6 @@ contract XEQSwaps is ExternalAccessible, Ownable {
     wXEQ wXEQContract;
     DataStorage dataStorage;
     SoftStaking stakingPool;
-    OracleMaster oracleContract;
     
     uint256 wXEQMinted;
     uint256 XEQMinted;
@@ -29,15 +27,14 @@ contract XEQSwaps is ExternalAccessible, Ownable {
     mapping(address => bool[]) swapComplete;
     bool swapBacks;
     
-    constructor(address w, address d, address s, address o, address _master) {
+    constructor(address w, address d, address s, address _master) {
         wXEQContract = wXEQ(w);
         dataStorage = DataStorage(d);
         stakingPool = SoftStaking(s);
         masterContract = _master;
-        oracleContract = OracleMaster(o);
         wXEQMinted = 0;
         XEQMinted = 0;
-        transferOwnership(o);
+        transferOwnership(msg.sender);
         teamAmount = 4000;
         burntAmount = 1000;
         stakePoolAmount = 5000;
@@ -60,10 +57,6 @@ contract XEQSwaps is ExternalAccessible, Ownable {
         return (swapComplete[account][index], xeqAddress[account][index], amountToMint[account][index]);
     }
     
-    function updateOracleContract(address cont) public hasAccess returns (bool) {
-        oracleContract = OracleMaster(cont);
-        return true;
-    }
     
     function devFee(uint256 _value, uint256 devFeeVal1) public pure returns (uint256) {
         require(_value >= ((_value.mul(devFeeVal1)).div(10000)));

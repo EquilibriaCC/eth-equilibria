@@ -17,7 +17,6 @@ contract Master is Accessible, Upgradeable {
     wXEQ public wXEQContract;
     address public presaleContract;
     DataStorage public backupContract;
-    OracleMaster public oracleContract;
     SoftStaking public softStakingContract;
     XEQSwaps public swapContract;
 
@@ -26,7 +25,7 @@ contract Master is Accessible, Upgradeable {
 
     constructor() {
         masterContract = address(this);
-    access.push(msg.sender);
+        access.push(msg.sender);
         access.push(address(this));
     }
 
@@ -44,10 +43,6 @@ contract Master is Accessible, Upgradeable {
         access.push(address(softStakingContract));
         access.push(address(swapContract));
         return true;
-    }
-    
-    function getOracleContract() public view returns (address) {
-        return address(oracleContract);
     }
 
     function getWXEQContract() public view returns (address) {
