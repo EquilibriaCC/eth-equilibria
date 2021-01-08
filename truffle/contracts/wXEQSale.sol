@@ -32,7 +32,7 @@ contract PreSale is Ownable {
         finalBlock = block.timestamp + (90 days);
         stakingBonusHit = 1;
         presaleActive = true;
-        cap = 10000000.mul(10.pow(18));
+        cap = 9800000.mul(10.pow(18));
         minGoal = 5000000.mul(10.pow(18));
         xeqRate = 15.mul(10.pow(16));
         ETHUSD = address(0x9326BFA02ADD2366b30bacB125260Af641031331);
