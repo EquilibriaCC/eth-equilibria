@@ -1,8 +1,9 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
 /* global BigInt */
 
 class AddStake extends React.Component {
-    state = { stackId: null};
+    state = { stackId: null, val: 0};
 
     handleKeyDown = e => {
         // if the enter key is pressed, set the value with the string
@@ -15,12 +16,13 @@ class AddStake extends React.Component {
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.SoftStaking
+        if (value <= 0)
+            return
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
-        console.log(value)
         let appCoins = 0
-        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
-            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value))
+        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowanceOf[Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf)[0]].value))
         if (value > appCoins)
             return
 
@@ -52,14 +54,16 @@ class AddStake extends React.Component {
 
     render() {
         let appCoins = 0
-        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowance).length > 0)
-            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowance[Object.keys(this.props.drizzleState.contracts.wXEQ.allowance)[0]].value)/10**18).toLocaleString()
+        if (Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf).length > 0)
+            appCoins = (Number(this.props.drizzleState.contracts.wXEQ.allowanceOf[Object.keys(this.props.drizzleState.contracts.wXEQ.allowanceOf)[0]].value)/10**18).toLocaleString()
         return (
             <div>
-                <h3>Lock wXEQ and Earn Rewards (you currently have {appCoins} approved)</h3>
-
-                <input type="text" id={"inputText"} placeholder={"Amount to Stake"} onKeyDown={this.handleKeyDown} />
+                <h6>Lock wXEQ and Earn Rewards<br/>(you currently have {appCoins} approved)</h6>
+                <input type="text" onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount to Stake" onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
+                <div style={{"padding-bottom":"30px"}}>
+                    <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
+                </div>
             </div>
         );
     }
