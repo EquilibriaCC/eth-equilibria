@@ -29,13 +29,13 @@ contract PreSale is Ownable {
     constructor(address xeq, address t) payable {
         transferOwnership(t);
         wXEQcontract = wXEQ(xeq);
-        finalBlock = block.timestamp + (90 days);
+        finalBlock = block.timestamp + (22 days);
         stakingBonusHit = 1;
         presaleActive = true;
         cap = 9800000.mul(10.pow(18));
         minGoal = 5000000.mul(10.pow(18));
         xeqRate = 15.mul(10.pow(16));
-        ETHUSD = address(0x9326BFA02ADD2366b30bacB125260Af641031331);
+        ETHUSD = address(0x00c7A37B03690fb9f41b5C5AF8131735C7275446);
         teamAdd = payable(0x85784C07ed86b6225f1128Cfd4fCF858e6Bf10bE);
     }
 
@@ -60,7 +60,7 @@ contract PreSale is Ownable {
     function checkPresale(uint256 val) public view returns (bool) {
         if (wXEQminted.add(val) >= cap) {
             return false;
-        } else if (block.timestamp > finalBlock && wXEQminted >= minGoal) {
+        } else if (block.timestamp > finalBlock) {
             return false;
         } else {
             return true;
