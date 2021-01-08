@@ -55,7 +55,7 @@ export default function RemoveStakeModal(props) {
             >
                 <Fade in={open} style={{"width":"80%"}}>
                     <div className={"App"} style={{"background":"transparent", "width":"60%"}} id={"modalPopup"} >
-                        <Grid container spacing={10} id={"modalPopup"}
+                        <Grid container spacing={0} id={"modalPopup"}
                         style={{"margin-left": "auto", "margin-right": "auto"}}>
                             <Grid container item xs={12}>
                                 <div id={"dataContainer"}

@@ -1,4 +1,3 @@
-import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -9,6 +8,7 @@ import ApproveCoins from "./Approve";
 import RemoveStake from "./RemoveStake";
 import Grid from '@material-ui/core/Grid';
 import WithdrawStake from "./WithdrawStake";
+import React, { useRef, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -34,15 +34,6 @@ export default function PresaleModal(props) {
 
     const handleClose = () => {
         setOpen(false);
-    };
-
-    const copyToClipboard = str => {
-        // const el = document.createElement('textarea');
-        // el.value = str;
-        // document.body.appendChild(el);
-        // el.select();
-        // document.execCommand('copy');
-        // document.body.removeChild(el);
     };
 
     let ethamount = 0
@@ -78,7 +69,7 @@ export default function PresaleModal(props) {
             >
                 <Fade in={open} style={{"width":"80%"}}>
                     <div className={"App"} style={{"background":"transparent", "width":"80%"}} id={"modalPopup"} >
-                        <Grid container spacing={10} id={"modalPopup"}
+                        <Grid container spacing={0} id={"modalPopup"}
                         style={{"margin-left": "auto", "margin-right": "auto"}}>
                         <Grid container item xs={12} >
                                 <div id={"dataContainer"} style={{
@@ -87,7 +78,7 @@ export default function PresaleModal(props) {
                                     "margin-right": "auto",
                                 }}>
                                     <h1>wXEQ Presale</h1>
-                                    <h3><button style={{"width":"40%"}} onClick={copyToClipboard(props.drizzle.contracts.PreSale.address)} id={"submitButton"}><p>{text}</p></button></h3>
+                                    <h3><button style={{"width":"40%"}} onClick={() => {navigator.clipboard.writeText(text)}} id={"submitButton"}><p>{text.substring(0, 10)}...{text.substring(text.length-4, text.length)}</p></button></h3>
                                     <p>Send ETH to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
                                     <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: {wXEQ_Minted} | Remaining wXEQ for sale: {remaining}</p>
                                 </div>

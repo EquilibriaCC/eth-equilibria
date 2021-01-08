@@ -54,8 +54,8 @@ export default function TransitionsModal(props) {
                 }}
             >
                 <Fade in={open} style={{"width":"80%"}}>
-                    <div className={"App"} style={{"background":"transparent", "width":"60%"}} id={"modalPopup"} >
-                        <Grid container spacing={10} id={"modalPopup"}
+                    <div className={"App"} style={{"background":"transparent", "width":"60%", "margin-right":"auto", "margin-left":"auto"}} id={"modalPopup"} >
+                        <Grid container spacing={0} id={"modalPopup"}
                         style={{"margin-left": "auto", "margin-right": "auto"}}>
                         <Grid container item xs={12} >
 

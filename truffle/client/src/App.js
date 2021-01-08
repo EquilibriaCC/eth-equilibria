@@ -170,13 +170,13 @@ class App extends React.Component {
         return (
             <Container fluid style={{"background-color": "#252525"}}>
 
-                <div className="App" >
+                <div className="App" style={{"height":(window.outerHeight*this.state.mul)+"px"}} >
                     <div id={"header"}>
-                        <h2 style={{"font-size": "60px"}}>Wrapped Equilibria Dashboard</h2>
+                        <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
                     </div>
-                    <div id={"body"} style={{"height":(window.outerHeight*0.639*this.state.mul)+"px"}}>
+                    <div id={"body"} >
                         <Grid container spacing={10}
-                              style={{"margin-left": "auto", "margin-right": "auto", "width": "70%"}}>
+                              style={{"margin-left": "auto", "margin-right": "auto"}} id={"gridContainer"}>
                             <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
                                 <Grid container item xs={12} spacing={3}>
                                     {this.stakingBox()

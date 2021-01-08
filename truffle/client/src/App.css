@@ -1,4 +1,38 @@
+@media (max-width: 800px) {
+  #dataContainer {
+    width: 100% !important;
+  }
 
+  #gridContainer {
+    width: 90% !important;
+  }
+  .MuiGrid-grid-xs-12 {
+    width: 100% !important;
+  }
+  .MuiGrid-grid-lg-6 {
+    width: 100% !important;
+  }
+
+  h1 {
+    font-size: 24px !important;
+  }
+
+  #headerText {
+    font-size: 35px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 16px !important;
+  }
+}
+
+#headerText {
+  font-size: 60px;
+}
 
 p {
   color: #fff;
@@ -11,6 +45,10 @@ p {
   font-size: 20px;
   color: #0af586;
   opacity: 1;
+}
+
+#gridContainer {
+  width: 70%;
 }
 
 
