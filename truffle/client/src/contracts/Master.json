@@ -6824,6 +6824,32 @@
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x718441D60FB165486eE937c6A5e5F16Cca3B0d09",
+      "transactionHash": "0x416c686a410a145a7313b1d85cdf8ef44bb07885f1b1498da5329865a5295ab2"
+    },
     "42": {
       "events": {
         "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
@@ -6847,13 +6873,38 @@
         }
       },
       "links": {},
-      "address": "0xaCE3638173F341F41120F9D0E6A87c25DFE0b9E3",
-      "transactionHash": "0x3735d5ac8d2c6dcd5195f7e10583d9ba778030791f1549b3bb21ccafd5735460"
+      "address": "0x63D9E7fC9eA82f9CD04A842ad92A8556C96bBE7D",
+      "transactionHash": "0x74edc84902ab8b10b0a1550553541ff747fe2b4c5ea1c3747a1b2a0f8ca50a20"
+    },
+    "5777": {
+      "events": {
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x63D9E7fC9eA82f9CD04A842ad92A8556C96bBE7D",
+      "transactionHash": "0x7e1cafbf69d1ec6759dab5aea634ba3be881811cfba8043de7f07fd92bead0dc"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-07T10:13:52.516Z",
-  "networkType": "ethereum",
+  "updatedAt": "2021-01-07T07:10:38.861Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

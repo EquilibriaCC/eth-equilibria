@@ -19,7 +19,6 @@ class PoolPercent extends React.Component {
     }
 
     render() {
-        // this.update()
         let approvedCoins = 0
         try {
             let key = Object.keys(this.props.drizzleState.contracts.SoftStaking["getStake"])[0]
@@ -28,7 +27,7 @@ class PoolPercent extends React.Component {
         let coins = (Number(approvedCoins))
         console.log(coins)
         let coinDisplay = <p id={"bigNumber"} >{(Number(approvedCoins)*100).toFixed(4)}%</p>
-        if (coins === "0")
+        if (coins === 0)
             coinDisplay = <p id={"bigNumber"} style={{"color":"#ef101e"}}>{(Number(approvedCoins)/(10**18)*100).toLocaleString()}%</p>
         return (
             <div>

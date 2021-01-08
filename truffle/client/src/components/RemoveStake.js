@@ -2,19 +2,19 @@ import React from "react";
 /* global BigInt */
 
 class RemoveStake extends React.Component {
-    state = { stackId: null};
+    state = { stackId: null, val: 0};
 
     handleKeyDown = e => {
-        // if the enter key is pressed, set the value with the string
             if (e.keyCode === 13) {
                 this.setValue(e.target.value);
             }
-
     };
 
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.SoftStaking
+        if (value <= 0)
+            return
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
 
@@ -61,9 +61,13 @@ class RemoveStake extends React.Component {
             appCoins = (Number(this.props.drizzleState.contracts.SoftStaking.getStake[Object.keys(this.props.drizzleState.contracts.SoftStaking.getStake)[0]].value)/10**18).toLocaleString()
         return (
             <div>
-                <h3>Unlock some of your wXEQ from the staking pool (You currently have {appCoins} wXEQ locked)</h3>
-                <input type="text" id={"inputText"} placeholder={"Amount to Remove"} onKeyDown={this.handleKeyDown} />
+                <h3>Unlock some of your wXEQ from the staking pool<br/>(You currently have {appCoins} wXEQ staked)</h3>
+                <input style={{"width":"42.5%"}} type="text" onChange={(e) => {this.setState({val: e.target.value})}} placeholder={"Amount to Remove"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
+                <div style={{"padding-bottom":"30px"}}>
+                    <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
+                </div>
+
             </div>
         );
     }

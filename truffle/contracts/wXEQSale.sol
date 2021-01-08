@@ -20,6 +20,8 @@ contract PreSale is Ownable {
     uint256 public minGoal;
     uint256 public xeqRate;
     bool public hasStakingBonus;
+    mapping(address => uint256) userXEQMints;
+    mapping(address => uint256) userETHDeposits;
 
     address ETHUSD;
     uint256 public lastETHPrice;
@@ -140,6 +142,8 @@ contract PreSale is Ownable {
     function deposit() public presaleIsActive payable {
         uint256 xeqVal = getAmount(msg.value);
         require(checkPresale(xeqVal));
+        userXEQMints[msg.sender] = userXEQMints[msg.sender].add(xeqVal);
+        userETHDeposits[msg.sender] = userETHDeposits[msg.sender].add(msg.value);
         wXEQminted = wXEQminted.add(xeqVal);
         ethMinted = ethMinted.add(msg.value);
         wXEQcontract.mint(msg.sender, xeqVal);
@@ -149,6 +153,8 @@ contract PreSale is Ownable {
     fallback () external presaleIsActive payable {
         uint256 xeqVal = getAmount(msg.value);
         require(checkPresale(xeqVal));
+        userXEQMints[msg.sender] = userXEQMints[msg.sender].add(xeqVal);
+        userETHDeposits[msg.sender] = userETHDeposits[msg.sender].add(msg.value);
         wXEQminted = wXEQminted.add(xeqVal);
         ethMinted = ethMinted.add(msg.value);
         wXEQcontract.mint(msg.sender, xeqVal);

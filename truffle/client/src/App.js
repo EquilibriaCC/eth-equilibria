@@ -27,17 +27,19 @@ import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
 import RemoveStakeModal from "./components/RemoveStakeModal";
 import Loader from 'react-loader-spinner'
-import { css } from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import {css} from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import TextField from "@material-ui/core/TextField";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0, stakeClick: 0};
+        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0, stakeClick: 0, mul: 1};
     }
 
     componentDidMount() {
         const {drizzle} = this.props;
-
+        if (window.outerWidth < 1280)
+            this.setState({mul:2.25})
         // subscribe to changes in the store
         this.unsubscribe = drizzle.store.subscribe(() => {
 
@@ -79,7 +81,9 @@ class App extends React.Component {
                     <PoolPercent drizzle={this.props.drizzle}
                                  drizzleState={this.state.drizzleState}
                     />
-                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Stake</h3>
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Next</h3>
                     </button>
 
                 </div>
@@ -107,7 +111,9 @@ class App extends React.Component {
                                     drizzleState={this.state.drizzleState}
                     />
 
-                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Next</h3>
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Next</h3>
                     </button>
 
                 </div>
@@ -125,11 +131,13 @@ class App extends React.Component {
                     <TransitionsModal
                         drizzle={this.props.drizzle}
                         drizzleState={this.state.drizzleState}/>
-                        <RemoveStakeModal      drizzle={this.props.drizzle}
-                                          drizzleState={this.state.drizzleState}/>
-                        <WithdrawStake drizzle={this.props.drizzle}
-                                       drizzleState={this.state.drizzleState}/>
-                    <button id={"submitButton"} onClick={ () => {this.handleStakeClick()}}><h3>Back</h3>
+                    <RemoveStakeModal drizzle={this.props.drizzle}
+                                      drizzleState={this.state.drizzleState}/>
+                    <WithdrawStake drizzle={this.props.drizzle}
+                                   drizzleState={this.state.drizzleState}/>
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Restart</h3>
                     </button>
 
                 </div>
@@ -142,30 +150,31 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.state.loading) return (<div 
-            style={{background: "rgb(17,17,17)",
-            background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)"}}>
-            <Loader style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
-        type="Puff"
-        color="#00BFFF"
-        height={100}
-        width={100}
-        timeout={3000} //3 secs
+        if (this.state.loading) return (<div
+                style={{
+                    background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)"
+                }}>
+                <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
+                        type="Puff"
+                        color="rgba(0,115,252,1)"
+                        height={100}
+                        width={100}
+                        timeout={3000} //3 secs
 
-     />
-     </div>
-     
-     
-     );
+                />
+            </div>
+
+
+        );
 
         return (
-            <Container fluid style={{"background-color":"#252525"}}>
+            <Container fluid style={{"background-color": "#252525"}}>
 
-                <div className="App">
+                <div className="App" >
                     <div id={"header"}>
                         <h2 style={{"font-size": "60px"}}>Wrapped Equilibria Dashboard</h2>
                     </div>
-                    <div id={"body"}>
+                    <div id={"body"} style={{"height":(window.outerHeight*0.639*this.state.mul)+"px"}}>
                         <Grid container spacing={10}
                               style={{"margin-left": "auto", "margin-right": "auto", "width": "70%"}}>
                             <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
@@ -189,42 +198,46 @@ class App extends React.Component {
                             </Grid>
 
                         </Grid>
-                        <div style={{
-                            "width": "100%",
-                            "height": "70px",
-                            "margin-left": "auto",
-                            "margin-right": "auto",
-                            "background-color": "#252525",
-                            "margin-top": "10%"
-                        }}>
-
-                            <Grid container xs={12}
-                                  style={{"width": "30%", "margin-left": "auto", "margin-right": "auto", "margin-bottom":"0"
-                                  }}>
-                                <Grid container item xs={1} style={{"margin-left":"auto"}}>
-                                    <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"} >
-
-                                        <TelegramIcon style={{"color": "#fff", "margin": "auto", "height":"80px"}}/>
-                                    </a>
-                                </Grid>
-                                <Grid container item xs={1} style={{"margin-left":"auto", "margin-right":"auto"}}>
-                                    <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"}  >
-
-                                        <TwitterIcon style={{"color": "#fff", "margin": "auto", "height":"80px"}} />
-                                    </a>
-                                </Grid>
-                                <Grid container item xs={1} style={{"margin-right":"auto"}}>
-                                    <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"}  >
-                                        <GitHubIcon style={{"color": "#fff", "margin": "auto", "height":"80px"}}/>
-                                    </a>
-                                </Grid>
-                            </Grid>
-                        </div>
                     </div>
                     {/*<ReadOwner*/}
                     {/*    drizzle={this.props.drizzle}*/}
                     {/*    drizzleState={this.state.drizzleState}*/}
                     {/*/>*/}
+                </div>
+                <div style={{
+                    "width": "100%",
+                    "height": "92px",
+                    "margin-left": "auto",
+                    "margin-right": "auto",
+                    "background-color": "#252525",
+                }}>
+
+                    <Grid container xs={12}
+                          style={{
+                              "width": "30%",
+                              "margin-left": "auto",
+                              "margin-right": "auto",
+                              "margin-bottom": "0"
+                          }}>
+                        <Grid container item xs={1} style={{"margin-left": "auto", "margin-top": "8px"}}>
+                            <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"}>
+
+                                <TelegramIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
+                            </a>
+                        </Grid>
+                        <Grid container item xs={1}
+                              style={{"margin-left": "auto", "margin-right": "auto", "margin-top": "8px"}}>
+                            <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"}>
+
+                                <TwitterIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
+                            </a>
+                        </Grid>
+                        <Grid container item xs={1} style={{"margin-right": "auto", "margin-top": "8px"}}>
+                            <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"}>
+                                <GitHubIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
+                            </a>
+                        </Grid>
+                    </Grid>
                 </div>
             </Container>
 

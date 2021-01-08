@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 /* global BigInt */
 
 class ApproveCoins extends React.Component {
-    state = { stackId: null, stakingAddress: null, approvedCoins: 0, dataKey: null };
+    state = { stackId: null, stakingAddress: null, approvedCoins: 0, dataKey: null, val: 0 };
 
     handleKeyDown = e => {
         // if the enter key is pressed, set the value with the string
@@ -19,6 +19,8 @@ class ApproveCoins extends React.Component {
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.wXEQ;
+        if (value <= 0)
+            return
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
         // const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
@@ -69,9 +71,12 @@ class ApproveCoins extends React.Component {
         return (
             
             <div>
-                <h6>Approve Coins for Staking (required before staking)</h6>
-                <TextField id="outline-basic" label="Amount to Approve" onKeyDown={this.handleKeyDown} variant="filled"/ >
+                <h6>Approve Coins for Staking<br/>(required before staking)</h6>
+                <input type="text" onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount to Approve" onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
+                <div style={{"padding-bottom":"30px"}}>
+                    <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
+                </div>
             </div>
         );
     }
