@@ -38,7 +38,7 @@ class PresaleInfo extends React.Component {
             <div>
                 <h1>Presale Info</h1>
                 <h2>Presale Target</h2>
-                <p id={"bigNumber"}>{(10000000).toLocaleString()}</p>
+                <p id={"bigNumber"}>{(9800000).toLocaleString()}</p>
                 <h2>Exchange Rate</h2>
                 <p id={"bigNumber"}>$0.15</p>
                 <h2>wXEQ Remaining</h2>
