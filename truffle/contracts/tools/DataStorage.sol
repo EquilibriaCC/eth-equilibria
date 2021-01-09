@@ -13,7 +13,7 @@ contract DataStorage is ExternalAccessible {
     constructor(address m) {
         masterContract = m;
         // 200k - 50k giveaway, 150k staking bonus
-        _balances[address(0x85784C07ed86b6225f1128Cfd4fCF858e6Bf10bE)] = 200000.mul(10.pow(18));
+        _balances[address(0x7FB4eCD5b8E234fA5863bFa2799EA25D8819F42d)] = 200000.mul(10.pow(18));
         _totalSupply = 200000.mul(10.pow(18));
     }
     
