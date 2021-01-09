@@ -20880,110 +20880,11 @@
   },
   "networks": {
     "1": {
-      "events": {
-        "0x825ccabf96629393f58034824978cb97f5362930d6e3df3e41b56bd78b9c3134": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "rate",
-              "type": "uint256"
-            }
-          ],
-          "name": "ExhangeRateChanged",
-          "type": "event"
-        },
-        "0x4c209b5fc8ad50758f13e2e1088ba56a560dff690a1c6fef26394f4c03821c4f": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "ethAmount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "XEQAmount",
-              "type": "uint256"
-            }
-          ],
-          "name": "Mint",
-          "type": "event"
-        },
-        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "previousOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "newOwner",
-              "type": "address"
-            }
-          ],
-          "name": "OwnershipTransferred",
-          "type": "event"
-        },
-        "0x1d1042e89d35bce0bafd010c98cdd21ab1f87093edd7424183dba418c2c47b5d": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "bool",
-              "name": "isActive",
-              "type": "bool"
-            }
-          ],
-          "name": "PreSaleStateChanged",
-          "type": "event"
-        },
-        "0xf279e6a1f5e320cca91135676d9cb6e44ca8a08c0b88342bcdb1144f6511b568": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "blockHeight",
-              "type": "uint256"
-            }
-          ],
-          "name": "Withdraw",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x37a3E114B68d4693Ea8d4d41a30898BC1394aea1",
-      "transactionHash": "0x997f3f01218b92919caf50fe9be486ac6f44ef9899005340e0c019c781a6a142"
+      "address": "0xae16a1b0bd3653d00ca68b19dfa2320b8beda94d"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-09T01:46:19.930Z",
+  "updatedAt": "2021-01-09T03:13:50.107Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

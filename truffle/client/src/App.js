@@ -82,8 +82,8 @@ class App extends React.Component {
                                  drizzleState={this.state.drizzleState}
                     />
                     <button id={"submitButton"} onClick={() => {
-                        this.handleStakeClick()
-                    }}><h3>Next</h3>
+                        //this.handleStakeClick()
+                    }} disabled><h3>Staking Disabled</h3>
                     </button>
 
                 </div>
