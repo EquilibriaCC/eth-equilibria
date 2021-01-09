@@ -79,15 +79,11 @@ contract SoftStaking is Ownable {
     function leave(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount > 0);
-
+        uint256 base_reward = getPendingReward(msg.sender);
+        uint256 fee_reward = getFeeReward(msg.sender);
         user.amount = user.amount.sub(_amount);
         user.stakingBlock = 0;
         totalStaked = totalStaked.sub(_amount);
-        
-        uint256 base_reward = getPendingReward(msg.sender);
-        uint256 fee_reward = getFeeReward(msg.sender);
-        require(base_reward > 0);
-        user.stakingBlock = block.number;
         wXEQContract.mint(msg.sender, base_reward);
         if (fee_reward > 0) {
             wXEQContract.transfer(msg.sender, fee_reward);
