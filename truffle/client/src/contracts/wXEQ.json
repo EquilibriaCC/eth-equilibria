@@ -21713,67 +21713,10 @@
       "links": {},
       "address": "0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef",
       "transactionHash": "0x8d3097e2ecfbcce9d5b2d7e0889072b99a6d68939ca7b417631d56331810a0cf"
-    },
-    "42": {
-      "events": {
-        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "spender",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "value",
-              "type": "uint256"
-            }
-          ],
-          "name": "Approval",
-          "type": "event"
-        },
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "to",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "value",
-              "type": "uint256"
-            }
-          ],
-          "name": "Transfer",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x9822388c136Ca04297c135C62d22E623E2f429db",
-      "transactionHash": "0x03a167ef150305a3404b92508e50f89eabb0b696d6a9cd0cebe8043761e63d22"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-09T01:02:38.395Z",
+  "updatedAt": "2021-01-09T01:46:19.913Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

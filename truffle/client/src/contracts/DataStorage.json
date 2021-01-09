@@ -3705,22 +3705,10 @@
       "links": {},
       "address": "0xfebDcD746934b4FEFfDc4858f7e97315e18849Dc",
       "transactionHash": "0x86f6c729ee3c644191b41f37c4e09f7c97136d2bc02fad33264243a932ff88ec"
-    },
-    "42": {
-      "events": {},
-      "links": {},
-      "address": "0x52d63DC258e713c758a6FCF334fbc87572E86900",
-      "transactionHash": "0x33860580907c0a5cdf2d53f3f602dd4c8229159d619a481e435bdc7fd80e1eca"
-    },
-    "5777": {
-      "events": {},
-      "links": {},
-      "address": "0x6f400b4441AB8C7cc03247d0eEd4AaeF29cAeBC0",
-      "transactionHash": "0xddf66bdd524695d3af034a1045f39142b822246d0b3a27af89ff96c0443d502b"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-01-09T01:02:38.363Z",
+  "updatedAt": "2021-01-09T01:46:19.881Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
