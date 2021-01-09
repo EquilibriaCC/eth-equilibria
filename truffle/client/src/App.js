@@ -199,6 +199,12 @@ class App extends React.Component {
                             </Grid>
 
                         </Grid>
+                        <div style={{"margin-top":"8%"}}>
+                            <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"} target={"_blank"}> <button id={"submitButton"} style={{"width":"25%", "background-color":"#ff007a"}} onClick={() => {
+                                //this.handleStakeClick()
+                            }} ><h2>Uniswap</h2>
+                            </button></a>
+                        </div>
                     </div>
                     {/*<ReadOwner*/}
                     {/*    drizzle={this.props.drizzle}*/}
