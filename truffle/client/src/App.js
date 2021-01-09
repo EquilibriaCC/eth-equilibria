@@ -33,13 +33,21 @@ import TextField from "@material-ui/core/TextField";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0, stakeClick: 0, mul: 1};
+        this.state = {
+            loading: true,
+            drizzleState: null,
+            dataKey: null,
+            dataKeyXEQ: null,
+            ethPrice: 0,
+            stakeClick: 0,
+            mul: 1
+        };
     }
 
     componentDidMount() {
         const {drizzle} = this.props;
         if (window.outerWidth < 1280)
-            this.setState({mul:2.25})
+            this.setState({mul: 2.25})
         // subscribe to changes in the store
         this.unsubscribe = drizzle.store.subscribe(() => {
 
@@ -83,7 +91,7 @@ class App extends React.Component {
                     />
                     <button id={"submitButton"} onClick={() => {
                         //this.handleStakeClick()
-                    }} ><h3>Staking Disabled</h3>
+                    }}><h3>Staking Disabled</h3>
                     </button>
 
                 </div>
@@ -150,10 +158,16 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.state.loading) return (<div
-                style={{
-                    background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)",
-                }}>
+        if (this.state.loading) return (
+            <Container fluid>
+            <div className={"App"} style={{
+                "height":window.outerHeight, "width":window.outerWidth,
+                background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)",
+            }}>
+                <div id={"header"}>
+                    <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
+                </div>
+                <div style={{"width":"50%", "margin-left":"auto", "margin-right":"auto", "padding-top":"10%"}}><h2>Please open up your preferred wallet provider to connect.</h2></div>
                 <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
                         type="Puff"
                         color="rgba(0,115,252,1)"
@@ -162,20 +176,25 @@ class App extends React.Component {
                         timeout={3000} //3 secs
 
                 />
+                {/*<div id={"body"}>*/}
+                {/*    <div style={{"width":"50%"}}><p>"TEST</p></div>*/}
+                {/*</div>*/}
             </div>
+            </Container>
 
 
         );
 
         return (
-    <Container fluid style={{"background-color": "#252525"
-        }}>
+            <Container fluid style={{
+                "background-color": "#252525"
+            }}>
 
-                <div className="App" >
+                <div className="App">
                     <div id={"header"}>
                         <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
                     </div>
-                    <div id={"body"} >
+                    <div id={"body"}>
                         <Grid container spacing={10}
                               style={{"margin-left": "auto", "margin-right": "auto"}} id={"gridContainer"}>
                             <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
@@ -199,11 +218,15 @@ class App extends React.Component {
                             </Grid>
 
                         </Grid>
-                        <div style={{"margin-top":"8%"}}>
-                            <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"} target={"_blank"}> <button id={"submitButton"} style={{"width":"25%", "background-color":"#ff007a"}} onClick={() => {
-                                //this.handleStakeClick()
-                            }} ><h2>Uniswap</h2>
-                            </button></a>
+                        <div style={{"margin-top": "8%"}}>
+                            <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}
+                               target={"_blank"}>
+                                <button id={"submitButton"} style={{"width": "25%", "background-color": "#ff007a"}}
+                                        onClick={() => {
+                                            //this.handleStakeClick()
+                                        }}><h2>Uniswap</h2>
+                                </button>
+                            </a>
                         </div>
                     </div>
                     {/*<ReadOwner*/}
@@ -213,7 +236,7 @@ class App extends React.Component {
                 </div>
                 <div class={"footer"}>
                     <Grid container xm={12}
-                         >
+                    >
                         <Grid container item xs={1} style={{"margin-left": "auto", "margin-top": "8px"}}>
                             <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"}>
 
@@ -235,7 +258,6 @@ class App extends React.Component {
                     </Grid>
 
 
-                   
                 </div>
             </Container>
 
