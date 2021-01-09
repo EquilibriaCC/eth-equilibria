@@ -33,7 +33,7 @@ import TextField from "@material-ui/core/TextField";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0, stakeClick: 0, mul: 1};
+        this.state = {loading: true, drizzleState: null, dataKey: null, dataKeyXEQ: null, ethPrice: 0, stakeClick: 0, mul: 1, initialized: false};
     }
 
     componentDidMount() {
@@ -48,8 +48,8 @@ class App extends React.Component {
 
             // check to see if it's ready, if so, update local component state
             if (drizzleState.drizzleStatus.initialized) {
-                this.setState({loading: false, drizzleState});
-            }
+                this.setState({loading: false, initialized: true, drizzleState});
+            } 
 
         });
     }
@@ -166,6 +166,10 @@ class App extends React.Component {
 
 
         );
+
+        // if (!this.state.initialized) return (
+        //     <div>No Meta Mask Found!</div>
+        // )
 
         return (
     <Container fluid style={{"background-color": "#252525"

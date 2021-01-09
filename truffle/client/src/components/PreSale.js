@@ -1,7 +1,19 @@
 import React from "react";
+/* global BigInt */
 
 class PreSale extends React.Component {
-    state = { stackId: null};
+    state = { stackId: null, val: 0, dataKey: null};
+
+    componentDidMount() {
+        this.update();
+    }
+
+    update() {
+        const { drizzle } = this.props;
+
+        let dataKey = this.props.drizzle.contracts.PreSale.methods["lastETHPrice"].cacheCall();
+        this.setState({dataKey: dataKey})
+    }
 
     handleKeyDown = e => {
         // if the enter key is pressed, set the value with the string
@@ -15,20 +27,16 @@ class PreSale extends React.Component {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.PreSale
 
+        if (value <= 0)
+            return
+        value = Math.round(value * (10**10))
+        value = Number(value) * Number(10**8)
 
-        const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        instance.methods.deposit(
-        )
-            .estimateGas()
-            .then(gasAmount => {
-                const stackId = contract.methods["deposit"].cacheSend(
-                    { from: drizzleState.accounts[0], gas: gasAmount, value: value }
-                );
-                this.setState({ stackId });
-            })
-            .catch(error => {
-                console.log(47, error);
-            });
+        const stackId = contract.methods["deposit"].cacheSend(
+            { from: drizzleState.accounts[0], value: value }
+        );
+        this.setState({ stackId });
+      
     };
 
     getTxStatus = () => {
@@ -45,13 +53,33 @@ class PreSale extends React.Component {
         return `Transaction status: ${transactions[txHash] && transactions[txHash].status}`;
     };
 
+    getAmount = () => {
+        let coins = 0;
+        let ethPrice = 0;
+        if (this.state.val == 0)
+            return;
+
+        if (Object.keys(this.props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
+            ethPrice = (Number(this.props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8))
+
+        coins = ((ethPrice * this.state.val) / 0.15).toLocaleString()
+
+        // otherwise, return the transaction status
+        return `Receive ~${coins} wXEQ`;
+    };
+
+
 
     render() {
         return (
             <div>
-                <h3>Deposit ETH and Recieve wXEQ</h3>
-                <input type="text" id={"inputText"} placeholder={"Amount of ETH to send"} onKeyDown={this.handleKeyDown} />
-                <div id={"inputBox"}><p style={{"color":"#fff", "font-size":"16px"}}>{this.getTxStatus()}</p></div>
+                <input type="text" style={{"width":"40%"}} onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount of ETH to Swap" onKeyDown={this.handleKeyDown} />
+                <div id={"inputBox"}><p>{this.getAmount()}</p></div>
+                <div style={{"padding-bottom":"30px"}}>
+                    <button id={"submitButton"} style={{"width":"40%"}} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
+                </div>
+                <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
+                <div id={"inputBox"}><p style={{"color":"#fff", "font-size":"16px"}}>{}</p></div>
             </div>
         );
     }

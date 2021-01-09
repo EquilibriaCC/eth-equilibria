@@ -8,7 +8,7 @@ import ApproveCoins from "./Approve";
 import RemoveStake from "./RemoveStake";
 import Grid from '@material-ui/core/Grid';
 import WithdrawStake from "./WithdrawStake";
-import React, { useRef, useState } from 'react';
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -80,10 +80,12 @@ export default function PresaleModal(props) {
                                     "margin-left": "auto",
                                     "margin-right": "auto",
                                 }}>
-                                    <h1>wXEQ Presale</h1>
-                                    <h3><button style={{"width":"40%"}} onClick={() => {navigator.clipboard.writeText(text)}} id={"submitButton"}><p>{text.substring(0, 10)}...{text.substring(text.length-4, text.length)}</p></button></h3>
+                                    <h1>wXEQ Presale</h1>                                    
+                                    <h3>Deposit ETH and Recieve wXEQ</h3>
                                     <p>Send ETH (${ethPrice}) to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
                                     <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: {wXEQ_Minted} | Remaining wXEQ for sale: {remaining}</p>
+                                    <PreSale drizzle={props.drizzle}
+                                    drizzleState={props.drizzleState}></PreSale>
                                 </div>
                         </Grid>
                     </Grid>

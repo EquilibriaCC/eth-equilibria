@@ -35,7 +35,7 @@ class PresaleInfo extends React.Component {
         let cap = 0
 
         return (
-            <div>
+            <div style={{"padding-top":"0"}}>
                 <h1>Presale Info</h1>
                 <h2>Presale Target</h2>
                 <p id={"bigNumber"}>{(9800000).toLocaleString()}</p>
