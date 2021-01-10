@@ -40,15 +40,18 @@ export default function PresaleModal(props) {
     let wXEQ_Minted = 0
     let remaining = 0
     let ethPrice = 0
-
+    let xeqRate = 0
     if (Object.keys(props.drizzleState.contracts.PreSale.ethMinted).length > 0)
         ethamount = (Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString()
 
     if (Object.keys(props.drizzleState.contracts.PreSale.wXEQminted).length > 0)
         wXEQ_Minted = (Number(props.drizzleState.contracts.PreSale.wXEQminted["0x0"].value)/(10**18)).toLocaleString()
 
+    if (Object.keys(props.drizzleState.contracts.PreSale.xeqRate).length > 0)
+        xeqRate = (Number(props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18)).toLocaleString()
+
     if (Object.keys(props.drizzleState.contracts.PreSale.wXEQLeft).length > 0)
-        remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
+        remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**16)).toLocaleString()
     if (Object.keys(props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
         ethPrice = (Number(props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8)).toLocaleString()
     let text = props.drizzle.contracts.PreSale.address
@@ -82,7 +85,7 @@ export default function PresaleModal(props) {
                                 }}>
                                     <h1>wXEQ Presale</h1>                                    
                                     <h3>Deposit ETH and Recieve wXEQ</h3>
-                                    <p>Send ETH (${ethPrice}) to the above address and receive 1 wXEQ for every $0.15 worth of ETH sent.</p>
+                                    <p>Send ETH (${ethPrice}) to the above address and receive 1 wXEQ for every ${xeqRate} worth of ETH sent.</p>
                                     <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: {wXEQ_Minted} | Remaining wXEQ for sale: {remaining}</p>
                                     <PreSale drizzle={props.drizzle}
                                     drizzleState={props.drizzleState}></PreSale>

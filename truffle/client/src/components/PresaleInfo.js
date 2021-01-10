@@ -11,6 +11,7 @@ class PresaleInfo extends React.Component {
         dataKey = this.props.drizzle.contracts.PreSale.methods["ethMinted"].cacheCall();
         dataKey = this.props.drizzle.contracts.PreSale.methods["wXEQminted"].cacheCall();
         dataKey = this.props.drizzle.contracts.PreSale.methods["lastETHPrice"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSale.methods["xeqRate"].cacheCall();
 
         this.setState({dataKey: dataKey})
     }
@@ -21,9 +22,12 @@ class PresaleInfo extends React.Component {
 
     render() {
         let wXEQLeft = 0
+        let xeqRate = 0
         try {
             let key = Object.keys(this.props.drizzleState.contracts.PreSale["wXEQLeft"])[0]
             wXEQLeft = this.props.drizzleState.contracts.PreSale["wXEQLeft"][key].value
+            xeqRate = (Number(this.props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18)).toLocaleString()
+
         }
         catch {
 
@@ -40,7 +44,7 @@ class PresaleInfo extends React.Component {
                 <h2>Presale Target</h2>
                 <p id={"bigNumber"}>{(9800000).toLocaleString()}</p>
                 <h2>Exchange Rate</h2>
-                <p id={"bigNumber"}>$0.15</p>
+                <p id={"bigNumber"}>${xeqRate}</p>
                 <h2>wXEQ Remaining</h2>
                 <p id={"bigNumber"}>{(Number(wXEQLeft)/(10**18)).toLocaleString()}</p>
                 {/*<h2>Presale Expiration Block</h2>*/}
