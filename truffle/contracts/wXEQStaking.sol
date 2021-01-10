@@ -38,9 +38,11 @@ contract SoftStaking is Ownable {
         blockReward = _reward;
     }
 
-    // Get user pending reward. May be outdated until someone calls cleanup.
     function getPendingReward(address _user) public view returns (uint256) {
         UserInfo storage user = userInfo[_user];
+        if (user.amount == 0) {
+            return 0;
+        }
         uint256 user_time = block.number - user.stakingBlock;
         uint256 baseReward = user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
 
@@ -49,6 +51,9 @@ contract SoftStaking is Ownable {
 
     function getFeeReward(address _user) public view returns (uint256) {
         UserInfo storage user = userInfo[_user];
+        if (user.amount == 0) {
+            return 0;
+        }
         uint256 user_time = block.number - user.stakingBlock;
         uint256 fees = dataStorage.balanceOf(address(this));
         uint256 my_fees = user.amount.mul(10.pow(18)).div(totalStaked).mul(fees);
@@ -79,16 +84,20 @@ contract SoftStaking is Ownable {
     function leave(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount > 0);
+        
         uint256 base_reward = getPendingReward(msg.sender);
         uint256 fee_reward = getFeeReward(msg.sender);
+        uint256 withdrawAmount = _amount.add(base_reward);
+        
         user.amount = user.amount.sub(_amount);
         user.stakingBlock = 0;
         totalStaked = totalStaked.sub(_amount);
-        wXEQContract.mint(msg.sender, base_reward);
+        wXEQContract.mint(msg.sender, withdrawAmount);
         if (fee_reward > 0) {
+            require(dataStorage.balanceOf(address(this)) >= fee_reward);
             wXEQContract.transfer(msg.sender, fee_reward);
         }
-        emit Leave(msg.sender, _amount);
+        emit Leave(msg.sender, withdrawAmount);
     }
 
     function withdrawRewards() public {
