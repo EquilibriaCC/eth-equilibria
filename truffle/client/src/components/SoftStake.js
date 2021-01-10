@@ -61,7 +61,7 @@ class AddStake extends React.Component {
                 <h6>Lock wXEQ and Earn Rewards<br/>(you currently have {appCoins} approved)</h6>
                 <input type="text" onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount to Stake" onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
-                <div style={{"padding-bottom":"30px"}}>
+                <div style={{"paddingBottom":"30px"}}>
                     <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
                 </div>
             </div>

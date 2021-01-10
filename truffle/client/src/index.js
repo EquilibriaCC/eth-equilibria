@@ -26,4 +26,4 @@ const options = {
 // setup the drizzle store and drizzle
 const drizzle = new Drizzle(options);
 // <SmartContractModal/>
-ReactDOM.render(<App drizzle={drizzle} style={{"background-color":"#252525"}} />, document.getElementById('root'));
+ReactDOM.render(<App drizzle={drizzle} style={{"backgroundColor":"#252525"}} />, document.getElementById('root'));

@@ -47,7 +47,7 @@ export default function BasicTable(props) {
     // }
 
     return (
-        <TableContainer component={Paper} style={{"background-color":"transparent"}} id={"modalPopup"}>
+        <TableContainer component={Paper} style={{"backgroundColor":"transparent"}} id={"modalPopup"}>
             <Table className={classes.table} aria-label="simple table" id={"modalPopup"}>
                 <TableHead>
                     <TableRow>

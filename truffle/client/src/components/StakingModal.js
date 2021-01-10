@@ -38,7 +38,7 @@ export default function TransitionsModal(props) {
     };
 
     return (
-        <div className={"App"} style={{"background":"transparent", "padding-bottom":"30px"}}>
+        <div className={"App"} style={{"background":"transparent", "paddingBottom":"30px"}}>
             <button id={"submitButton"} onClick={handleOpen}><h3>Add Stake</h3></button>
 
             <Modal
@@ -54,14 +54,14 @@ export default function TransitionsModal(props) {
                 }}
             >
                 <Fade in={open} style={{"width":"80%"}}>
-                    <div className={"App"} style={{"background":"transparent", "width":"60%", "margin-right":"auto", "margin-left":"auto"}} id={"modalPopup"} >
+                    <div className={"App"} style={{"background":"transparent", "width":"60%", "marginRight":"auto", "marginLeft":"auto"}} id={"modalPopup"} >
                         <Grid container spacing={0} id={"modalPopup"}
-                        style={{"margin-left": "auto", "margin-right": "auto"}}>
+                        style={{"marginLeft": "auto", "marginRight": "auto"}}>
                         <Grid container item xs={12} >
 
                             <Grid container item xs={12} lg={6} >
                                 <div id={"dataContainer"}
-                                     style={{"width": "80%", "margin-left": "auto", "margin-right": "auto"}}>
+                                     style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
                                     <h1>Approve Tokens</h1>
                                     <ApproveCoins
                                         drizzle={props.drizzle}
@@ -72,9 +72,9 @@ export default function TransitionsModal(props) {
                             <Grid container item xs={12} lg={6} >
                                 <div id={"dataContainer"} style={{
                                     "width": "80%",
-                                    "margin-left": "auto",
-                                    "margin-right": "auto",
-                                    // "margin-top": "20px"
+                                    "marginLeft": "auto",
+                                    "marginRight": "auto",
+                                    // "marginTop": "20px"
                                 }}>
                                     <h1>Stake wXEQ</h1>
                                     <AddStake

@@ -38,7 +38,7 @@ export default function RemoveStakeModal(props) {
     };
 
     return (
-        <div className={"App"} style={{"background":"transparent", "padding-bottom":"30px"}}>
+        <div className={"App"} style={{"background":"transparent", "paddingBottom":"30px"}}>
             <button id={"submitButton"} onClick={handleOpen}><h3>Remove Stake</h3></button>
 
             <Modal
@@ -56,10 +56,10 @@ export default function RemoveStakeModal(props) {
                 <Fade in={open} style={{"width":"80%"}}>
                     <div className={"App"} style={{"background":"transparent", "width":"60%"}} id={"modalPopup"} >
                         <Grid container spacing={0} id={"modalPopup"}
-                        style={{"margin-left": "auto", "margin-right": "auto"}}>
+                        style={{"marginLeft": "auto", "marginRight": "auto"}}>
                             <Grid container item xs={12}>
                                 <div id={"dataContainer"}
-                                     style={{"width": "90%", "margin-left": "auto", "margin-right": "auto"}}>
+                                     style={{"width": "90%", "marginLeft": "auto", "marginRight": "auto"}}>
                                     <h1>Remove Stake</h1>
                                     <RemoveStake
                                         drizzle={props.drizzle}

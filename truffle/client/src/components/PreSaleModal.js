@@ -55,7 +55,7 @@ export default function PresaleModal(props) {
     // if (copied)
     //     text = "Copied"
     return (
-        <div className={"App"} style={{"background":"transparent", "padding-bottom":"30px"}}>
+        <div className={"App"} style={{"background":"transparent", "paddingBottom":"30px"}}>
             <button id={"submitButton"} onClick={handleOpen}><h3>Presale</h3></button>
 
             <Modal
@@ -73,12 +73,12 @@ export default function PresaleModal(props) {
                 <Fade in={open} style={{"width":"80%"}}>
                     <div className={"App"} style={{"background":"transparent", "width":"80%"}} id={"modalPopup"} >
                         <Grid container spacing={0} id={"modalPopup"}
-                        style={{"margin-left": "auto", "margin-right": "auto"}}>
+                        style={{"marginLeft": "auto", "marginRight": "auto"}}>
                         <Grid container item xs={12} >
                                 <div id={"dataContainer"} style={{
                                     "width": "80%",
-                                    "margin-left": "auto",
-                                    "margin-right": "auto",
+                                    "marginLeft": "auto",
+                                    "marginRight": "auto",
                                 }}>
                                     <h1>wXEQ Presale</h1>                                    
                                     <h3>Deposit ETH and Recieve wXEQ</h3>

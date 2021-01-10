@@ -13,6 +13,7 @@ class PoolPercent extends React.Component {
 
 
         this.setState({stakingAddress: stakingAddress, dataKey: dataKey, dataKeyStaking : dataKeyStaking })
+        
     }
 
     componentDidMount() {
@@ -22,14 +23,17 @@ class PoolPercent extends React.Component {
     render() {
         let approvedCoins = 0
         let staked = 0;
+        let totalStaked = 0
         try {
-           staked = this.props.drizzleState.contracts.SoftStaking["userInfo"][this.state.dataKeyStaking].value.amount
-           approvedCoins = staked/this.props.drizzleState.contracts.SoftStaking["totalStaked"][this.state.dataKey].value
+           staked = (Number(this.props.drizzleState.contracts.SoftStaking["userInfo"][this.state.dataKeyStaking].value.amount))
+           totalStaked = (Number(this.props.drizzleState.contracts.SoftStaking["totalStaked"][this.state.dataKey].value))
+           approvedCoins = staked/totalStaked
         } catch{}
-        let coins = (Number(approvedCoins))
-        let coinDisplay = <p id={"bigNumber"} >{(Number(approvedCoins)*100).toFixed(4)}%</p>
-        if (coins === 0)
-            coinDisplay = <p id={"bigNumber"} style={{"color":"#ef101e"}}>{(Number(approvedCoins)/(10**18)*100).toLocaleString()}%</p>
+        let coins = approvedCoins
+        let coinDisplay = <p id={"bigNumber"} >{(Number(coins)*100).toFixed(4)}%</p>
+        if (staked === 0)
+            coinDisplay = <p id={"bigNumber"} style={{"color":"#ef101e"}}>{(0).toLocaleString()}% </p>
+           
         return (
             <div>
                 {coinDisplay}

@@ -67,7 +67,7 @@ class RemoveStake extends React.Component {
                 <h3>Unlock some of your wXEQ from the staking pool<br/>(You currently have {appCoins} wXEQ staked)</h3>
                 <input style={{"width":"42.5%"}} type="text" onChange={(e) => {this.setState({val: e.target.value})}} placeholder={"Amount to Remove"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
-                <div style={{"padding-bottom":"30px"}}>
+                <div style={{"paddingBottom":"30px"}}>
                     <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
                 </div>
 

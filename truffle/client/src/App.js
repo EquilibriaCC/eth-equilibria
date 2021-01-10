@@ -75,9 +75,9 @@ class App extends React.Component {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
-                    "margin-left": "auto",
-                    "margin-right": "auto",
-                    "padding-bottom": "0px"
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
                 }}>
                     <h1>Account Info</h1>
                     <h2>Balance</h2>
@@ -100,9 +100,9 @@ class App extends React.Component {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
-                    "margin-left": "auto",
-                    "margin-right": "auto",
-                    "padding-bottom": "0px"
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
                 }}>
                     <h1>Staking Stats</h1>
                     <h2>Current Stake</h2>
@@ -130,9 +130,9 @@ class App extends React.Component {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
-                    "margin-left": "auto",
-                    "margin-right": "auto",
-                    "padding-bottom": "0px"
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
                 }}>
                     <h1>Change Stake</h1>
 
@@ -167,7 +167,7 @@ class App extends React.Component {
                 <div id={"header"}>
                     <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
                 </div>
-                <div style={{"width":"50%", "margin-left":"auto", "margin-right":"auto", "padding-top":"10%"}}><h2>Please open up your preferred wallet provider to connect.</h2></div>
+                <div style={{"width":"50%", "marginLeft":"auto", "marginRight":"auto", "paddingTop":"10%"}}><h2>Please open up your preferred wallet provider to connect.</h2></div>
                 <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
                         type="Puff"
                         color="rgba(0,115,252,1)"
@@ -191,7 +191,7 @@ class App extends React.Component {
 
         return (
             <Container fluid style={{
-                "background-color": "#252525"
+                "backgroundColor": "#252525"
             }}>
 
                 <div className="App">
@@ -200,18 +200,18 @@ class App extends React.Component {
                     </div>
                     <div id={"body"}>
                         <Grid container spacing={10}
-                              style={{"margin-left": "auto", "margin-right": "auto"}} id={"gridContainer"}>
-                            <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
+                              style={{"marginLeft": "auto", "marginRight": "auto"}} id={"gridContainer"}>
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 10}}>
                                 <Grid container item xs={12} spacing={3}>
                                     {this.stakingBox()
                                     }
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6} style={{"margin-top": window.outerHeight / 10}}>
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 10}}>
                                 <Grid container item xs={12} spacing={3}>
                                     <div id={"dataContainer"}
-                                         style={{"width": "80%", "margin-left": "auto", "margin-right": "auto"}}>
+                                         style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
                                         <PresaleInfo drizzle={this.props.drizzle}
                                                      drizzleState={this.state.drizzleState}/>
                                         <PresaleModal
@@ -222,10 +222,10 @@ class App extends React.Component {
                             </Grid>
 
                         </Grid>
-                        <div style={{"margin-top": "8%"}}>
+                        <div style={{"marginTop": "8%"}}>
                             <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}
                                target={"_blank"}>
-                                <button id={"submitButton"} style={{"width": "25%", "background-color": "#ff007a"}}
+                                <button id={"submitButton"} style={{"width": "25%", "backgroundColor": "#ff007a"}}
                                         onClick={() => {
                                             //this.handleStakeClick()
                                         }}><h2>Uniswap</h2>
@@ -238,23 +238,23 @@ class App extends React.Component {
                     {/*    drizzleState={this.state.drizzleState}*/}
                     {/*/>*/}
                 </div>
-                <div class={"footer"}>
+                <div className={"footer"}>
                     <Grid container xm={12}
                     >
-                        <Grid container item xs={1} style={{"margin-left": "auto", "margin-top": "8px"}}>
+                        <Grid container item xs={1} style={{"marginLeft": "auto", "marginTop": "8px"}}>
                             <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"}>
 
                                 <TelegramIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
                         <Grid container item xs={1}
-                              style={{"margin-left": "auto", "margin-right": "auto", "margin-top": "8px"}}>
+                              style={{"marginLeft": "auto", "marginRight": "auto", "marginTop": "8px"}}>
                             <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"}>
 
                                 <TwitterIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
-                        <Grid container item xs={1} style={{"margin-right": "auto", "margin-top": "8px"}}>
+                        <Grid container item xs={1} style={{"marginRight": "auto", "marginTop": "8px"}}>
                             <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"}>
                                 <GitHubIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
