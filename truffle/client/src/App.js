@@ -29,6 +29,7 @@ import PoolPercent from "./components/PoolPercent";
 import Loader from 'react-loader-spinner'
 import {css} from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import TextField from "@material-ui/core/TextField";
+import {ReactNavbar} from "react-responsive-animate-navbar";
 
 class App extends React.Component {
     constructor(props) {
@@ -193,14 +194,42 @@ class App extends React.Component {
             <Container fluid style={{
                 "backgroundColor": "#252525"
             }}>
-
+                <ReactNavbar
+                color="rgb(25, 25, 25)"
+                logo="/xeq_logo_with_padding.png"
+                menu={[]}
+                social={[
+                {
+                    name: "Linkedin",
+                    url: "https://www.linkedin.com/in/nazeh-taha/",
+                    icon: ["fab", "linkedin-in"],
+                },
+                {
+                    name: "Facebook",
+                    url: "https://www.facebook.com/nazeh200/",
+                    icon: ["fab", "facebook-f"],
+                },
+                {
+                    name: "Instagram",
+                    url: "https://www.instagram.com/nazeh_taha/",
+                    icon: ["fab", "instagram"],
+                },
+                {
+                    name: "Twitter",
+                    url: "http://nazehtaha.herokuapp.com/",
+                    icon: ["fab", "twitter"],
+                },
+                ]}
+                style={{"marginTop":"auto", "marginBottom":"0", "marginRight": "0", "padding-bottom":"20px"}}
+                />
                 <div className="App">
-                    <div id={"header"}>
+            
+                    {/* <div id={"header"}>
                         <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
-                    </div>
+                    </div> */}
                     <div id={"body"}>
                         <Grid container spacing={10}
-                              style={{"marginLeft": "auto", "marginRight": "auto"}} id={"gridContainer"}>
+                              style={{"marginTop":"auto","marginLeft": "auto", "marginRight": "auto"}} id={"gridContainer"}>
                             <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 10}}>
                                 <Grid container item xs={12} spacing={3}>
                                     {this.stakingBox()
