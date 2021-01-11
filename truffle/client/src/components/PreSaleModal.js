@@ -51,7 +51,8 @@ export default function PresaleModal(props) {
         xeqRate = (Number(props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18)).toLocaleString()
 
     if (Object.keys(props.drizzleState.contracts.PreSale.wXEQLeft).length > 0)
-        remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**16)).toLocaleString()
+        remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
+
     if (Object.keys(props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
         ethPrice = (Number(props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8)).toLocaleString()
     let text = props.drizzle.contracts.PreSale.address

@@ -12,6 +12,7 @@ class PreSale extends React.Component {
         const { drizzle } = this.props;
 
         let dataKey = this.props.drizzle.contracts.PreSale.methods["lastETHPrice"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSale.methods["xeqRate"].cacheCall();
         this.setState({dataKey: dataKey})
     }
 
@@ -60,23 +61,25 @@ class PreSale extends React.Component {
     getAmount = () => {
         let coins = 0;
         let ethPrice = 0;
+        let xeqRate = 0;
+
         if (this.state.val == 0)
             return;
-
-
 
         if (Object.keys(this.props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
             ethPrice = (Number(this.props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8))
 
-        coins = ((ethPrice * this.state.val) / 0.15).toLocaleString()
+        xeqRate = (Number(this.props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18))
+        
+        console.log(xeqRate)
+        coins = ((ethPrice * this.state.val) / (xeqRate )).toLocaleString()
 
         if (coins == "NaN")
             return "Invalid Number"
 
-        let value = Math.round(((ethPrice * this.state.val) / 0.15) * (10**10))
-        value = Number(value) * Number(10**8)
+        let eth_amount = Number(this.state.val) * Number(10**8)
 
-        if (value > Number(this.props.drizzleState.accountBalances[this.props.drizzleState.accounts[0]]))
+        if (eth_amount > Number(this.props.drizzleState.accountBalances[this.props.drizzleState.accounts[0]]))
             return "Amount is larger than your balance"
 
         // otherwise, return the transaction status
