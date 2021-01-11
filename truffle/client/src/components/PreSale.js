@@ -76,7 +76,7 @@ class PreSale extends React.Component {
                 <input type="text" style={{"width":"40%"}} onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount of ETH to Swap" onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getAmount()}</p></div>
                 <div style={{"paddingBottom":"30px"}}>
-                    <button id={"submitButton"} style={{"width":"40%"}} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
+                    <button id={"submitButton"} style={{"width":"40%"}} onClick={ () => {this.setValue(this.state.val)}}><h3>Buy</h3></button>
                 </div>
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
                 <div id={"inputBox"}><p style={{"color":"#fff", "font-size":"16px"}}>{}</p></div>

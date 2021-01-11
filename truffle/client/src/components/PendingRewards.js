@@ -22,7 +22,7 @@ class PendingRewards extends React.Component {
         try {
             let pendingRewards = ((Number(this.props.drizzleState.contracts.SoftStaking["getPendingReward"][this.state.dataKeyStaking].value)/(10**18)) + (Number(this.props.drizzleState.contracts.SoftStaking["getFeeReward"][this.state.dataKeyStaking].value)/(10**18))).toLocaleString() 
             if (pendingRewards === "0") {
-                return <p id={"bigNumber"} style={{"color":"#ef101e"}}>{pendingRewards}</p>
+                return <p id={"bigNumber"} style={{"color":"#ef101e"}}>{pendingRewards} wXEQ</p>
             }
             return <p id={"bigNumber"}>{pendingRewards}</p>
         } catch {

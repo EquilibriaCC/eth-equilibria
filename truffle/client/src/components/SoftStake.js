@@ -62,7 +62,7 @@ class AddStake extends React.Component {
                 <input type="text" onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount to Stake" onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
                 <div style={{"paddingBottom":"30px"}}>
-                    <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Submit</h3></button>
+                    <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Stake</h3></button>
                 </div>
             </div>
         );
