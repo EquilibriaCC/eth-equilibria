@@ -194,7 +194,7 @@ class App extends React.Component {
             <Container fluid style={{
                 "backgroundColor": "#252525"
             }}>
-                <ReactNavbar
+                {/* <ReactNavbar
                 color="rgb(25, 25, 25)"
                 logo="/xeq_logo_with_padding.png"
                 menu={[]}
@@ -221,12 +221,12 @@ class App extends React.Component {
                 },
                 ]}
                 style={{"marginTop":"auto", "marginBottom":"0", "marginRight": "0", "padding-bottom":"20px"}}
-                />
+                /> */}
                 <div className="App">
             
-                    {/* <div id={"header"}>
+                    <div id={"header"}>
                         <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
-                    </div> */}
+                    </div>
                     <div id={"body"}>
                         <Grid container spacing={10}
                               style={{"marginTop":"auto","marginLeft": "auto", "marginRight": "auto"}} id={"gridContainer"}>
