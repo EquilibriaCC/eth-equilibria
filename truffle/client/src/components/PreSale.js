@@ -32,6 +32,10 @@ class PreSale extends React.Component {
         value = Math.round(value * (10**10))
         value = Number(value) * Number(10**8)
 
+
+        if (value > Number(this.props.drizzleState.accountBalances[this.props.drizzleState.accounts[0]]))
+            return
+
         const stackId = contract.methods["deposit"].cacheSend(
             { from: drizzleState.accounts[0], value: value }
         );
@@ -59,10 +63,21 @@ class PreSale extends React.Component {
         if (this.state.val == 0)
             return;
 
+
+
         if (Object.keys(this.props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
             ethPrice = (Number(this.props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8))
 
         coins = ((ethPrice * this.state.val) / 0.15).toLocaleString()
+
+        if (coins == "NaN")
+            return "Invalid Number"
+
+        let value = Math.round(((ethPrice * this.state.val) / 0.15) * (10**10))
+        value = Number(value) * Number(10**8)
+
+        if (value > Number(this.props.drizzleState.accountBalances[this.props.drizzleState.accounts[0]]))
+            return "Amount is larger than your balance"
 
         // otherwise, return the transaction status
         return `Receive ~${coins} wXEQ`;

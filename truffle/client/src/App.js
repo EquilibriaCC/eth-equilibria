@@ -29,7 +29,7 @@ import PoolPercent from "./components/PoolPercent";
 import Loader from 'react-loader-spinner'
 import {css} from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import TextField from "@material-ui/core/TextField";
-import {ReactNavbar} from "react-responsive-animate-navbar";
+// import {ReactNavbar} from "react-responsive-animate-navbar";
 
 class App extends React.Component {
     constructor(props) {
@@ -159,6 +159,7 @@ class App extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         if (this.state.loading) return (
             <Container fluid>
             <div className={"App"} style={{
@@ -186,42 +187,38 @@ class App extends React.Component {
 
         );
 
-        // if (!this.state.initialized) return (
-        //     <div>No Meta Mask Found!</div>
-        // )
-
         return (
             <Container fluid style={{
                 "backgroundColor": "#252525"
             }}>
-                {/* <ReactNavbar
-                color="rgb(25, 25, 25)"
-                logo="/xeq_logo_with_padding.png"
-                menu={[]}
-                social={[
-                {
-                    name: "Linkedin",
-                    url: "https://www.linkedin.com/in/nazeh-taha/",
-                    icon: ["fab", "linkedin-in"],
-                },
-                {
-                    name: "Facebook",
-                    url: "https://www.facebook.com/nazeh200/",
-                    icon: ["fab", "facebook-f"],
-                },
-                {
-                    name: "Instagram",
-                    url: "https://www.instagram.com/nazeh_taha/",
-                    icon: ["fab", "instagram"],
-                },
-                {
-                    name: "Twitter",
-                    url: "http://nazehtaha.herokuapp.com/",
-                    icon: ["fab", "twitter"],
-                },
-                ]}
-                style={{"marginTop":"auto", "marginBottom":"0", "marginRight": "0", "padding-bottom":"20px"}}
-                /> */}
+                {/*<ReactNavbar*/}
+                {/*color="rgb(25, 25, 25)"*/}
+                {/*logo="/xeq_logo_with_padding.png"*/}
+                {/*menu={[]}*/}
+                {/*social={[*/}
+                {/*{*/}
+                {/*    name: "Linkedin",*/}
+                {/*    url: "https://www.linkedin.com/in/nazeh-taha/",*/}
+                {/*    icon: ["fab", "linkedin-in"],*/}
+                {/*},*/}
+                {/*{*/}
+                {/*    name: "Facebook",*/}
+                {/*    url: "https://www.facebook.com/nazeh200/",*/}
+                {/*    icon: ["fab", "facebook-f"],*/}
+                {/*},*/}
+                {/*{*/}
+                {/*    name: "Instagram",*/}
+                {/*    url: "https://www.instagram.com/nazeh_taha/",*/}
+                {/*    icon: ["fab", "instagram"],*/}
+                {/*},*/}
+                {/*{*/}
+                {/*    name: "Twitter",*/}
+                {/*    url: "http://nazehtaha.herokuapp.com/",*/}
+                {/*    icon: ["fab", "twitter"],*/}
+                {/*},*/}
+                {/*]}*/}
+                {/*style={{"marginTop":"auto", "marginBottom":"0", "marginRight": "0", "padding-bottom":"20px"}}*/}
+                {/*/>*/}
                 <div className="App">
             
                     <div id={"header"}>
