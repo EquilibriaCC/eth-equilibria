@@ -1,36 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import ReadString from "./components/ReadString";
-import SetString from "./components/Approve";
-import ReadOwner from "./ReadOwner"
-import ApproveCoins from "./components/Approve";
-import AddStake from "./components/SoftStake";
-import RemoveStake from "./components/RemoveStake";
 import RemoveStakeModal from "./components/RemoveStakeModal";
 import WithdrawStake from "./components/WithdrawStake";
-import ForceRewardUpdate from "./components/ForceRewardUpdate";
 import Grid from '@material-ui/core/Grid';
 import Container from 'react-bootstrap/Container';
 import Balance from "./components/Balance";
 import GetStake from "./components/GetStake";
 import PendingRewards from "./components/PendingRewards";
-import PreSale from "./components/PreSale";
 import PresaleInfo from "./components/PresaleInfo";
-import BasicTable from "./components/SmartContracts";
 import TelegramIcon from '@material-ui/icons/Telegram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import Allowance from "./components/Allowance";
 import TransitionsModal from "./components/StakingModal";
 import PresaleModal from "./components/PreSaleModal";
 import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
-import Loader from 'react-loader-spinner'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';import PresaleRounds from "./components/PresaleRoundsModal";
 import PresaleRoundsModal from "./components/PresaleRoundsModal";
-import {ReactNavbar} from "react-responsive-animate-navbar";
-
+// import Web3 from "web3";
+// import Web3Modal from "web3modal";
+//
+// const providerOptions = {
+//     /* See Provider Options Section */
+// };
+//
+// const web3Modal = new Web3Modal({
+//     network: "mainnet", // optional
+//     cacheProvider: true, // optional
+//     providerOptions // required
+// });
+//
+// const provider = await web3Modal.connect();
+//
+// const web3 = new Web3(provider);
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -170,14 +172,14 @@ class App extends React.Component {
                     </div>
                     <div style={{"width": "50%", "marginLeft": "auto", "marginRight": "auto", "paddingTop": "10%"}}>
                         <h2>Please open up your preferred wallet provider to connect.</h2></div>
-                    <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
-                            type="Puff"
-                            color="rgba(0,115,252,1)"
-                            height={100}
-                            width={100}
-                            timeout={3000} //3 secs
+                    {/*<Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}*/}
+                    {/*        type="Puff"*/}
+                    {/*        color="rgba(0,115,252,1)"*/}
+                    {/*        height={100}*/}
+                    {/*        width={100}*/}
+                    {/*        timeout={3000} //3 secs*/}
 
-                    />
+                    {/*/>*/}
                     {/*<div id={"body"}>*/}
                     {/*    <div style={{"width":"50%"}}><p>"TEST</p></div>*/}
                     {/*</div>*/}
@@ -270,20 +272,20 @@ class App extends React.Component {
                         <Grid container spacing={10}
                               style={{
                                   "marginTop": "auto",
+
                                   "marginLeft": "auto",
                                   "marginRight": "auto",
-                                  "padding-top": "5%",
-                                  "padding-bottom":"5%"
+
                               }} id={"gridContainer"}>
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15}}>
-                                <Grid container item xs={12} spacing={3}>
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15, "margin-left":"auto", "margin-right":"auto"}}>
+                                <Grid container item xs={12} >
                                     {this.stakingBox()
                                     }
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15}}>
-                                <Grid container item xs={12} spacing={3}>
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15, "margin-left":"auto", "margin-right":"auto"}}>
+                                <Grid container item xs={12} >
                                     <div id={"dataContainer"}
                                          style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
                                         <PresaleInfo drizzle={this.props.drizzle}
@@ -298,7 +300,7 @@ class App extends React.Component {
                         </Grid>
                     </div>
                 </div>
-                <div className={"footer"} style={{"border-top": "3px solid #fff", "width": "100%"}}>
+                <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%"}}>
 
                     <Grid container xm={12}
 
