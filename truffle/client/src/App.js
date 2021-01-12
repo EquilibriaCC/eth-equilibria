@@ -96,6 +96,7 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Start Staking</h3>
                     </button>
+                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
 
                 </div>
             )
@@ -126,6 +127,7 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Next</h3>
                     </button>
+                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
 
                 </div>
             )
@@ -150,6 +152,8 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Back</h3>
                     </button>
+                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+
 
                 </div>
             )
@@ -325,6 +329,7 @@ class App extends React.Component {
                         </Grid>
                     </div>
                 </div>
+                {window.outerWidth < 1280 && <div style={{"padding": "10vh", "background-color":"#14141d"}} />}
                 <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%", "padding":"auto"}}>
 
                     <Grid container xm={12}
