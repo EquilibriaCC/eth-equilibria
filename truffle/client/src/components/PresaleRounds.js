@@ -31,8 +31,8 @@ export default function PresaleRoundsTable(props) {
     let rows
     if (props.drizzleState.contracts.Master.initialized) {
         rows = [
-            createData('1', 0.03, (Number(props.drizzleState.contracts.PreSale.wXEQminted["0x0"].value)/(10**18)).toLocaleString() + "/" + (Number(props.drizzleState.contracts.PreSale.cap["0x0"].value)/(10**18)).toLocaleString(), (Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString(), "Ongoing",),
-            createData('2', 0.05, "0/2,000,000", "0","Awaiting"),
+            createData('1', 0.03, "500,000/500,000", "14.2", "Complete",),
+            createData('2', 0.05, ((-500000) + (Number(props.drizzleState.contracts.PreSale.wXEQminted["0x0"].value)/(10**18))).toLocaleString() + "/" + ((-500000) + (Number(props.drizzleState.contracts.PreSale.cap["0x0"].value)/(10**18))).toLocaleString(), ((-14.2) + Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString(),"Ongoing"),
             createData('3', 0.1, "0/2,500,000", "0","Awaiting"),
             createData('4', 0.15, "0/4,800,000", "0","Awaiting"),
         ]
