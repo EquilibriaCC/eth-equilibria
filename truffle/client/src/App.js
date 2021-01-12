@@ -27,9 +27,9 @@ import PresaleModal from "./components/PreSaleModal";
 import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
 import Loader from 'react-loader-spinner'
-import {css} from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import TextField from "@material-ui/core/TextField";
-// import {ReactNavbar} from "react-responsive-animate-navbar";
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';import PresaleRounds from "./components/PresaleRoundsModal";
+import PresaleRoundsModal from "./components/PresaleRoundsModal";
+import {ReactNavbar} from "react-responsive-animate-navbar";
 
 class App extends React.Component {
     constructor(props) {
@@ -58,7 +58,7 @@ class App extends React.Component {
             // check to see if it's ready, if so, update local component state
             if (drizzleState.drizzleStatus.initialized) {
                 this.setState({loading: false, initialized: true, drizzleState});
-            } 
+            }
 
         });
     }
@@ -159,29 +159,29 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         if (this.state.loading) return (
             <Container fluid>
-            <div className={"App"} style={{
-                "height":window.outerHeight, "width":window.outerWidth,
-                background: "linear-gradient(125deg, rgba(17,17,17,1) 20%, rgba(17,20,24,1) 44%, rgba(10,57,113,1) 73%, rgba(0,115,252,1) 100%)",
-            }}>
-                <div id={"header"}>
-                    <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
-                </div>
-                <div style={{"width":"50%", "marginLeft":"auto", "marginRight":"auto", "paddingTop":"10%"}}><h2>Please open up your preferred wallet provider to connect.</h2></div>
-                <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
-                        type="Puff"
-                        color="rgba(0,115,252,1)"
-                        height={100}
-                        width={100}
-                        timeout={3000} //3 secs
+                <div className={"App"} style={{
+                    "height": window.outerHeight, "width": "100%",
+                    "backgroundColor": "#1d2126",
+                }}>
+                    <div id={"header"}>
+                        <h2 id={"headerText"}>wXEQ Dashboard</h2>
+                    </div>
+                    <div style={{"width": "50%", "marginLeft": "auto", "marginRight": "auto", "paddingTop": "10%"}}>
+                        <h2>Please open up your preferred wallet provider to connect.</h2></div>
+                    <Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
+                            type="Puff"
+                            color="rgba(0,115,252,1)"
+                            height={100}
+                            width={100}
+                            timeout={3000} //3 secs
 
-                />
-                {/*<div id={"body"}>*/}
-                {/*    <div style={{"width":"50%"}}><p>"TEST</p></div>*/}
-                {/*</div>*/}
-            </div>
+                    />
+                    {/*<div id={"body"}>*/}
+                    {/*    <div style={{"width":"50%"}}><p>"TEST</p></div>*/}
+                    {/*</div>*/}
+                </div>
             </Container>
 
 
@@ -189,52 +189,100 @@ class App extends React.Component {
 
         return (
             <Container fluid style={{
-                "backgroundColor": "#252525"
+                "backgroundColor": "#1d2126"
             }}>
-                {/*<ReactNavbar*/}
-                {/*color="rgb(25, 25, 25)"*/}
-                {/*logo="/xeq_logo_with_padding.png"*/}
-                {/*menu={[]}*/}
-                {/*social={[*/}
-                {/*{*/}
-                {/*    name: "Linkedin",*/}
-                {/*    url: "https://www.linkedin.com/in/nazeh-taha/",*/}
-                {/*    icon: ["fab", "linkedin-in"],*/}
-                {/*},*/}
-                {/*{*/}
-                {/*    name: "Facebook",*/}
-                {/*    url: "https://www.facebook.com/nazeh200/",*/}
-                {/*    icon: ["fab", "facebook-f"],*/}
-                {/*},*/}
-                {/*{*/}
-                {/*    name: "Instagram",*/}
-                {/*    url: "https://www.instagram.com/nazeh_taha/",*/}
-                {/*    icon: ["fab", "instagram"],*/}
-                {/*},*/}
-                {/*{*/}
-                {/*    name: "Twitter",*/}
-                {/*    url: "http://nazehtaha.herokuapp.com/",*/}
-                {/*    icon: ["fab", "twitter"],*/}
-                {/*},*/}
-                {/*]}*/}
-                {/*style={{"marginTop":"auto", "marginBottom":"0", "marginRight": "0", "padding-bottom":"20px"}}*/}
-                {/*/>*/}
+                <div className={"footer"} style={{
+                    "border-bottom": "3px solid #fff",
+                    "width": "100%",
+                    "box-shadow": "rgba(0, 0, 0, 0.01) 0 0 1px, rgba(0, 0, 0, 0.04) 0 4px 8px, rgba(0, 0, 0, 0.04) 0 16px 24px, rgba(0, 0, 0, 0.01) 0 24px 32px"
+                }}>
+
+                    <Grid container xs={12}
+
+                    >
+                        <Grid container item xs={2} style={{}}>
+                            <h2 style={{"margin-left": "1.5vw"}}>wXEQ Dashboard</h2>
+                        </Grid>
+                        <Grid container item xs={2} style={{}}>
+                        </Grid>
+                        <Grid container item xs={1} style={{}}>
+                            <a href={"https://equilibria.network"} target={"_blank"}
+                               style={{"margin-left": "auto", "margin-right": "auto"}}>
+                                <button id={"submitButton"} style={{
+                                    "width": "100%",
+                                    "backgroundColor": "transparent",
+                                    "box-shadow": "none"
+                                }}
+                                ><h2>Home</h2>
+                                </button>
+                            </a>
+                        </Grid>
+                        <Grid container item xs={1} style={{}}>
+                            <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
+                               target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
+                                <button id={"submitButton"} style={{
+                                    "width": "100%",
+                                    "backgroundColor": "transparent",
+                                    "box-shadow": "none"
+                                }}
+                                ><h2>Explorer</h2>
+                                </button>
+                            </a>
+                        </Grid>
+
+                        <Grid container item xs={1}
+                              style={{}}>
+                            <SmartContractModal drizzle={this.props.drizzle}
+                                                drizzleState={this.state.drizzleState}/>
+                        </Grid>
+                        <Grid container item xs={1} style={{}}>
+                            <PresaleRoundsModal drizzle={this.props.drizzle}
+                                                drizzleState={this.state.drizzleState}/>
+                        </Grid>
+                        <Grid container item xs={2} style={{}}>
+                        </Grid>
+                        <Grid container item xs={2} style={{"width":"100%"}}>
+                            <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}
+                               target={"_blank"} style={{"text-decoration":"none", "margin-left":"auto"}}>
+                                <h2 style={{"margin-right": "1.5vw"}}>Uniswap</h2>
+                            </a>
+                        </Grid>
+                    </Grid>
+                    {/*<div style={{"marginTop": "8%"}}>*/}
+                    {/*    <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}*/}
+                    {/*       target={"_blank"}>*/}
+                    {/*        <button id={"submitButton"} style={{"width": "25%", "backgroundColor": "#ff007a"}}*/}
+                    {/*                onClick={() => {*/}
+                    {/*                    //this.handleStakeClick()*/}
+                    {/*                }}><h2>Uniswap</h2>*/}
+                    {/*        </button>*/}
+                    {/*    </a>*/}
+                    {/*</div>*/}
+
+
+                </div>
                 <div className="App">
-            
-                    <div id={"header"}>
-                        <h2 id={"headerText"}>Wrapped Equilibria Dashboard</h2>
-                    </div>
+                    {/*<div id={"header"}>*/}
+                    {/*    <h2 id={"headerText"}>wXEQ Dashboard</h2><br/>*/}
+
+                    {/*</div>*/}
                     <div id={"body"}>
                         <Grid container spacing={10}
-                              style={{"marginTop":"auto","marginLeft": "auto", "marginRight": "auto"}} id={"gridContainer"}>
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 10}}>
+                              style={{
+                                  "marginTop": "auto",
+                                  "marginLeft": "auto",
+                                  "marginRight": "auto",
+                                  "padding-top": "5%",
+                                  "padding-bottom":"5%"
+                              }} id={"gridContainer"}>
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15}}>
                                 <Grid container item xs={12} spacing={3}>
                                     {this.stakingBox()
                                     }
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 10}}>
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15}}>
                                 <Grid container item xs={12} spacing={3}>
                                     <div id={"dataContainer"}
                                          style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
@@ -248,42 +296,40 @@ class App extends React.Component {
                             </Grid>
 
                         </Grid>
-                        <div style={{"marginTop": "8%"}}>
-                            <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}
-                               target={"_blank"}>
-                                <button id={"submitButton"} style={{"width": "25%", "backgroundColor": "#ff007a"}}
-                                        onClick={() => {
-                                            //this.handleStakeClick()
-                                        }}><h2>Uniswap</h2>
-                                </button>
-                            </a>
-                        </div>
                     </div>
-                    {/*<ReadOwner*/}
-                    {/*    drizzle={this.props.drizzle}*/}
-                    {/*    drizzleState={this.state.drizzleState}*/}
-                    {/*/>*/}
                 </div>
-                <div className={"footer"}>
+                <div className={"footer"} style={{"border-top": "3px solid #fff", "width": "100%"}}>
+
                     <Grid container xm={12}
-                    >
+
+                    ><Grid container item xs={4} style={{"marginRight": "auto", "marginTop": "8px"}}>
+                    </Grid>
+
                         <Grid container item xs={1} style={{"marginLeft": "auto", "marginTop": "8px"}}>
-                            <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"}>
+                            <a href={"https://wiki.equilibria.network"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
+
+                                <HelpOutlineIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
+                            </a>
+                        </Grid>
+                        <Grid container item xs={1} style={{"marginLeft": "auto", "marginRight": "auto", "marginTop": "8px"}}>
+                            <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
 
                                 <TelegramIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
                         <Grid container item xs={1}
                               style={{"marginLeft": "auto", "marginRight": "auto", "marginTop": "8px"}}>
-                            <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"}>
+                            <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
 
                                 <TwitterIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
                         <Grid container item xs={1} style={{"marginRight": "auto", "marginTop": "8px"}}>
-                            <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"}>
+                            <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
                                 <GitHubIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
+                        </Grid>
+                        <Grid container item xs={4} style={{"marginLeft": "auto", "marginTop": "8px"}}>
                         </Grid>
                     </Grid>
 

@@ -12,6 +12,7 @@ import WithdrawStake from "./WithdrawStake";
 import Allowance from "./Allowance";
 import Balance from "./Balance";
 import SmartContracts from "./SmartContracts";
+import PresaleRounds from "./PresaleRounds";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SmartContractsModal(props) {
+export default function PresaleRoundsModal(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -40,11 +41,11 @@ export default function SmartContractsModal(props) {
     };
 
     return (
-        <div className={"App"} style={{"background":"transparent"}}>
+        <div className={"App"} style={{"background":"transparent", "margin-left":"auto"}}>
             {/*<button id={"submitButton"} onClick={handleOpen}><h3>Smart Contracts</h3></button>*/}
-            <div >
+            <div s>
                     <button id={"submitButton"} style={{"width": "100%", "backgroundColor": "transparent", "box-shadow":"none"}}
-                            onClick={handleOpen}><h2>Contracts</h2>
+                            onClick={handleOpen}><h2 >Presale</h2>
                     </button>
             </div>
 
@@ -61,7 +62,7 @@ export default function SmartContractsModal(props) {
                 }}
             >
                 <Fade in={open} style={{"width":"60%"}}>
-                    <SmartContracts drizzle={props.drizzle} id={"modalPopup"}
+                    <PresaleRounds drizzle={props.drizzle} id={"modalPopup"}
                                     drizzleState={props.drizzleState}/>
 
                 </Fade>
