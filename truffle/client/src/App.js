@@ -207,6 +207,8 @@ class App extends React.Component {
                         </Grid>
                         <Grid container item xs={2} style={{}}>
                         </Grid>
+                        {window.outerWidth > 1280 &&
+
                         <Grid container item xs={1} style={{}}>
                             <a href={"https://equilibria.network"} target={"_blank"}
                                style={{"margin-left": "auto", "margin-right": "auto"}}>
@@ -219,6 +221,9 @@ class App extends React.Component {
                                 </button>
                             </a>
                         </Grid>
+                        }
+                        {window.outerWidth > 1280 ?
+
                         <Grid container item xs={1} style={{}}>
                             <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
                                target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
@@ -231,16 +236,35 @@ class App extends React.Component {
                                 </button>
                             </a>
                         </Grid>
+                        :
+                            <Grid container item xs={3} style={{}}>
+                                <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
+                                   target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
+                                    <button id={"submitButton"} style={{
+                                        "width": "100%",
+                                        "backgroundColor": "transparent",
+                                        "box-shadow": "none"
+                                    }}
+                                    ><h2>Explorer</h2>
+                                    </button>
+                                </a>
+                            </Grid>
+                        }
+                        {window.outerWidth > 1280 &&
 
                         <Grid container item xs={1}
                               style={{}}>
                             <SmartContractModal drizzle={this.props.drizzle}
                                                 drizzleState={this.state.drizzleState}/>
                         </Grid>
+                        }
+                        {window.outerWidth > 1280 &&
+
                         <Grid container item xs={1} style={{}}>
                             <PresaleRoundsModal drizzle={this.props.drizzle}
                                                 drizzleState={this.state.drizzleState}/>
                         </Grid>
+                        }
                         <Grid container item xs={2} style={{}}>
                         </Grid>
                         <Grid container item xs={2} style={{"width":"100%"}}>
@@ -250,6 +274,7 @@ class App extends React.Component {
                             </a>
                         </Grid>
                     </Grid>
+
                     {/*<div style={{"marginTop": "8%"}}>*/}
                     {/*    <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}*/}
                     {/*       target={"_blank"}>*/}
@@ -300,7 +325,7 @@ class App extends React.Component {
                         </Grid>
                     </div>
                 </div>
-                <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%"}}>
+                <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%", "padding":"auto"}}>
 
                     <Grid container xm={12}
 
