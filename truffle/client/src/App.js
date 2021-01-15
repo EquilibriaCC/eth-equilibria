@@ -168,8 +168,7 @@ class App extends React.Component {
         if (this.state.loading) return (
             <Container fluid>
                 <div className={"App"} style={{
-                    "height": window.outerHeight, "width": "100%",
-                    "backgroundColor": "#1d2126",
+                    "height": window.outerHeight, "width": "100%"
                 }}>
                     <div id={"header"}>
                         <h2 id={"headerText"}>wXEQ Dashboard</h2>
@@ -329,7 +328,7 @@ class App extends React.Component {
                         </Grid>
                     </div>
                 </div>
-                {window.outerWidth < 1280 && <div style={{"padding": "10vh", "background-color":"#14141d"}} />}
+                {window.outerWidth < 1280 && <div style={{"padding": "10vh", "background-color":"#1d212663"}} />}
                 <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%", "padding":"auto"}}>
 
                     <Grid container xm={12}
