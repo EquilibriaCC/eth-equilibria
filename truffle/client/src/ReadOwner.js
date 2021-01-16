@@ -8,7 +8,7 @@ class ReadOwner extends React.Component {
         const masterContract = drizzle.contracts.Master;
         const xeqContract = drizzle.contracts.wXEQ
         const stakingContract = drizzle.contracts.SoftStaking
-        const saleContract = drizzle.contracts.PreSale
+        const saleContract = drizzle.contracts.PreSaleV2
 
         // let drizzle know we want to watch the `myString` method
         let dataKey = masterContract.methods["getWXEQContract"].cacheCall();

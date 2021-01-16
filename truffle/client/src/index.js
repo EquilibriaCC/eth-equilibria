@@ -9,7 +9,7 @@ import { Drizzle, generateStore } from "@drizzle/store";
 import Master from "./contracts/Master.json";
 import wXEQ from "./contracts/wXEQ.json"
 import softStaking from "./contracts/SoftStaking.json"
-import presale from "./contracts/PreSale.json"
+import presale from "./contracts/PreSaleV2.json"
 import SmartContractModal from "./components/SmartContractModal";
 
 // let drizzle know what contracts we want and how to access our test blockchain

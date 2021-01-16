@@ -7,12 +7,12 @@ class PresaleInfo extends React.Component {
         const { drizzle } = this.props;
         let stakingAddress = drizzle.contracts.SoftStaking.address
         let wxeq = drizzle.contracts.PreSale
-        let dataKey = this.props.drizzle.contracts.PreSale.methods["wXEQLeft"].cacheCall();
-        dataKey = this.props.drizzle.contracts.PreSale.methods["ethMinted"].cacheCall();
-        dataKey = this.props.drizzle.contracts.PreSale.methods["wXEQminted"].cacheCall();
-        dataKey = this.props.drizzle.contracts.PreSale.methods["lastETHPrice"].cacheCall();
-        dataKey = this.props.drizzle.contracts.PreSale.methods["xeqRate"].cacheCall();
-        dataKey = this.props.drizzle.contracts.PreSale.methods["cap"].cacheCall();
+        let dataKey = this.props.drizzle.contracts.PreSaleV2.methods["wXEQLeft"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSaleV2.methods["ethMinted"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSaleV2.methods["wXEQminted"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSaleV2.methods["lastETHPrice"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSaleV2.methods["xeqRate"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSaleV2.methods["cap"].cacheCall();
 
         this.setState({dataKey: dataKey})
     }
@@ -26,10 +26,10 @@ class PresaleInfo extends React.Component {
         let xeqRate = 0
         let c = 0
         try {
-            let key = Object.keys(this.props.drizzleState.contracts.PreSale["wXEQLeft"])[0]
-            wXEQLeft = this.props.drizzleState.contracts.PreSale["wXEQLeft"][key].value
-            xeqRate = (Number(this.props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18)).toLocaleString()
-            c = (Number(this.props.drizzleState.contracts.PreSale.cap["0x0"].value)/(10**18) - 500000 +  685.582).toLocaleString()
+            let key = Object.keys(this.props.drizzleState.contracts.PreSaleV2["wXEQLeft"])[0]
+            wXEQLeft = this.props.drizzleState.contracts.PreSaleV2["wXEQLeft"][key].value
+            xeqRate = (Number(this.props.drizzleState.contracts.PreSaleV2.xeqRate["0x0"].value)/(10**18)).toLocaleString()
+            c = (Number(this.props.drizzleState.contracts.PreSaleV2.cap["0x0"].value)/(10**18) - 500000 +  685.582).toLocaleString()
         }
         catch {
 

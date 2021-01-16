@@ -41,26 +41,26 @@ export default function PresaleModal(props) {
     let remaining = 0
     let ethPrice = 0
     let xeqRate = 0
-    if (Object.keys(props.drizzleState.contracts.PreSale.ethMinted).length > 0)
-        ethamount = (Number(props.drizzleState.contracts.PreSale.ethMinted["0x0"].value)/(10**18)).toLocaleString()
+    if (Object.keys(props.drizzleState.contracts.PreSaleV2.ethMinted).length > 0)
+        ethamount = (Number(props.drizzleState.contracts.PreSaleV2.ethMinted["0x0"].value)/(10**18)).toLocaleString()
 
-    if (Object.keys(props.drizzleState.contracts.PreSale.wXEQminted).length > 0)
-        wXEQ_Minted = (Number(props.drizzleState.contracts.PreSale.wXEQminted["0x0"].value)/(10**18)).toLocaleString()
+    if (Object.keys(props.drizzleState.contracts.PreSaleV2.wXEQminted).length > 0)
+        wXEQ_Minted = (Number(props.drizzleState.contracts.PreSaleV2.wXEQminted["0x0"].value)/(10**18)).toLocaleString()
 
-    if (Object.keys(props.drizzleState.contracts.PreSale.xeqRate).length > 0)
-        xeqRate = (Number(props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18)).toLocaleString()
+    if (Object.keys(props.drizzleState.contracts.PreSaleV2.xeqRate).length > 0)
+        xeqRate = (Number(props.drizzleState.contracts.PreSaleV2.xeqRate["0x0"].value)/(10**18)).toLocaleString()
 
-    if (Object.keys(props.drizzleState.contracts.PreSale.wXEQLeft).length > 0)
-        remaining = (Number(props.drizzleState.contracts.PreSale.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
+    if (Object.keys(props.drizzleState.contracts.PreSaleV2.wXEQLeft).length > 0)
+        remaining = (Number(props.drizzleState.contracts.PreSaleV2.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
 
-    if (Object.keys(props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
-        ethPrice = (Number(props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8)).toLocaleString()
-    let text = props.drizzle.contracts.PreSale.address
+    if (Object.keys(props.drizzleState.contracts.PreSaleV2.lastETHPrice).length > 0)
+        ethPrice = (Number(props.drizzleState.contracts.PreSaleV2.lastETHPrice["0x0"].value)/(10**8)).toLocaleString()
+    let text = props.drizzle.contracts.PreSaleV2.address
     // if (copied)
     //     text = "Copied"
     return (
         <div className={"App"} style={{"background":"transparent", "paddingBottom":"30px"}}>
-            <button id={"submitButton"} onClick={handleOpen}><h3>Presale</h3></button>
+            <button id={"submitButton"} onClick={handleOpen}><h3>PreSale</h3></button>
 
             <Modal
                 aria-labelledby="transition-modal-title"

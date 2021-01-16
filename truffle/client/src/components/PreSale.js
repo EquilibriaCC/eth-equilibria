@@ -11,8 +11,8 @@ class PreSale extends React.Component {
     update() {
         const { drizzle } = this.props;
 
-        let dataKey = this.props.drizzle.contracts.PreSale.methods["lastETHPrice"].cacheCall();
-        dataKey = this.props.drizzle.contracts.PreSale.methods["xeqRate"].cacheCall();
+        let dataKey = this.props.drizzle.contracts.PreSaleV2.methods["lastETHPrice"].cacheCall();
+        dataKey = this.props.drizzle.contracts.PreSaleV2.methods["xeqRate"].cacheCall();
         this.setState({dataKey: dataKey})
     }
 
@@ -26,7 +26,7 @@ class PreSale extends React.Component {
 
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
-        const contract = drizzle.contracts.PreSale
+        const contract = drizzle.contracts.PreSaleV2
 
         if (value <= 0)
             return
@@ -66,10 +66,10 @@ class PreSale extends React.Component {
         if (this.state.val == 0)
             return;
 
-        if (Object.keys(this.props.drizzleState.contracts.PreSale.lastETHPrice).length > 0)
-            ethPrice = (Number(this.props.drizzleState.contracts.PreSale.lastETHPrice["0x0"].value)/(10**8))
+        if (Object.keys(this.props.drizzleState.contracts.PreSaleV2.lastETHPrice).length > 0)
+            ethPrice = (Number(this.props.drizzleState.contracts.PreSaleV2.lastETHPrice["0x0"].value)/(10**8))
 
-        xeqRate = (Number(this.props.drizzleState.contracts.PreSale.xeqRate["0x0"].value)/(10**18))
+        xeqRate = (Number(this.props.drizzleState.contracts.PreSaleV2.xeqRate["0x0"].value)/(10**18))
         
         console.log(xeqRate)
         coins = ((ethPrice * this.state.val) / (xeqRate )).toLocaleString()
