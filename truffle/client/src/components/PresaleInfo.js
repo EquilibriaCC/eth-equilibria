@@ -41,11 +41,11 @@ class PresaleInfo extends React.Component {
 
         return (
             <div style={{"paddingTop":"0"}}>
-                <h1>Presale Info</h1>
-                <h2>Presale Target</h2>
+                <h1>Crowdsale Info</h1>
+                <h2>Crowdsale Target</h2>
                 <p id={"bigNumber"}>{c}</p>
                 <h2>Exchange Rate</h2>
-                <p id={"bigNumber"}>${xeqRate}</p>
+                <p id={"bigNumber"}>{xeqRate}</p>
                 <h2>wXEQ Remaining</h2>
                 <p id={"bigNumber"}>{(Number(wXEQLeft)/(10**18)).toLocaleString()}</p>
                 {/*<h2>Presale Expiration Block</h2>*/}

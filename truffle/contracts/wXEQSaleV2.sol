@@ -5,7 +5,7 @@ import "./tools/SafeMath.sol";
 import "./wXEQ.sol";
 import "./oracle/AggregatorInterface.sol";
 
-contract PreSale is Ownable {
+contract PreSaleV2 is Ownable {
     using SafeMath for *;
 
     address payable public teamAdd;
