@@ -35,7 +35,7 @@ export default function BasicTable(props) {
             createData('Master', props.drizzle.contracts.Master.address),
             createData('wXEQ', props.drizzle.contracts.wXEQ.address),
             // createData('Data Store', props.drizzle.contracts.Master.address),
-            createData('Presale', props.drizzle.contracts.PreSaleV2.address),
+            createData('Crowdsale', props.drizzle.contracts.PreSaleV2.address),
             createData('Staking', props.drizzle.contracts.SoftStaking.address),
             // createData('Swaps', "0xDC01d087F16411A76B517889A59DfA73beBCbf17"),
         ]
