@@ -5,73 +5,79 @@ import "./tools/ExternalAccessible.sol";
 import "./tools/Ownable.sol";
 import "./tools/SafeMath.sol";
 import "./wXEQ.sol";
-import "./wXEQStaking.sol";
 
 contract XEQSwaps is ExternalAccessible, Ownable {
     using SafeMath for *;
     
     wXEQ wXEQContract;
     DataStorage dataStorage;
-    SoftStaking stakingPool;
-    
-    uint256 wXEQMinted;
-    uint256 XEQMinted;
+
+    uint256 public wXEQMinted;
+    uint256 public wXEQBurned;
+    uint256 public teamFees;
+
     uint256 teamAmount;
     uint256 burntAmount;
-    uint256 stakePoolAmount;
     uint256 devFeePercent;
 
-    address[] mintXEQBatchList;
-    mapping(address => uint256[]) amountToMint;
-    mapping(address => string[]) xeqAddress;
-    mapping(address => bool[]) swapComplete;
-    bool swapBacks;
+    //txHash -> eth address of tx mint
     
-    constructor(address w, address d, address s, address _master) {
+    mapping(string => bool) xeq_complete;
+    mapping(string => uint256) xeq_amounts;
+    mapping(string => address) eth_addresses;
+
+    
+    constructor(address w, address d, address _master) {
         wXEQContract = wXEQ(w);
         dataStorage = DataStorage(d);
-        stakingPool = SoftStaking(s);
         masterContract = _master;
         wXEQMinted = 0;
-        XEQMinted = 0;
         transferOwnership(msg.sender);
         teamAmount = 4000;
-        burntAmount = 1000;
-        stakePoolAmount = 5000;
+        burntAmount = 6000;
         devFeePercent = 100;
+        
     }
     
-    event NewMint(address indexed account, uint256 amount, uint256 devFee, uint256 amountBurnt, uint256 amountForStakePool);
-
-    function getXEQBatchLen() public view returns (uint256) {
-        return mintXEQBatchList.length;
-    }
-    
-    function acitvateSwapBack(bool setting) public hasAccess returns (bool) {
-        swapBacks = setting;
-        return true;
-    }
-    
-    function checkBatchAccount(address account, uint256 index) public view returns (bool status, string memory XEQAddress, uint256 amount) {
-        require(index < amountToMint[account].length);
-        return (swapComplete[account][index], xeqAddress[account][index], amountToMint[account][index]);
-    }
-    
+    event NewMint(address indexed account, uint256 amount, uint256 devFee, uint256 amountBurnt);
     
     function devFee(uint256 _value, uint256 devFeeVal1) public pure returns (uint256) {
-        require(_value >= ((_value.mul(devFeeVal1)).div(10000)));
         return ((_value.mul(devFeeVal1)).div(10000));
     }
     
-    function mintwXEQ(address account, uint256 amount) public onlyOwner returns (bool) {
-        uint256 fee = devFee(amount, devFeePercent);
+    function claim_wxeq(string memory tx_hash) public returns (bool) {
+        require(xeq_amounts[tx_hash] != 0);
+        require(eth_addresses[tx_hash] != address(0));
+        require(!xeq_complete[tx_hash]);
+        xeq_complete[tx_hash] = true;
+        uint256 fee = devFee(xeq_amounts[tx_hash], devFeePercent);
         uint256 teamFee = devFee(fee, teamAmount);
         uint256 burnt = devFee(fee, burntAmount);
-        uint256 stakeAmount = devFee(fee, stakePoolAmount);
-        wXEQContract.mint(account, amount.sub(fee));
+        wXEQContract.mint(msg.sender, xeq_amounts[tx_hash]);
         wXEQContract.mint(owner(), teamFee);
-        wXEQContract.mint(address(stakingPool), stakeAmount);
-        emit NewMint(account, amount, teamFee, burnt, stakeAmount);
+        wXEQBurned = wXEQBurned.add(burnt);
+        wXEQMinted = wXEQMinted.add(xeq_amounts[tx_hash]);
+        teamFees = teamFees.add(teamFee);
+        emit NewMint(msg.sender, xeq_amounts[tx_hash], teamFee, burnt);
+        return true;
+    }
+    
+    
+    function register_transaction(address account, string memory tx_hash, uint256 amount) public onlyOwner returns (bool) {
+        require(!xeq_complete[tx_hash]);
+        require(xeq_amounts[tx_hash] == 0);
+        require(eth_addresses[tx_hash] == address(0));
+        
+        eth_addresses[tx_hash] = account;
+        xeq_amounts[tx_hash] = amount;
+        return true;
+    }
+    
+    function isSwapRegistered(string memory tx_hash) public view returns (bool) {
+        if(xeq_amounts[tx_hash] == 0) 
+        {
+            return false;
+        }
         return true;
     }
     
@@ -97,47 +103,7 @@ contract XEQSwaps is ExternalAccessible, Ownable {
         return true;
     }
 
-    function setStakePoolAmount(uint256 val) public hasAccess returns (bool) {
-        stakePoolAmount = val;
-        assert(stakePoolAmount == val);
-        return true;
-    }
-    
     function devFee(uint _value) public view returns (uint256) {
-        require(_value >= ((_value.mul(devFeePercent)).div(10000)));
         return ((_value.mul(devFeePercent)).div(10000));
-    }
-    
-    function mintXEQRequest(string memory account, uint256 amount) public returns (bool, uint256) {
-        require(swapBacks);
-        wXEQContract._burnFrom(msg.sender, amount);
-        swapComplete[msg.sender].push(false);
-        amountToMint[msg.sender].push(amount);
-        xeqAddress[msg.sender].push(account);
-        require(swapComplete[msg.sender].length == amountToMint[msg.sender].length);
-        require(amountToMint[msg.sender].length == swapComplete[msg.sender].length);
-        return (true, amount);
-    }
-    
-    function confirmXEQSwap(address account, uint256 amount, uint256 swapNum) public onlyOwner returns (bool) {
-        require(swapComplete[account].length.sub(1) >= swapNum);
-        require(amount == amountToMint[account][swapNum]);
-        swapComplete[account][swapNum] = true;
-        bool check = false;
-        for (uint i = 0; i < swapComplete[account].length; i++) {
-            if (!swapComplete[account][i]) {
-                check = true;
-                break;
-            }
-        }
-        if (!check) {
-            for (uint k = 0; k < mintXEQBatchList.length; k++) {
-                if (mintXEQBatchList[k] == account) {
-                    delete mintXEQBatchList[k];
-                    break;
-                }
-            }
-        }
-        return true;
     }
 }
