@@ -17,22 +17,8 @@ import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';import PresaleRounds from "./components/PresaleRoundsModal";
 import PresaleRoundsModal from "./components/PresaleRoundsModal";
-// import Web3 from "web3";
-// import Web3Modal from "web3modal";
-//
-// const providerOptions = {
-//     /* See Provider Options Section */
-// };
-//
-// const web3Modal = new Web3Modal({
-//     network: "mainnet", // optional
-//     cacheProvider: true, // optional
-//     providerOptions // required
-// });
-//
-// const provider = await web3Modal.connect();
-//
-// const web3 = new Web3(provider);
+import Swap from "./components/Swap";
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -175,17 +161,6 @@ class App extends React.Component {
                     </div>
                     <div style={{"width": "50%", "marginLeft": "auto", "marginRight": "auto", "paddingTop": "10%"}}>
                         <h2>Please open up your preferred wallet provider to connect.</h2></div>
-                    {/*<Loader style={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}*/}
-                    {/*        type="Puff"*/}
-                    {/*        color="rgba(0,115,252,1)"*/}
-                    {/*        height={100}*/}
-                    {/*        width={100}*/}
-                    {/*        timeout={3000} //3 secs*/}
-
-                    {/*/>*/}
-                    {/*<div id={"body"}>*/}
-                    {/*    <div style={{"width":"50%"}}><p>"TEST</p></div>*/}
-                    {/*</div>*/}
                 </div>
             </Container>
 
@@ -321,6 +296,19 @@ class App extends React.Component {
                                         <PresaleModal
                                             drizzle={this.props.drizzle}
                                             drizzleState={this.state.drizzleState}/>
+                                    </div>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15, "margin-left":"auto", "margin-right":"auto"}}>
+                                <Grid container item xs={12} >
+                                    <div id={"dataContainer"}
+                                         style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
+                                        <Swap drizzle={this.props.drizzle}
+                                                     drizzleState={this.state.drizzleState}/>
+                                        {/* <PresaleModal
+                                            drizzle={this.props.drizzle}
+                                            drizzleState={this.state.drizzleState}/> */}
                                     </div>
                                 </Grid>
                             </Grid>
