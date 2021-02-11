@@ -53,12 +53,12 @@ contract XEQSwaps is ExternalAccessible, Ownable {
         uint256 fee = devFee(xeq_amounts[tx_hash], devFeePercent);
         uint256 teamFee = devFee(fee, teamAmount);
         uint256 burnt = devFee(fee, burntAmount);
-        wXEQContract.mint(msg.sender, xeq_amounts[tx_hash]);
+        wXEQContract.mint(eth_addresses[tx_hash], xeq_amounts[tx_hash]);
         wXEQContract.mint(owner(), teamFee);
         wXEQBurned = wXEQBurned.add(burnt);
         wXEQMinted = wXEQMinted.add(xeq_amounts[tx_hash]);
         teamFees = teamFees.add(teamFee);
-        emit NewMint(msg.sender, xeq_amounts[tx_hash], teamFee, burnt);
+        emit NewMint(eth_addresses[tx_hash], xeq_amounts[tx_hash], teamFee, burnt);
         return true;
     }
     
