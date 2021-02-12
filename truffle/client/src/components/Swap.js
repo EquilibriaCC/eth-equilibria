@@ -76,7 +76,14 @@ class AddStake extends React.Component {
                 <input type="text" onChange={(e) => {this.checkClaim({val: e.target.value})}}  placeholder="XEQ Transaction Hash" onKeyDown={this.handleKeyDown} />
                 <p>Tx Status: {status}</p>
                 <div style={{"paddingBottom":"30px"}}>
-                    <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Claim Swap</h3></button>
+                    {
+                        status === "Claimable" ?
+                            <button id={"submitButton"} onClick={ () => {this.setValue(this.state.val)}}><h3>Claim Swap</h3></button>
+
+                            :
+                            <button id={"swapdisabled"} disabled><h3>Claim Swap</h3></button>
+
+                    }
                 </div>
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
             </div>

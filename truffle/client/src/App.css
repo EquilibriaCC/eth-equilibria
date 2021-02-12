@@ -101,6 +101,18 @@ h1 {
 
 }
 
+#swapdisabled {
+  border-radius: 30px;
+  background-color: #2172e5;
+  width: 50%;
+  border-color: #1d2126;
+  border-width: 0;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.01) 0 0 1px, rgba(0, 0, 0, 0.04) 0 4px 8px, rgba(0, 0, 0, 0.04) 0 16px 24px, rgba(0, 0, 0, 0.01) 0 24px 32px;
+  opacity: 0.1;
+  cursor: default;
+}
+
 #uniBtn {
 
 }
