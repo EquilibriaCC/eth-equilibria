@@ -1,29 +1,33 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
+import {delay} from "redux-saga";
 /* global BigInt */
 
 class AddStake extends React.Component {
-    state = { stackId: null, val: "", claimable: false};
+    state = { stackId: null, val: "", claimable: false, loading: false};
 
-    handleKeyDown = e => {
-        // if the enter key is pressed, set the value with the string
-            // if (e.keyCode === 13) {
-            //     this.setValue(e.target.value);
-            // }
-
-    };
-
-    checkClaim = value => {
+    checkClaim = async value => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.XEQSwaps
         if (value.val == "")
             return
 
         let dataKeyStaking = contract.methods["isSwapRegistered"].cacheCall(value.val);
-        if(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[dataKeyStaking])
-            this.state.claimable = this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[dataKeyStaking].value;
-
-        this.state.val = value.val;
+        this.state.loading = true
+        await delay(1000);
+        this.state.loading = false
+        console.log("Waited an additional 5s");
+        console.log(Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered))
+        for (let i = 0; i < Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered).length; i++) {
+            console.log(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].args)
+            if (this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].value && value.val === this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].args[0]) {
+                console.log(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].value)
+                this.setState({claimable: true})
+                break
+            } else {
+                this.setState({claimable: false})
+            }
+        }
     };
 
     
@@ -31,10 +35,7 @@ class AddStake extends React.Component {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.XEQSwaps
 
-        console.log(value)
-
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
-        console.log(contract.methods)
         const stackId = contract.methods["claim_wxeq"].cacheSend(value,
             { from: drizzleState.accounts[0]}
         );
@@ -66,6 +67,8 @@ class AddStake extends React.Component {
 
         if(this.state.claimable)
             status = "Claimable"
+        else if (this.state.loading)
+            status = "Loading..."
         else
             status = "Not yet registered!"
 
