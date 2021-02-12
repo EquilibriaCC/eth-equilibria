@@ -49,6 +49,7 @@ contract XEQSwaps is ExternalAccessible, Ownable {
         require(xeq_amounts[tx_hash] != 0);
         require(eth_addresses[tx_hash] != address(0));
         require(!xeq_complete[tx_hash]);
+        require(eth_addresses[tx_hash] == msg.sender);
         xeq_complete[tx_hash] = true;
         uint256 fee = devFee(xeq_amounts[tx_hash], devFeePercent);
         uint256 teamFee = devFee(fee, teamAmount);
