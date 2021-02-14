@@ -313,7 +313,7 @@ class App extends React.Component {
                                 </Grid>
                             </Grid>
 
-                        </Grid>
+                        </Grid>S
                     </div>
                 </div>
                 {window.outerWidth < 1280 && <div style={{"padding": "10vh", "background-color":"#1d212663"}} />}

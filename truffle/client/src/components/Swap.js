@@ -71,8 +71,8 @@ class AddStake extends React.Component {
 
         return (
             <div>
-                <h1>Swap XEQ to wXEQ</h1>
-                <p>Check if your swap is registered!</p>
+                <h1>Swap XEQ -> wXEQ</h1>
+                <p>Check if your swap is registered!  <a style={{"color":"#9191ff"}} href={"https://wiki.equilibria.network/tutorials-for-equilibria/swap-guide-cli"} target={"_blank"}>(Guide)</a></p>
                 <input type="text" onChange={(e) => {this.checkClaim({val: e.target.value})}}  placeholder="XEQ Transaction Hash" onKeyDown={this.handleKeyDown} />
                 <p>Tx Status: {status}</p>
                 <div style={{"paddingBottom":"30px"}}>
