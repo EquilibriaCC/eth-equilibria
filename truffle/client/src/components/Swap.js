@@ -16,13 +16,10 @@ class AddStake extends React.Component {
         this.state.loading = true
         await delay(1000);
         this.state.loading = false
-        console.log("Waited an additional 5s");
-        console.log(Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered))
         for (let i = 0; i < Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered).length; i++) {
             console.log(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].args)
             if (this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].value && value.val === this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].args[0]) {
-                console.log(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered[Object.keys(this.props.drizzleState.contracts.XEQSwaps.isSwapRegistered)[i]].value)
-                this.setState({claimable: true})
+                this.setState({claimable: true, val: value.val})
                 break
             } else {
                 this.setState({claimable: false})
@@ -74,8 +71,8 @@ class AddStake extends React.Component {
 
         return (
             <div>
-                <h1>Swap XEQ to wXEQ</h1>
-                <p>Check if your swap is registered!</p>
+                <h1>Swap XEQ -> wXEQ</h1>
+                <p>Check if your swap is registered!  <a style={{"color":"#9191ff"}} href={"https://wiki.equilibria.network/tutorials-for-equilibria/swap-guide-cli"} target={"_blank"}>(Guide)</a></p>
                 <input type="text" onChange={(e) => {this.checkClaim({val: e.target.value})}}  placeholder="XEQ Transaction Hash" onKeyDown={this.handleKeyDown} />
                 <p>Tx Status: {status}</p>
                 <div style={{"paddingBottom":"30px"}}>

@@ -60,7 +60,7 @@ export default function PresaleModal(props) {
     //     text = "Copied"
     return (
         <div className={"App"} style={{"background":"transparent", "paddingBottom":"30px"}}>
-            <button id={"submitButton"} onClick={handleOpen}><h3>PreSale</h3></button>
+            <button id={"submitButton"} onClick={handleOpen}><h3>Crowdsale</h3></button>
 
             <Modal
                 aria-labelledby="transition-modal-title"

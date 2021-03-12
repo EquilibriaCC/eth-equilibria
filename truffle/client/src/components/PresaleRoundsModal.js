@@ -45,7 +45,7 @@ export default function PresaleRoundsModal(props) {
             {/*<button id={"submitButton"} onClick={handleOpen}><h3>Smart Contracts</h3></button>*/}
             <div s>
                     <button id={"submitButton"} style={{"width": "100%", "backgroundColor": "transparent", "box-shadow":"none"}}
-                            onClick={handleOpen}><h2 >Presale</h2>
+                            onClick={handleOpen}><h2 >Crowdsale</h2>
                     </button>
             </div>
 

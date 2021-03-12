@@ -29,7 +29,7 @@ class PresaleInfo extends React.Component {
             let key = Object.keys(this.props.drizzleState.contracts.PreSaleV2["wXEQLeft"])[0]
             wXEQLeft = this.props.drizzleState.contracts.PreSaleV2["wXEQLeft"][key].value
             xeqRate = (Number(this.props.drizzleState.contracts.PreSaleV2.xeqRate["0x0"].value)/(10**18)).toLocaleString()
-            c = (Number(this.props.drizzleState.contracts.PreSaleV2.cap["0x0"].value)/(10**18) - 500000 +  685.582).toLocaleString()
+            c = (2500000).toLocaleString()
         }
         catch {
 
