@@ -7,12 +7,13 @@ import "./tools/DataStorage.sol";
 import "./wXEQ.sol";
 import "./tools/ERC20.sol";
 import "./tools/IERC20.sol";
+import "./tools/SafeERC20.sol";
 
-contract SoftStaking is Ownable {
-    
+contract SoftStakingv2 is Ownable {
+
     using SafeMath for *;
     using SafeERC20 for IERC20;
-    
+
     DataStorage public dataStorage;
     wXEQ public wXEQContract;
     event Enter(address indexed user, uint256 amount);
@@ -39,7 +40,7 @@ contract SoftStaking is Ownable {
         transferOwnership(_master);
     }
 
-    function changeStakingReward(uint256 _reward) public onlyOwner returns (bool) {
+    function changeStakingReward(uint256 _reward) public onlyOwner {
         blockReward = _reward;
     }
 
@@ -76,7 +77,7 @@ contract SoftStaking is Ownable {
     function leave(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount > 0);
-        
+
         uint256 base_reward = getPendingReward(msg.sender);
         IERC20 token = IERC20(0xC76ff45757091b2A718dA1C48a604dE6cbec7F71);
 
