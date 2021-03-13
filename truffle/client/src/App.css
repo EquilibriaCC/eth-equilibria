@@ -131,8 +131,8 @@ body2 {
   border-radius: 15px;
   overflow: hidden;
   box-shadow:
-          4px 4px 4px 0px #2172e5 inset,
-          -4px -4px 4px 0px #2172e5 inset;
+          1px 1px 1px 1px #fff inset,
+          -1px -1px 1px 1px #fff inset;
 }
 
 .toggle-state {
