@@ -86,12 +86,11 @@ contract SoftStaking is Ownable {
         
         uint256 base_reward = getPendingReward(msg.sender);
         IERC20 token = IERC20(0xC76ff45757091b2A718dA1C48a604dE6cbec7F71);
-
+        withdrawRewards();
         user.amount = user.amount.sub(_amount);
         user.stakingBlock = 0;
         totalStaked = totalStaked.sub(_amount);
         require((token.balanceOf(address(this))) >= _amount);
-        wXEQContract.mint(msg.sender, base_reward);
         token.transfer(msg.sender, _amount);
         emit Leave(msg.sender, _amount);
     }
