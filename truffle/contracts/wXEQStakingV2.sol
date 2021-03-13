@@ -27,21 +27,32 @@ contract SoftStakingv2 is Ownable {
     }
 
     uint256 public blockReward;
+    uint256 public multiplierBlockEnd;
+    uint256 public multiplier;
 
     uint256 public totalStaked;
 
     mapping (address => UserInfo) public userInfo;
 
-    constructor(address _wxeq, address _dataStorage, address _master) public {
+    constructor(address _wxeq, address _master) public {
 
         wXEQContract = wXEQ(_wxeq);
-        dataStorage = DataStorage(_dataStorage);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
+        multiplier = 50;
+        multiplierBlockEnd = block.number.mul(6520.mul(30));
         transferOwnership(_master);
     }
 
     function changeStakingReward(uint256 _reward) public onlyOwner {
         blockReward = _reward;
+    }
+    
+    function changeMultiplier(uint256 _mult) public onlyOwner {
+        multiplier = _mult;
+    }
+    
+    function changeMultiplierBlockEnd(uint256 _blockEnd) public onlyOwner {
+        multiplierBlockEnd = _blockEnd;
     }
 
     function getPendingReward(address _user) public view returns (uint256) {
@@ -50,8 +61,8 @@ contract SoftStakingv2 is Ownable {
             return 0;
         }
         uint256 user_time = block.number - user.stakingBlock;
-        uint256 baseReward = user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
-
+        uint256 baseReward = block.number <= multiplierBlockEnd ? user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward.mul(multiplier)) : user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
+   
         return baseReward.mul(user_time).div(1e18).add(user.claimedBalance);
     }
 
@@ -66,11 +77,8 @@ contract SoftStakingv2 is Ownable {
         totalStaked = totalStaked.add(_amount);
         UserInfo storage user = userInfo[msg.sender];
         user.amount = user.amount.add(_amount);
-
-        if (user.stakingBlock == 0)  {
-            user.stakingBlock = block.number;
-        }
-
+        lockRewards();
+        user.stakingBlock = block.number;
         emit Enter(msg.sender, _amount);
     }
 
@@ -80,12 +88,11 @@ contract SoftStakingv2 is Ownable {
 
         uint256 base_reward = getPendingReward(msg.sender);
         IERC20 token = IERC20(0xC76ff45757091b2A718dA1C48a604dE6cbec7F71);
-
+        withdrawRewards();
         user.amount = user.amount.sub(_amount);
         user.stakingBlock = 0;
         totalStaked = totalStaked.sub(_amount);
         require((token.balanceOf(address(this))) >= _amount);
-        wXEQContract.mint(msg.sender, base_reward);
         token.transfer(msg.sender, _amount);
         emit Leave(msg.sender, _amount);
     }
@@ -109,5 +116,5 @@ contract SoftStakingv2 is Ownable {
         user.stakingBlock = block.number;
         user.claimedBalance = user.claimedBalance.add(base_reward);
     }
-
 }
+
