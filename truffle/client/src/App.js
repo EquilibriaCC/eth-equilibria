@@ -18,6 +18,12 @@ import PoolPercent from "./components/PoolPercent";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';import PresaleRounds from "./components/PresaleRoundsModal";
 import PresaleRoundsModal from "./components/PresaleRoundsModal";
 import Swap from "./components/Swap";
+import GetStakev2 from "./components/GetStakev2";
+import PoolPercentv2 from "./components/PoolPercentv2";
+import PendingRewardsv2 from "./components/PendingRewardsv2";
+import TransitionsModalv2 from "./components/StakingModalv2";
+import RemoveStakeModalv2 from "./components/RemoveStakeModalv2";
+import WithdrawStakev2 from "./components/WithdrawStakev2";
 
 class App extends React.Component {
     constructor(props) {
@@ -28,6 +34,7 @@ class App extends React.Component {
             dataKey: null,
             dataKeyXEQ: null,
             ethPrice: 0,
+            stakingType: 2,
             stakeClick: 0,
             mul: 1
         };
@@ -82,11 +89,19 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Start Staking</h3>
                     </button>
+                    <button id={"submitButton"} style={{"width":"25%"}} onClick={() => {
+                        if (this.state.stakingType === 1) {
+                            this.setState({stakingType: 2})
+                        } else {
+                            this.setState({stakingType: 1})
+                        }
+                    }}><h3>Staking v{this.state.stakingType}</h3>
+                    </button>
                     {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
 
                 </div>
             )
-        } else if (this.state.stakeClick === 1) {
+        } else if (this.state.stakeClick === 1 && this.state.stakingType === 1) {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
@@ -117,7 +132,7 @@ class App extends React.Component {
 
                 </div>
             )
-        } else if (this.state.stakeClick === 2) {
+        } else if (this.state.stakeClick === 2 && this.state.stakingType === 1) {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
@@ -133,6 +148,63 @@ class App extends React.Component {
                     <RemoveStakeModal drizzle={this.props.drizzle}
                                       drizzleState={this.state.drizzleState}/>
                     <WithdrawStake drizzle={this.props.drizzle}
+                                   drizzleState={this.state.drizzleState}/>
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Back</h3>
+                    </button>
+                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+
+
+                </div>
+            )
+        } else if (this.state.stakeClick === 1 && this.state.stakingType === 2) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
+                }}>
+                    <h1>Staking v2 Stats</h1>
+                    <h2>Current Stake</h2>
+                    <GetStakev2 drizzle={this.props.drizzle}
+                              drizzleState={this.state.drizzleState}
+                    />
+
+                    <h2>Staking Pool %</h2>
+                    <PoolPercentv2 drizzle={this.props.drizzle}
+                                 drizzleState={this.state.drizzleState}
+                    />
+                    <h2>Pending Rewards</h2>
+                    <PendingRewardsv2 drizzle={this.props.drizzle}
+                                    drizzleState={this.state.drizzleState}
+                    />
+
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Next</h3>
+                    </button>
+                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+
+                </div>
+            )
+        } else if (this.state.stakeClick === 2 && this.state.stakingType === 2) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
+                }}>
+                    <h1>Change Stake</h1>
+
+                    <TransitionsModalv2
+                        drizzle={this.props.drizzle}
+                        drizzleState={this.state.drizzleState}/>
+                    <RemoveStakeModalv2 drizzle={this.props.drizzle}
+                                      drizzleState={this.state.drizzleState}/>
+                    <WithdrawStakev2 drizzle={this.props.drizzle}
                                    drizzleState={this.state.drizzleState}/>
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
@@ -195,7 +267,7 @@ class App extends React.Component {
                                     "backgroundColor": "transparent",
                                     "box-shadow": "none"
                                 }}
-                                ><h2>Home</h2>
+                                ><h2>Home</h2>F
                                 </button>
                             </a>
                         </Grid>
