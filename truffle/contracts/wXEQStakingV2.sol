@@ -46,11 +46,11 @@ contract SoftStakingv2 is Ownable {
     function changeStakingReward(uint256 _reward) public onlyOwner {
         blockReward = _reward;
     }
-    
+
     function changeMultiplier(uint256 _mult) public onlyOwner {
         multiplier = _mult;
     }
-    
+
     function changeMultiplierBlockEnd(uint256 _blockEnd) public onlyOwner {
         multiplierBlockEnd = _blockEnd;
     }
@@ -62,8 +62,8 @@ contract SoftStakingv2 is Ownable {
         }
         uint256 user_time = block.number - user.stakingBlock;
         uint256 baseReward = block.number <= multiplierBlockEnd ? user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward.mul(multiplier)) : user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
-   
-        return baseReward.mul(user_time).div(1e18).add(user.claimedBalance);
+
+        return baseReward.mul(user_time).div(1e18);
     }
 
     function enter(uint256 _amount) public {
