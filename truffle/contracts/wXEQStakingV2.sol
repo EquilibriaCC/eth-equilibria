@@ -13,7 +13,6 @@ contract SoftStaking is Ownable {
     using SafeMath for *;
     using SafeERC20 for IERC20;
     
-    DataStorage public dataStorage;
     wXEQ public wXEQContract;
     event Enter(address indexed user, uint256 amount);
     event Leave(address indexed user, uint256 amount);
@@ -26,16 +25,19 @@ contract SoftStaking is Ownable {
     }
 
     uint256 public blockReward;
+    uint256 public multiplierBlockEnd;
+    uint256 public multiplier;
 
     uint256 public totalStaked;
 
     mapping (address => UserInfo) public userInfo;
 
-    constructor(address _wxeq, address _dataStorage, address _master) public {
+    constructor(address _wxeq, address _master) public {
 
         wXEQContract = wXEQ(_wxeq);
-        dataStorage = DataStorage(_dataStorage);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
+        multiplier = 50;
+        multiplierBlockEnd = 100;
         transferOwnership(_master);
     }
 
@@ -49,8 +51,8 @@ contract SoftStaking is Ownable {
             return 0;
         }
         uint256 user_time = block.number - user.stakingBlock;
-        uint256 baseReward = user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
-
+        uint256 baseReward = block.number <= multiplierBlockEnd ? user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward.mul(multiplier)) : user.amount.mul(10.pow(18)).div(totalStaked).mul(blockReward);
+   
         return baseReward.mul(user_time).div(1e18).add(user.claimedBalance);
     }
 
@@ -108,5 +110,4 @@ contract SoftStaking is Ownable {
         user.stakingBlock = block.number;
         user.claimedBalance = user.claimedBalance.add(base_reward);
     }
-
 }
