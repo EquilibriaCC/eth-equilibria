@@ -15,7 +15,8 @@ import TransitionsModal from "./components/StakingModal";
 import PresaleModal from "./components/PreSaleModal";
 import SmartContractModal from "./components/SmartContractModal";
 import PoolPercent from "./components/PoolPercent";
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';import PresaleRounds from "./components/PresaleRoundsModal";
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import PresaleRounds from "./components/PresaleRoundsModal";
 import PresaleRoundsModal from "./components/PresaleRoundsModal";
 import Swap from "./components/Swap";
 import GetStakev2 from "./components/GetStakev2";
@@ -34,7 +35,7 @@ class App extends React.Component {
             dataKey: null,
             dataKeyXEQ: null,
             ethPrice: 0,
-            stakingType: 2,
+            stakingType: 1,
             stakeClick: 0,
             mul: 1
         };
@@ -89,15 +90,25 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Start Staking</h3>
                     </button>
-                    <button id={"submitButton"} style={{"width":"25%"}} onClick={() => {
-                        if (this.state.stakingType === 1) {
-                            this.setState({stakingType: 2})
-                        } else {
-                            this.setState({stakingType: 1})
-                        }
-                    }}><h3>Staking v{this.state.stakingType}</h3>
-                    </button>
-                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+                    <div style={{"padding-top":"5%", "padding-bottom":"5%"}}>
+                        <label className="label">
+                            <div className="toggle">
+                                <input className="toggle-state" type="checkbox" name="check" value="check"
+                                       onClick={() => {
+                                           if (this.state.stakingType === 1) {
+                                               this.setState({stakingType: 2})
+                                           } else {
+                                               this.setState({stakingType: 1})
+                                           }
+                                       }}/>
+                                <div className="indicator"></div>
+                            </div>
+                            <div className="label-text" style={{"color": "#fff"}}>Staking
+                                v{this.state.stakingType}</div>
+                        </label>
+                    </div>
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
                 </div>
             )
@@ -128,7 +139,8 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Next</h3>
                     </button>
-                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
                 </div>
             )
@@ -153,7 +165,8 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Back</h3>
                     </button>
-                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
 
                 </div>
@@ -169,23 +182,24 @@ class App extends React.Component {
                     <h1>Staking v2 Stats</h1>
                     <h2>Current Stake</h2>
                     <GetStakev2 drizzle={this.props.drizzle}
-                              drizzleState={this.state.drizzleState}
+                                drizzleState={this.state.drizzleState}
                     />
 
                     <h2>Staking Pool %</h2>
                     <PoolPercentv2 drizzle={this.props.drizzle}
-                                 drizzleState={this.state.drizzleState}
+                                   drizzleState={this.state.drizzleState}
                     />
                     <h2>Pending Rewards</h2>
                     <PendingRewardsv2 drizzle={this.props.drizzle}
-                                    drizzleState={this.state.drizzleState}
+                                      drizzleState={this.state.drizzleState}
                     />
 
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
                     }}><h3>Next</h3>
                     </button>
-                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
                 </div>
             )
@@ -203,14 +217,15 @@ class App extends React.Component {
                         drizzle={this.props.drizzle}
                         drizzleState={this.state.drizzleState}/>
                     <RemoveStakeModalv2 drizzle={this.props.drizzle}
-                                      drizzleState={this.state.drizzleState}/>
+                                        drizzleState={this.state.drizzleState}/>
                     <WithdrawStakev2 drizzle={this.props.drizzle}
-                                   drizzleState={this.state.drizzleState}/>
+                                     drizzleState={this.state.drizzleState}/>
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
                     }}><h3>Back</h3>
                     </button>
-                    {window.outerWidth < 1280 && <div style={{"padding": "1.75vh", "background-color":"transparent"}} />}
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
 
                 </div>
@@ -274,19 +289,19 @@ class App extends React.Component {
                         }
                         {window.outerWidth > 1280 ?
 
-                        <Grid container item xs={1} style={{}}>
-                            <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
-                               target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
-                                <button id={"submitButton"} style={{
-                                    "width": "100%",
-                                    "backgroundColor": "transparent",
-                                    "box-shadow": "none"
-                                }}
-                                ><h2>Explorer</h2>
-                                </button>
-                            </a>
-                        </Grid>
-                        :
+                            <Grid container item xs={1} style={{}}>
+                                <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
+                                   target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
+                                    <button id={"submitButton"} style={{
+                                        "width": "100%",
+                                        "backgroundColor": "transparent",
+                                        "box-shadow": "none"
+                                    }}
+                                    ><h2>Explorer</h2>
+                                    </button>
+                                </a>
+                            </Grid>
+                            :
                             <Grid container item xs={3} style={{}}>
                                 <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
                                    target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
@@ -317,9 +332,9 @@ class App extends React.Component {
                         }
                         <Grid container item xs={2} style={{}}>
                         </Grid>
-                        <Grid container item xs={2} style={{"width":"100%"}}>
+                        <Grid container item xs={2} style={{"width": "100%"}}>
                             <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}
-                               target={"_blank"} style={{"text-decoration":"none", "margin-left":"auto"}}>
+                               target={"_blank"} style={{"text-decoration": "none", "margin-left": "auto"}}>
                                 <h2 style={{"margin-right": "1.5vw"}}>Uniswap</h2>
                             </a>
                         </Grid>
@@ -352,15 +367,23 @@ class App extends React.Component {
                                   "marginRight": "auto",
 
                               }} id={"gridContainer"}>
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15, "margin-left":"auto", "margin-right":"auto"}}>
-                                <Grid container item xs={12} >
+                            <Grid container item xs={12} lg={6} style={{
+                                "marginTop": window.outerHeight / 15,
+                                "margin-left": "auto",
+                                "margin-right": "auto"
+                            }}>
+                                <Grid container item xs={12}>
                                     {this.stakingBox()
                                     }
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15, "margin-left":"auto", "margin-right":"auto"}}>
-                                <Grid container item xs={12} >
+                            <Grid container item xs={12} lg={6} style={{
+                                "marginTop": window.outerHeight / 15,
+                                "margin-left": "auto",
+                                "margin-right": "auto"
+                            }}>
+                                <Grid container item xs={12}>
                                     <div id={"dataContainer"}
                                          style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
                                         <PresaleInfo drizzle={this.props.drizzle}
@@ -372,12 +395,16 @@ class App extends React.Component {
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6} style={{"marginTop": window.outerHeight / 15, "margin-left":"auto", "margin-right":"auto"}}>
-                                <Grid container item xs={12} >
+                            <Grid container item xs={12} lg={6} style={{
+                                "marginTop": window.outerHeight / 15,
+                                "margin-left": "auto",
+                                "margin-right": "auto"
+                            }}>
+                                <Grid container item xs={12}>
                                     <div id={"dataContainer"}
                                          style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
                                         <Swap drizzle={this.props.drizzle}
-                                                     drizzleState={this.state.drizzleState}/>
+                                              drizzleState={this.state.drizzleState}/>
                                         {/* <PresaleModal
                                             drizzle={this.props.drizzle}
                                             drizzleState={this.state.drizzleState}/> */}
@@ -388,8 +415,8 @@ class App extends React.Component {
                         </Grid>
                     </div>
                 </div>
-                {window.outerWidth < 1280 && <div style={{"padding": "10vh", "background-color":"#1d212663"}} />}
-                <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%", "padding":"auto"}}>
+                {window.outerWidth < 1280 && <div style={{"padding": "10vh", "background-color": "#1d212663"}}/>}
+                <div className={"footer"} style={{"border-top": "1px solid #fff", "width": "100%", "padding": "auto"}}>
 
                     <Grid container xm={12}
 
@@ -397,26 +424,31 @@ class App extends React.Component {
                     </Grid>
 
                         <Grid container item xs={1} style={{"marginLeft": "auto", "marginTop": "8px"}}>
-                            <a href={"https://wiki.equilibria.network"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
+                            <a href={"https://wiki.equilibria.network"} target={"_blank"}
+                               style={{"marginLeft": "auto", "marginRight": "auto"}}>
 
                                 <HelpOutlineIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
-                        <Grid container item xs={1} style={{"marginLeft": "auto", "marginRight": "auto", "marginTop": "8px"}}>
-                            <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
+                        <Grid container item xs={1}
+                              style={{"marginLeft": "auto", "marginRight": "auto", "marginTop": "8px"}}>
+                            <a href={"https://t.me/EquilibriaNetwork"} target={"_blank"}
+                               style={{"marginLeft": "auto", "marginRight": "auto"}}>
 
                                 <TelegramIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
                         <Grid container item xs={1}
                               style={{"marginLeft": "auto", "marginRight": "auto", "marginTop": "8px"}}>
-                            <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
+                            <a href={"https://twitter.com/EquilibriaCC"} target={"_blank"}
+                               style={{"marginLeft": "auto", "marginRight": "auto"}}>
 
                                 <TwitterIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
                         <Grid container item xs={1} style={{"marginRight": "auto", "marginTop": "8px"}}>
-                            <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"} style={{"marginLeft": "auto", "marginRight": "auto"}}>
+                            <a href={"https://github.com/EquilibriaCC/eth-equilibria"} target={"_blank"}
+                               style={{"marginLeft": "auto", "marginRight": "auto"}}>
                                 <GitHubIcon style={{"color": "#fff", "margin": "auto", "height": "80px"}}/>
                             </a>
                         </Grid>
