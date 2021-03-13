@@ -75,11 +75,8 @@ contract SoftStaking is Ownable {
         totalStaked = totalStaked.add(_amount);
         UserInfo storage user = userInfo[msg.sender];
         user.amount = user.amount.add(_amount);
-
-        if (user.stakingBlock == 0)  {
-            user.stakingBlock = block.number;
-        }
-
+        lockRewards();
+        user.stakingBlock = block.number;
         emit Enter(msg.sender, _amount);
     }
 
