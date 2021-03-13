@@ -37,12 +37,20 @@ contract SoftStaking is Ownable {
         wXEQContract = wXEQ(_wxeq);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
         multiplier = 50;
-        multiplierBlockEnd = 100;
+        multiplierBlockEnd = block.number.mul(6520.mul(30));
         transferOwnership(_master);
     }
 
     function changeStakingReward(uint256 _reward) public onlyOwner returns (bool) {
         blockReward = _reward;
+    }
+    
+    function changeMultiplier(uint256 _mult) public onlyOwner {
+        multiplier = _mult;
+    }
+    
+    function changeMultiplierBlockEnd(uint256 _blockEnd) public onlyOwner {
+        multiplierBlockEnd = _blockEnd;
     }
 
     function getPendingReward(address _user) public view returns (uint256) {
