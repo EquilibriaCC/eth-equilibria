@@ -26,6 +26,7 @@ import TransitionsModalv2 from "./components/StakingModalv2";
 import RemoveStakeModalv2 from "./components/RemoveStakeModalv2";
 import WithdrawStakev2 from "./components/WithdrawStakev2";
 import LPBalance from "./components/LPBalance";
+import LockRewards from "./components/lockRewards";
 
 class App extends React.Component {
     constructor(props) {
@@ -294,9 +295,11 @@ class App extends React.Component {
                         drizzle={this.props.drizzle}
                         drizzleState={this.state.drizzleState}/>
                     <RemoveStakeModalv2 drizzle={this.props.drizzle}
-                                        drizzleState={this.state.drizzleState}/>
+                        drizzleState={this.state.drizzleState}/>
                     <WithdrawStakev2 drizzle={this.props.drizzle}
-                                     drizzleState={this.state.drizzleState}/>
+                        drizzleState={this.state.drizzleState}/>
+                    <LockRewards drizzle={this.props.drizzle}
+                        drizzleState={this.state.drizzleState}/>
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
                     }}><h3>Back</h3>

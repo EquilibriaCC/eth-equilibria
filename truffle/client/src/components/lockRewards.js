@@ -1,6 +1,6 @@
 import React from "react";
 
-class WithdrawStakev2 extends React.Component {
+class LockRewards extends React.Component {
     state = { stackId: null};
 
     handleKeyDown = e => {
@@ -17,7 +17,7 @@ class WithdrawStakev2 extends React.Component {
 
 
 
-        const stackId = contract.methods["withdrawRewards"].cacheSend(
+        const stackId = contract.methods["lockRewards"].cacheSend(
             { from: drizzleState.accounts[0] }
         );
         this.setState({ stackId });
@@ -42,7 +42,7 @@ class WithdrawStakev2 extends React.Component {
     render() {
         return (
             <div className={"App"} style={{"background":"transparent", "paddingBottom":"30px"}}>
-              <button id={"submitButton"}  onClick={() => {this.setValue()}}><h3>Withdraw Rewards</h3></button>
+              <button id={"submitButton"}  onClick={() => {this.setValue()}}><h3>Claim Rewards</h3></button>
 
             </div>
 
@@ -50,4 +50,4 @@ class WithdrawStakev2 extends React.Component {
     }
 }
 
-export default WithdrawStakev2;
+export default LockRewards;
