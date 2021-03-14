@@ -304,6 +304,7 @@ class App extends React.Component {
                         this.handleStakeClick()
                     }}><h3>Back</h3>
                     </button>
+                    <div style={{"padding-top":"5%"}}/>
                     {window.outerWidth < 1280 &&
                     <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
