@@ -31,10 +31,11 @@ contract SoftStakingV2 is Ownable {
     uint256 public multiplier;
     uint256 public lockPeriod;
     uint256 public totalStaked;
+    address public lp_address;
 
     mapping (address => UserInfo) public userInfo;
 
-    constructor(address _wxeq, address _master) public {
+    constructor(address _master, address _wxeq) public {
 
         wXEQContract = wXEQ(_wxeq);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
@@ -58,6 +59,10 @@ contract SoftStakingV2 is Ownable {
     
     function changeLockPeriod(uint256 _lockPeriod) public onlyOwner {
         lockPeriod = _lockPeriod;
+    }
+    
+    function changeLPAddress(address _lpAddress) public onlyOwner {
+        lp_address = _lpAddress;
     }
 
     function getPendingReward(address _user) public view returns (uint256) {
@@ -98,9 +103,7 @@ contract SoftStakingV2 is Ownable {
     function leave(uint256 _amount) public {
         UserInfo storage user = userInfo[msg.sender];
         require(user.amount > 0);
-        
-        uint256 base_reward = getPendingReward(msg.sender);
-        IERC20 token = IERC20(0xBEA36A22c20C763958632150d7a245226A2aF4A4);
+        IERC20 token = IERC20(lp_address);
         withdrawRewards();
         user.amount = user.amount.sub(_amount);
         totalStaked = totalStaked.sub(_amount);
@@ -128,7 +131,7 @@ contract SoftStakingV2 is Ownable {
         user.stakingBlock = 0;
         uint256 withdrawAmount = user.amount;
         user.amount = 0;
-        IERC20 token = IERC20(0xBEA36A22c20C763958632150d7a245226A2aF4A4);
+        IERC20 token = IERC20(lp_address);
         require((token.balanceOf(address(this))) >= withdrawAmount);
         token.transfer(msg.sender, withdrawAmount);
         emit Leave(msg.sender, withdrawAmount);
