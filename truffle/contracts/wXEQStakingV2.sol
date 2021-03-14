@@ -47,11 +47,11 @@ contract SoftStakingV2 is Ownable {
     function changeStakingReward(uint256 _reward) public onlyOwner returns (bool) {
         blockReward = _reward;
     }
-    
+
     function changeMultiplier(uint256 _mult) public onlyOwner {
         multiplier = _mult;
     }
-    
+
     function changeMultiplierBlockEnd(uint256 _blockEnd) public onlyOwner {
         multiplierBlockEnd = _blockEnd;
     }

@@ -25,6 +25,7 @@ import PendingRewardsv2 from "./components/PendingRewardsv2";
 import TransitionsModalv2 from "./components/StakingModalv2";
 import RemoveStakeModalv2 from "./components/RemoveStakeModalv2";
 import WithdrawStakev2 from "./components/WithdrawStakev2";
+import LPBalance from "./components/LPBalance";
 
 class App extends React.Component {
     constructor(props) {
@@ -68,7 +69,7 @@ class App extends React.Component {
     }
 
     stakingBox() {
-        if (this.state.stakeClick === 0) {
+        if (this.state.stakeClick === 0 && this.state.stakingType === 1) {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
@@ -84,6 +85,50 @@ class App extends React.Component {
                     />
                     <h2>Staking Pool %</h2>
                     <PoolPercent drizzle={this.props.drizzle}
+                                 drizzleState={this.state.drizzleState}
+                    />
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Start Staking</h3>
+                    </button>
+                    <div style={{"padding-top":"5%", "padding-bottom":"5%"}}>
+                        <label className="label">
+                            <div className="toggle">
+                                <input className="toggle-state" type="checkbox" name="check" value="check"
+                                       onClick={() => {
+                                           if (this.state.stakingType === 1) {
+                                               this.setState({stakingType: 2})
+                                           } else {
+                                               this.setState({stakingType: 1})
+                                           }
+                                       }}/>
+                                <div className="indicator"></div>
+                            </div>
+                            <div className="label-text" style={{"color": "#fff"}}>Staking
+                                v{this.state.stakingType}</div>
+                        </label>
+                    </div>
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
+
+                </div>
+            )
+        } else if (this.state.stakeClick === 0 && this.state.stakingType === 2) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
+                }}>
+                    <h1>Account Info</h1>
+                    <h2>Balance</h2>
+
+                    <LPBalance drizzle={this.props.drizzle}
+                             drizzleState={this.state.drizzleState}
+                    />
+                    <h2>Staking Pool %</h2>
+                    <PoolPercentv2 drizzle={this.props.drizzle}
                                  drizzleState={this.state.drizzleState}
                     />
                     <button id={"submitButton"} onClick={() => {
@@ -132,6 +177,38 @@ class App extends React.Component {
                     />
                     <h2>Pending Rewards</h2>
                     <PendingRewards drizzle={this.props.drizzle}
+                                    drizzleState={this.state.drizzleState}
+                    />
+
+                    <button id={"submitButton"} onClick={() => {
+                        this.handleStakeClick()
+                    }}><h3>Next</h3>
+                    </button>
+                    {window.outerWidth < 1280 &&
+                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
+
+                </div>
+            )
+        } else if (this.state.stakeClick === 1 && this.state.stakingType === 2) {
+            return (
+                <div id={"dataContainer"} style={{
+                    "width": "80%",
+                    "marginLeft": "auto",
+                    "marginRight": "auto",
+                    "paddingBottom": "0px"
+                }}>
+                    <h1>Staking Stats</h1>
+                    <h2>Current Stake</h2>
+                    <GetStakev2 drizzle={this.props.drizzle}
+                              drizzleState={this.state.drizzleState}
+                    />
+
+                    <h2>Staking Pool %</h2>
+                    <PoolPercentv2 drizzle={this.props.drizzle}
+                                 drizzleState={this.state.drizzleState}
+                    />
+                    <h2>Pending Rewards</h2>
+                    <PendingRewardsv2 drizzle={this.props.drizzle}
                                     drizzleState={this.state.drizzleState}
                     />
 
@@ -238,6 +315,8 @@ class App extends React.Component {
     }
 
     render() {
+        console.log(this.props.drizzle.contracts)
+
         if (this.state.loading) return (
             <Container fluid>
                 <div className={"App"} style={{

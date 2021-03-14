@@ -12,11 +12,10 @@ import softStaking from "./contracts/SoftStaking.json"
 import presale from "./contracts/PreSaleV2.json"
 import swap from "./contracts/XEQSwaps.json"
 import softStakingv2 from "./contracts/SoftStakingv2.json"
-import SmartContractModal from "./components/SmartContractModal";
+import IERC20 from "./contracts/uniswap.json"
 
-// let drizzle know what contracts we want and how to access our test blockchain
 const options = {
-    contracts: [Master, wXEQ, softStaking, presale, swap, softStakingv2],
+    contracts: [Master, wXEQ, softStaking, presale, swap, softStakingv2, IERC20],
     web3: {
         fallback: {
             type: "ws",

@@ -18,7 +18,7 @@ class ApproveCoinsv2 extends React.Component {
 
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
-        const contract = drizzle.contracts.wXEQ;
+        const contract = drizzle.contracts.IERC20;
         if (value <= 0)
             return
         value = Math.round(value * (10**10))
