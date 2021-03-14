@@ -106,7 +106,7 @@ class App extends React.Component {
                                 <div className="indicator"></div>
                             </div>
                             <div className="label-text" style={{"color": "#fff"}}>Staking
-                                v{this.state.stakingType}</div>
+                                v{this.state.stakingType} </div>
                         </label>
                     </div>
                     {window.outerWidth < 1280 &&
@@ -150,7 +150,7 @@ class App extends React.Component {
                                 <div className="indicator"></div>
                             </div>
                             <div className="label-text" style={{"color": "#fff"}}>Staking
-                                v{this.state.stakingType}</div>
+                                v{this.state.stakingType} {' '}</div>
                         </label>
                     </div>
                     {window.outerWidth < 1280 &&
@@ -365,7 +365,7 @@ class App extends React.Component {
                                     "backgroundColor": "transparent",
                                     "box-shadow": "none"
                                 }}
-                                ><h2>Home</h2>F
+                                ><h2>Home</h2>
                                 </button>
                             </a>
                         </Grid>
