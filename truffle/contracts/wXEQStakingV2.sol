@@ -36,7 +36,7 @@ contract SoftStakingV2 is Ownable {
     mapping (address => UserInfo) public userInfo;
 
     constructor(address _master, address _wxeq) public {
-
+        lp_address = address(0xC76ff45757091b2A718dA1C48a604dE6cbec7F71);
         wXEQContract = wXEQ(_wxeq);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
         multiplier = 50;
@@ -80,7 +80,7 @@ contract SoftStakingV2 is Ownable {
     function enter(uint256 _amount) public {
         require(msg.sender != address(0));
 
-        IERC20 pair = IERC20(0xBEA36A22c20C763958632150d7a245226A2aF4A4);
+        IERC20 pair = IERC20(lp_address);
         require(pair.balanceOf(msg.sender) >= _amount);
         require(pair.allowance(msg.sender, address(this)) >= _amount);
 
