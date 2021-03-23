@@ -63,7 +63,7 @@ export default function TransitionsModalv2(props) {
                             <Grid container item xs={12} lg={6} >
                                 <div id={"dataContainer"}
                                      style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
-                                    <h1>Approve Tokens</h1>
+                                    <h1>Approve wXEQ LP Tokens</h1>
                                     <ApproveCoinsv2
                                         drizzle={props.drizzle}
                                         drizzleState={props.drizzleState}/>
@@ -77,7 +77,7 @@ export default function TransitionsModalv2(props) {
                                     "marginRight": "auto",
                                     // "marginTop": "20px"
                                 }}>
-                                    <h1>Stake wXEQ</h1>
+                                    <h1>Stake wXEQ LP Tokens</h1>
                                     <h2>Tokens are locked for 30 days!</h2>
                                     <AddStakev2
                                         drizzle={props.drizzle}

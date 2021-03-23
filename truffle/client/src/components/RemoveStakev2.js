@@ -64,7 +64,7 @@ class RemoveStakev2 extends React.Component {
 
         return (
             <div>
-                <h3>Unlock some of your wXEQ from the staking pool<br/>(You currently have {appCoins} wXEQ LP tokens staked)</h3>
+                <h3>Unlock some of your wXEQ-ETH LP tokens from the staking pool<br/>(You currently have {appCoins} wXEQ LP tokens staked)</h3>
                 <input style={{"width":"42.5%"}} type="text" onChange={(e) => {this.setState({val: e.target.value})}} placeholder={"Amount to Remove"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
                 <div style={{"paddingBottom":"30px"}}>
