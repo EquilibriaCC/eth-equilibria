@@ -232,9 +232,9 @@ class App extends React.Component {
                 }}>
                     <h1>Change Stake</h1>
 
-                    <TransitionsModal
-                        drizzle={this.props.drizzle}
-                        drizzleState={this.state.drizzleState}/>
+                    {/*<TransitionsModal*/}
+                    {/*    drizzle={this.props.drizzle}*/}
+                    {/*    drizzleState={this.state.drizzleState}/>*/}
                     <RemoveStakeModal drizzle={this.props.drizzle}
                                       drizzleState={this.state.drizzleState}/>
                     <WithdrawStake drizzle={this.props.drizzle}
