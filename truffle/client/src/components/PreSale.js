@@ -80,7 +80,7 @@ class PreSale extends React.Component {
         let eth_amount = Number(this.state.val) * Number(10**8)
 
         if (eth_amount > Number(this.props.drizzleState.accountBalances[this.props.drizzleState.accounts[0]]))
-            return "Amount is larger than your balance (or balance state is lagging (ctrl + shift + r to refresh)"
+            return "Amount is larger than your balance (or balance state is lagging (ctrl(cmd) + shift + r to refresh)"
 
         // otherwise, return the transaction status
         return `Receive ~${coins} wXEQ`;
