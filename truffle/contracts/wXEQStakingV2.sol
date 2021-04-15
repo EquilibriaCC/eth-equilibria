@@ -40,9 +40,9 @@ contract SoftStakingV2 is Ownable {
         wXEQContract = wXEQ(_wxeq);
         blockReward = (11.mul(10.pow(16)));  // .11 wXEQ per block
         multiplier = 50;
-        multiplierBlockEnd = block.number.add(6520.mul(30));
+        multiplierBlockEnd = 12229378;
         lockPeriod = 6520.mul(30);
-        transferOwnership(_master);
+        transferOwnership(msg.sender);
     }
 
     function changeStakingReward(uint256 _reward) public onlyOwner returns (bool) {
@@ -117,10 +117,11 @@ contract SoftStakingV2 is Ownable {
         require(user.amount > 0);
         require(block.number >= user.initialStakeBlock.add(lockPeriod));
         uint256 base_reward = getPendingReward(msg.sender);
+        uint256 claimed_balance = user.claimedBalance;
         require(base_reward > 0);
         user.stakingBlock = block.number;
         user.claimedBalance = 0;
-        wXEQContract.mint(msg.sender, base_reward);
+        wXEQContract.mint(msg.sender, base_reward.add(claimed_balance));
         emit WithdrawRewards(msg.sender, base_reward);
     }
     
@@ -130,6 +131,7 @@ contract SoftStakingV2 is Ownable {
         user.claimedBalance = 0;
         user.stakingBlock = 0;
         uint256 withdrawAmount = user.amount;
+        totalStaked = totalStaked.sub(user.amount);
         user.amount = 0;
         IERC20 token = IERC20(lp_address);
         require((token.balanceOf(address(this))) >= withdrawAmount);
