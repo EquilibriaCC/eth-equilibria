@@ -78,7 +78,6 @@ export default function TransitionsModalv2(props) {
                                     // "marginTop": "20px"
                                 }}>
                                     <h1>Stake wXEQ LP Tokens</h1>
-                                    <h2>Tokens are locked for 30 days!</h2>
                                     <AddStakev2
                                         drizzle={props.drizzle}
                                         drizzleState={props.drizzleState}/>

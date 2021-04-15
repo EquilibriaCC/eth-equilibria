@@ -58,7 +58,7 @@ class AddStakev2 extends React.Component {
             appCoins = (Number(this.props.drizzleState.contracts.IERC20.allowance[Object.keys(this.props.drizzleState.contracts.IERC20.allowance)[0]].value)/10**18).toLocaleString()
         return (
             <div>
-                <h6>Lock wXEQ LP Tokens and Earn Rewards. <br/> Tokens are locked for 30 days! <br/>(you currently have {appCoins} approved)</h6>
+                <h6>Lock wXEQ LP Tokens and Earn Rewards. <br/> (you currently have {appCoins} approved)</h6>
                 <input type="text" onChange={(e) => {this.setState({val: e.target.value})}}  placeholder="Amount to Stake" onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
                 <div style={{"paddingBottom":"30px"}}>
