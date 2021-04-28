@@ -37,7 +37,7 @@ class App extends React.Component {
             dataKey: null,
             dataKeyXEQ: null,
             ethPrice: 0,
-            stakingType: 1,
+            stakingType: 2,
             stakeClick: 0,
             mul: 1
         };
@@ -88,27 +88,30 @@ class App extends React.Component {
                     <PoolPercent drizzle={this.props.drizzle}
                                  drizzleState={this.state.drizzleState}
                     />
-                    <button id={"submitButton"} onClick={() => {
-                        this.handleStakeClick()
-                    }}><h3>Start Staking</h3>
-                    </button>
-                    <div style={{"padding-top":"5%", "padding-bottom":"5%"}}>
-                        <label className="label">
-                            <div className="toggle">
-                                <input className="toggle-state" type="checkbox" name="check" value="check"
-                                       onClick={() => {
-                                           if (this.state.stakingType === 1) {
-                                               this.setState({stakingType: 2})
-                                           } else {
-                                               this.setState({stakingType: 1})
-                                           }
-                                       }}/>
-                                <div className="indicator"></div>
-                            </div>
-                            <div className="label-text" style={{"color": "#fff"}}>Staking
-                                v{this.state.stakingType} </div>
-                        </label>
+                    <div style={{"paddingBottom":"30px"}}>
+                        <button id={"submitButton"} onClick={() => {
+                            this.handleStakeClick()
+                        }}><h3>Start LP Staking</h3>
+                        </button>
                     </div>
+                    <div style={{"padding":"15%"}}/>
+                    {/*<div style={{"padding-top":"5%", "padding-bottom":"5%"}}>*/}
+                    {/*    <label className="label">*/}
+                    {/*        <div className="toggle">*/}
+                    {/*            <input className="toggle-state" type="checkbox" name="check" value="check"*/}
+                    {/*                   onClick={() => {*/}
+                    {/*                       if (this.state.stakingType === 1) {*/}
+                    {/*                           this.setState({stakingType: 2})*/}
+                    {/*                       } else {*/}
+                    {/*                           this.setState({stakingType: 1})*/}
+                    {/*                       }*/}
+                    {/*                   }}/>*/}
+                    {/*            <div className="indicator"></div>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="label-text" style={{"color": "#fff"}}>Staking*/}
+                    {/*            v{this.state.stakingType} </div>*/}
+                    {/*    </label>*/}
+                    {/*</div>*/}
                     {window.outerWidth < 1280 &&
                     <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
@@ -132,27 +135,29 @@ class App extends React.Component {
                     <PoolPercentv2 drizzle={this.props.drizzle}
                                  drizzleState={this.state.drizzleState}
                     />
+                    <div style={{"paddingBottom":"30px"}}>
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
-                    }}><h3>Start Staking</h3>
+                    }}><h3>Start LP Staking</h3>
                     </button>
-                    <div style={{"padding-top":"5%", "padding-bottom":"5%"}}>
-                        <label className="label">
-                            <div className="toggle">
-                                <input className="toggle-state" type="checkbox" name="check" value="check"
-                                       onClick={() => {
-                                           if (this.state.stakingType === 1) {
-                                               this.setState({stakingType: 2})
-                                           } else {
-                                               this.setState({stakingType: 1})
-                                           }
-                                       }}/>
-                                <div className="indicator"></div>
-                            </div>
-                            <div className="label-text" style={{"color": "#fff"}}>Staking
-                                v{this.state.stakingType} {' '}</div>
-                        </label>
                     </div>
+                    {/*<div style={{"padding-top":"5%", "padding-bottom":"5%"}}>*/}
+                    {/*    <label className="label">*/}
+                    {/*        <div className="toggle">*/}
+                    {/*            <input className="toggle-state" type="checkbox" name="check" value="check"*/}
+                    {/*                   onClick={() => {*/}
+                    {/*                       if (this.state.stakingType === 1) {*/}
+                    {/*                           this.setState({stakingType: 2})*/}
+                    {/*                       } else {*/}
+                    {/*                           this.setState({stakingType: 1})*/}
+                    {/*                       }*/}
+                    {/*                   }}/>*/}
+                    {/*            <div className="indicator"></div>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="label-text" style={{"color": "#fff"}}>Staking*/}
+                    {/*            v{this.state.stakingType} {' '}</div>*/}
+                    {/*    </label>*/}
+                    {/*</div>*/}
                     {window.outerWidth < 1280 &&
                     <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
@@ -181,10 +186,13 @@ class App extends React.Component {
                                     drizzleState={this.state.drizzleState}
                     />
 
-                    <button id={"submitButton"} onClick={() => {
-                        this.handleStakeClick()
-                    }}><h3>Next</h3>
-                    </button>
+
+                    <div style={{"paddingBottom":"30px"}}>
+                        <button id={"submitButton"} onClick={() => {
+                            this.handleStakeClick()
+                        }}><h3>Next</h3>
+                        </button>
+                    </div>
                     {window.outerWidth < 1280 &&
                     <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
@@ -213,10 +221,12 @@ class App extends React.Component {
                                     drizzleState={this.state.drizzleState}
                     />
 
-                    <button id={"submitButton"} onClick={() => {
-                        this.handleStakeClick()
-                    }}><h3>Next</h3>
-                    </button>
+                    <div style={{"paddingBottom":"30px"}}>
+                        <button id={"submitButton"} onClick={() => {
+                            this.handleStakeClick()
+                        }}><h3>Next</h3>
+                        </button>
+                    </div>
                     {window.outerWidth < 1280 &&
                     <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
@@ -232,9 +242,9 @@ class App extends React.Component {
                 }}>
                     <h1>Change Stake</h1>
 
-                    {/*<TransitionsModal*/}
-                    {/*    drizzle={this.props.drizzle}*/}
-                    {/*    drizzleState={this.state.drizzleState}/>*/}
+                    <TransitionsModal
+                        drizzle={this.props.drizzle}
+                        drizzleState={this.state.drizzleState}/>
                     <RemoveStakeModal drizzle={this.props.drizzle}
                                       drizzleState={this.state.drizzleState}/>
                     <WithdrawStake drizzle={this.props.drizzle}
@@ -471,9 +481,9 @@ class App extends React.Component {
                                          style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
                                         <PresaleInfo drizzle={this.props.drizzle}
                                                      drizzleState={this.state.drizzleState}/>
-                                        <PresaleModal
-                                            drizzle={this.props.drizzle}
-                                            drizzleState={this.state.drizzleState}/>
+                                        {/*<PresaleModal*/}
+                                        {/*    drizzle={this.props.drizzle}*/}
+                                        {/*    drizzleState={this.state.drizzleState}/>*/}
                                     </div>
                                 </Grid>
                             </Grid>

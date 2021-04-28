@@ -52,6 +52,7 @@ export default function PresaleModal(props) {
 
     if (Object.keys(props.drizzleState.contracts.PreSaleV2.wXEQLeft).length > 0)
         remaining = (Number(props.drizzleState.contracts.PreSaleV2.wXEQLeft["0x0"].value)/(10**18)).toLocaleString()
+    console.log(props.drizzleState.contracts.PreSaleV2)
 
     if (Object.keys(props.drizzleState.contracts.PreSaleV2.lastETHPrice).length > 0)
         ethPrice = (Number(props.drizzleState.contracts.PreSaleV2.lastETHPrice["0x0"].value)/(10**8)).toLocaleString()
@@ -84,7 +85,7 @@ export default function PresaleModal(props) {
                                     "marginLeft": "auto",
                                     "marginRight": "auto",
                                 }}>
-                                    <h1>wXEQ Crowd Sale</h1>                                    
+                                    <h1>wXEQ Crowd Sale</h1>
                                     <h3>Deposit ETH and Recieve wXEQ</h3>
                                     <p>Send ETH (${ethPrice}) to the above address and receive 1 wXEQ for every ${xeqRate} worth of ETH sent.</p>
                                     <p>Total ETH Raised: {ethamount} | Total wXEQ Minted: {wXEQ_Minted} | Remaining wXEQ for sale: {remaining}</p>

@@ -41,13 +41,13 @@ class PresaleInfo extends React.Component {
 
         return (
             <div style={{"paddingTop":"0"}}>
-                <h1>Crowdsale Info</h1>
-                <h2>Crowdsale Target</h2>
-                <p id={"bigNumber"}>{c}</p>
-                <h2>Exchange Rate</h2>
-                <p id={"bigNumber"}>{xeqRate}</p>
-                <h2>wXEQ Remaining</h2>
-                <p id={"bigNumber"}>{(Number(wXEQLeft)/(10**18)).toLocaleString()}</p>
+                <h1>Crowdsale Results</h1>
+                <h2>ETH Raised</h2>
+                <p id={"bigNumber"}>465.585</p>
+                <h2>wXEQ Minted</h2>
+                <p id={"bigNumber"}>9,892,819.395</p>
+                <h2>Target %</h2>
+                <p id={"bigNumber"}>100%</p>
                 {/*<h2>Presale Expiration Block</h2>*/}
                 {/*<p id={"bigNumber"} style={{"color":"#ef101e"}}>{finalBlock}</p>*/}
             </div>
