@@ -82,13 +82,13 @@ h1 {
   border-color: #1d2126;
   border-width: 0;
   outline: none;
-  cursor: pointer;
+  cursor: not-allowed;
   box-shadow: rgba(0, 0, 0, 0.01) 0 0 1px, rgba(0, 0, 0, 0.04) 0 4px 8px, rgba(0, 0, 0, 0.04) 0 16px 24px, rgba(0, 0, 0, 0.01) 0 24px 32px;
   opacity: 1;
 }
 /*#0b617b*/
 #submitButton:hover {
-  background-color: #1851a0;
+  /*background-color: #1851a0;*/
 
 }
 #submitButton:hover::after {

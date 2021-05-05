@@ -38,7 +38,7 @@ class LPBalance extends React.Component {
                 return (
                     <div>
                         <p id={"bigNumber"} style={{"color":"#ef101e"}}>{balance}</p>
-                        <h2>Unlocked Balance</h2>
+                        <h2>Unlocked wXEQ-ETH LP Balance</h2>
                         <p id={"bigNumber"}>{(Number(this.props.drizzleState.contracts.IERC20["balanceOf"][this.state.dataKeyXEQ].value)/(10**18)).toLocaleString()}</p>
                     </div>
                 )
@@ -46,14 +46,14 @@ class LPBalance extends React.Component {
             return (
                 <div>
                     <p id={"bigNumber"}>{balance}</p>
-                    <h2>Unlocked Balance</h2>
+                    <h2>Unlocked wXEQ-ETH LP Balance</h2>
                     <p id={"bigNumber"}>{(Number(this.props.drizzleState.contracts.IERC20["balanceOf"][this.state.dataKeyXEQ].value)/(10**18)).toLocaleString()}</p>
                 </div>
             )
         } catch {
             return <div>
                 <p id={"bigNumber"} style={{"color":"#ef101e"}}>0</p>
-                <h2>Unlocked Balance</h2>
+                <h2>Unlocked wXEQ-ETH LP Balance</h2>
                 <p id={"bigNumber"}>{0}</p>
             </div>
         }

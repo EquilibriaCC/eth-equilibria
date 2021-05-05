@@ -70,7 +70,7 @@ class App extends React.Component {
     }
 
     stakingBox() {
-        if (this.state.stakeClick === 0 && this.state.stakingType === 1) {
+        if (this.state.stakeClick === 0 && this.state.stakingType === 2) {
             return (
                 <div id={"dataContainer"} style={{
                     "width": "80%",
@@ -79,85 +79,18 @@ class App extends React.Component {
                     "paddingBottom": "0px"
                 }}>
                     <h1>Account Info</h1>
-                    <h2>Balance</h2>
-
-                    <Balance drizzle={this.props.drizzle}
-                             drizzleState={this.state.drizzleState}
-                    />
-                    <h2>Staking Pool %</h2>
-                    <PoolPercent drizzle={this.props.drizzle}
-                                 drizzleState={this.state.drizzleState}
-                    />
-                    <div style={{"paddingBottom":"30px"}}>
-                        <button id={"submitButton"} onClick={() => {
-                            this.handleStakeClick()
-                        }}><h3>Start LP Staking</h3>
-                        </button>
-                    </div>
-                    <div style={{"padding":"15%"}}/>
-                    {/*<div style={{"padding-top":"5%", "padding-bottom":"5%"}}>*/}
-                    {/*    <label className="label">*/}
-                    {/*        <div className="toggle">*/}
-                    {/*            <input className="toggle-state" type="checkbox" name="check" value="check"*/}
-                    {/*                   onClick={() => {*/}
-                    {/*                       if (this.state.stakingType === 1) {*/}
-                    {/*                           this.setState({stakingType: 2})*/}
-                    {/*                       } else {*/}
-                    {/*                           this.setState({stakingType: 1})*/}
-                    {/*                       }*/}
-                    {/*                   }}/>*/}
-                    {/*            <div className="indicator"></div>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="label-text" style={{"color": "#fff"}}>Staking*/}
-                    {/*            v{this.state.stakingType} </div>*/}
-                    {/*    </label>*/}
-                    {/*</div>*/}
-                    {window.outerWidth < 1280 &&
-                    <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
-
-                </div>
-            )
-        } else if (this.state.stakeClick === 0 && this.state.stakingType === 2) {
-            return (
-                <div id={"dataContainer"} style={{
-                    "width": "80%",
-                    "marginLeft": "auto",
-                    "marginRight": "auto",
-                    "paddingBottom": "0px"
-                }}>
-                    <h1>Account Info</h1>
-                    <h2>Balance</h2>
+                    <h2>wXEQ-ETH LP Balance</h2>
 
                     <LPBalance drizzle={this.props.drizzle}
                              drizzleState={this.state.drizzleState}
                     />
-                    <h2>Staking Pool %</h2>
-                    <PoolPercentv2 drizzle={this.props.drizzle}
-                                 drizzleState={this.state.drizzleState}
-                    />
                     <div style={{"paddingBottom":"30px"}}>
-                    <button id={"submitButton"} onClick={() => {
+                    <button id={"submitButton"} disabled onClick={() => {
                         this.handleStakeClick()
-                    }}><h3>Start LP Staking</h3>
+                    }}><h3>LP Staking Coming Soon</h3>
+                        {/*Start LP Staking*/}
                     </button>
                     </div>
-                    {/*<div style={{"padding-top":"5%", "padding-bottom":"5%"}}>*/}
-                    {/*    <label className="label">*/}
-                    {/*        <div className="toggle">*/}
-                    {/*            <input className="toggle-state" type="checkbox" name="check" value="check"*/}
-                    {/*                   onClick={() => {*/}
-                    {/*                       if (this.state.stakingType === 1) {*/}
-                    {/*                           this.setState({stakingType: 2})*/}
-                    {/*                       } else {*/}
-                    {/*                           this.setState({stakingType: 1})*/}
-                    {/*                       }*/}
-                    {/*                   }}/>*/}
-                    {/*            <div className="indicator"></div>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="label-text" style={{"color": "#fff"}}>Staking*/}
-                    {/*            v{this.state.stakingType} {' '}</div>*/}
-                    {/*    </label>*/}
-                    {/*</div>*/}
                     {window.outerWidth < 1280 &&
                     <div style={{"padding": "1.75vh", "background-color": "transparent"}}/>}
 
@@ -426,7 +359,7 @@ class App extends React.Component {
                         <Grid container item xs={2} style={{}}>
                         </Grid>
                         <Grid container item xs={2} style={{"width": "100%"}}>
-                            <a href={"https://info.uniswap.org/pair/0xc76ff45757091b2a718da1c48a604de6cbec7f71"}
+                            <a href={"https://info.uniswap.org/pair/0x631540a0f8908559f6c09f5bf1510e467f66715d"}
                                target={"_blank"} style={{"text-decoration": "none", "margin-left": "auto"}}>
                                 <h2 style={{"margin-right": "1.5vw"}}>Uniswap</h2>
                             </a>
@@ -471,22 +404,22 @@ class App extends React.Component {
                                 </Grid>
                             </Grid>
 
-                            <Grid container item xs={12} lg={6} style={{
-                                "marginTop": window.outerHeight / 15,
-                                "margin-left": "auto",
-                                "margin-right": "auto"
-                            }}>
-                                <Grid container item xs={12}>
-                                    <div id={"dataContainer"}
-                                         style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>
-                                        <PresaleInfo drizzle={this.props.drizzle}
-                                                     drizzleState={this.state.drizzleState}/>
-                                        {/*<PresaleModal*/}
-                                        {/*    drizzle={this.props.drizzle}*/}
-                                        {/*    drizzleState={this.state.drizzleState}/>*/}
-                                    </div>
-                                </Grid>
-                            </Grid>
+                            {/*<Grid container item xs={12} lg={6} style={{*/}
+                            {/*    "marginTop": window.outerHeight / 15,*/}
+                            {/*    "margin-left": "auto",*/}
+                            {/*    "margin-right": "auto"*/}
+                            {/*}}>*/}
+                            {/*    <Grid container item xs={12}>*/}
+                            {/*        <div id={"dataContainer"}*/}
+                            {/*             style={{"width": "80%", "marginLeft": "auto", "marginRight": "auto"}}>*/}
+                            {/*            <PresaleInfo drizzle={this.props.drizzle}*/}
+                            {/*                         drizzleState={this.state.drizzleState}/>*/}
+                            {/*            /!*<PresaleModal*!/*/}
+                            {/*            /!*    drizzle={this.props.drizzle}*!/*/}
+                            {/*            /!*    drizzleState={this.state.drizzleState}/>*!/*/}
+                            {/*        </div>*/}
+                            {/*    </Grid>*/}
+                            {/*</Grid>*/}
 
                             <Grid container item xs={12} lg={6} style={{
                                 "marginTop": window.outerHeight / 15,
