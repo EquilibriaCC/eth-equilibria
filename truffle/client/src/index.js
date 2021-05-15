@@ -13,9 +13,10 @@ import presale from "./contracts/PreSaleV2.json"
 import swap from "./contracts/XEQSwaps.json"
 import softStakingv2 from "./contracts/SoftStakingv2.json"
 import IERC20 from "./contracts/uniswap.json"
+import staking from "./contracts/StakingPools.json"
 
 const options = {
-    contracts: [Master, wXEQ, softStaking, presale, swap, softStakingv2, IERC20],
+    contracts: [Master, wXEQ, softStaking, presale, swap, softStakingv2, IERC20, staking],
     web3: {
         fallback: {
             type: "ws",

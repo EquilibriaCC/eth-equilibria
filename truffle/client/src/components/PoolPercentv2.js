@@ -25,12 +25,12 @@ class PoolPercentv2 extends React.Component {
         let staked = 0;
         let totalStaked = 0
         try {
-           staked = (Number(this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStaking].value.amount))
-           totalStaked = (Number(this.props.drizzleState.contracts.SoftStakingv2["totalStaked"][this.state.dataKey].value))
+           staked = (Number(Number(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited[Object.keys(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited)[0]].value)/(10**18)))
+           totalStaked = (Number(Number(this.props.drizzleState.contracts.StakingPools.getPoolTotalDeposited[Object.keys(this.props.drizzleState.contracts.StakingPools.getPoolTotalDeposited)[0]].value)/(10**18)))
            approvedCoins = staked/totalStaked
         } catch{}
         let coins = approvedCoins
-        let coinDisplay = <p id={"bigNumber"} >{(Number(coins)*100).toFixed(4)}%</p>
+        let coinDisplay = <p id={"bigNumber"} >{(Number(coins)*100).toFixed(2)}%</p>
         if (staked === 0)
             coinDisplay = <p id={"bigNumber"} style={{"color":"#ef101e"}}>{(0).toLocaleString()}% </p>
 

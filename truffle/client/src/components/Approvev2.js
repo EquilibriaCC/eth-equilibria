@@ -62,7 +62,7 @@ class ApproveCoinsv2 extends React.Component {
 
     componentDidMount() {
         const { drizzle } = this.props;
-        let stakingAddress = drizzle.contracts.SoftStakingv2.address
+        let stakingAddress = drizzle.contracts.StakingPools.address
 
         this.setState({stakingAddress: stakingAddress})
     }

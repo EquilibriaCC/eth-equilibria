@@ -4,7 +4,6 @@ import RemoveStakeModal from "./components/RemoveStakeModal";
 import WithdrawStake from "./components/WithdrawStake";
 import Grid from '@material-ui/core/Grid';
 import Container from 'react-bootstrap/Container';
-import Balance from "./components/Balance";
 import GetStake from "./components/GetStake";
 import PendingRewards from "./components/PendingRewards";
 import PresaleInfo from "./components/PresaleInfo";
@@ -85,10 +84,9 @@ class App extends React.Component {
                              drizzleState={this.state.drizzleState}
                     />
                     <div style={{"paddingBottom":"30px"}}>
-                    <button id={"submitButton"} disabled onClick={() => {
+                    <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
-                    }}><h3>LP Staking Coming Soon</h3>
-                        {/*Start LP Staking*/}
+                    }}><h3>Start LP Staking</h3>
                     </button>
                     </div>
                     {window.outerWidth < 1280 &&
@@ -200,7 +198,7 @@ class App extends React.Component {
                     "marginRight": "auto",
                     "paddingBottom": "0px"
                 }}>
-                    <h1>Staking v2 Stats</h1>
+                    <h1>LP Staking Stats</h1>
                     <h2>Current Stake</h2>
                     <GetStakev2 drizzle={this.props.drizzle}
                                 drizzleState={this.state.drizzleState}
@@ -240,8 +238,6 @@ class App extends React.Component {
                     <RemoveStakeModalv2 drizzle={this.props.drizzle}
                         drizzleState={this.state.drizzleState}/>
                     <WithdrawStakev2 drizzle={this.props.drizzle}
-                        drizzleState={this.state.drizzleState}/>
-                    <LockRewards drizzle={this.props.drizzle}
                         drizzleState={this.state.drizzleState}/>
                     <button id={"submitButton"} onClick={() => {
                         this.handleStakeClick()
@@ -316,7 +312,7 @@ class App extends React.Component {
                         {window.outerWidth > 1280 ?
 
                             <Grid container item xs={1} style={{}}>
-                                <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
+                                <a href={"https://etherscan.io/address/0x4a5b3d0004454988c50e8de1bcfc921ee995ade3 "}
                                    target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
                                     <button id={"submitButton"} style={{
                                         "width": "100%",
@@ -329,7 +325,7 @@ class App extends React.Component {
                             </Grid>
                             :
                             <Grid container item xs={3} style={{}}>
-                                <a href={"https://etherscan.io/address/0x0F1aB924fbAd4525578011b102604D3e2F11F9Ef"}
+                                <a href={"https://etherscan.io/address/0x4a5b3d0004454988c50e8de1bcfc921ee995ade3 "}
                                    target={"_blank"} style={{"margin-left": "auto", "margin-right": "auto"}}>
                                     <button id={"submitButton"} style={{
                                         "width": "100%",

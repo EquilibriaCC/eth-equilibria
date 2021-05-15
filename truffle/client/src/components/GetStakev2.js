@@ -19,12 +19,12 @@ class GetStakev2 extends React.Component {
     render() {
 
         try {
+            let stake = Number(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited[Object.keys(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited)[0]].value)/(10**18)
 
-            let stake = (Number(this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStaking].value.amount)/(10**18) + Number(this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStaking].value.claimedBalance)/(10**18)).toLocaleString()
             if (stake === "0") {
                 return <p id={"bigNumber"} style={{"color":"#ef101e"}}>{stake}</p>
             }
-            return <p id={"bigNumber"}>{stake}</p>
+            return <p id={"bigNumber"}>{stake.toLocaleString()}</p>
         } catch {
             return <p id={"bigNumber"} style={{"color":"#ef101e"}}>0</p>
         }

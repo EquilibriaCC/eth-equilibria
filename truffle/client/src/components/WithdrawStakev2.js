@@ -13,11 +13,9 @@ class WithdrawStakev2 extends React.Component {
 
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
-        const contract = drizzle.contracts.SoftStakingv2
+        const contract = drizzle.contracts.StakingPools
 
-
-
-        const stackId = contract.methods["withdrawRewards"].cacheSend(
+        const stackId = contract.methods["claim"].cacheSend( 1,
             { from: drizzleState.accounts[0] }
         );
         this.setState({ stackId });

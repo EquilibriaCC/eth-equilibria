@@ -4,19 +4,6 @@ import React from "react";
 class RemoveStakev2 extends React.Component {
     state = { stackId: null, val: 0, dataKeyStaking: null};
 
-
-    componentDidMount() {
-
-        const { drizzle } = this.props;
-        const contract = drizzle.contracts.wXEQ;
-        const stakingContract = drizzle.contracts.SoftStakingv2
-
-        let dataKeyStaking = stakingContract.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
-
-        // save the `dataKey` to local component state for later reference
-        this.setState({ dataKeyStaking });
-    }
-
     handleKeyDown = e => {
             if (e.keyCode === 13) {
                 this.setValue(e.target.value);
@@ -25,15 +12,14 @@ class RemoveStakev2 extends React.Component {
 
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
-        const contract = drizzle.contracts.SoftStakingv2
+        const contract = drizzle.contracts.StakingPools
         if (value <= 0)
             return
         value = Math.round(value * (10**10))
         value = BigInt(value) * BigInt(10**8)
 
-        let appCoins = 0
 
-        const stackId = contract.methods["leave"].cacheSend( value,
+        const stackId = contract.methods["withdraw"].cacheSend( 1, value,
             { from: drizzleState.accounts[0]}
         );
         this.setState({ stackId });
@@ -55,16 +41,16 @@ class RemoveStakev2 extends React.Component {
 
 
     render() {
-        let appCoins = 0
+        let stake = 0
         try {
-            appCoins = (Number(this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStaking].value.amount)/(10**18)).toLocaleString()
+           stake = Number(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited[Object.keys(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited)[0]].value)/(10**18)
         } catch {
 
         }
 
         return (
             <div>
-                <h3>Unlock some of your wXEQ-ETH LP tokens from the staking pool<br/>(You currently have {appCoins} wXEQ LP tokens staked)</h3>
+                <h3>Unlock some of your wXEQ-ETH LP tokens from the staking pool<br/>(You currently have {stake} wXEQ LP tokens staked)</h3>
                 <input style={{"width":"42.5%"}} type="text" onChange={(e) => {this.setState({val: e.target.value})}} placeholder={"Amount to Remove"} onKeyDown={this.handleKeyDown} />
                 <div id={"inputBox"}><p>{this.getTxStatus()}</p></div>
                 <div style={{"paddingBottom":"30px"}}>

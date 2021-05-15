@@ -15,7 +15,7 @@ class AddStakev2 extends React.Component {
 
     setValue = value => {
         const { drizzle, drizzleState } = this.props;
-        const contract = drizzle.contracts.SoftStakingv2
+        const contract = drizzle.contracts.StakingPools
         if (value <= 0)
             return
         value = Math.round(value * (10**10))
@@ -29,7 +29,7 @@ class AddStakev2 extends React.Component {
 
         const instance = new drizzle.web3.eth.Contract(contract.abi, contract.address);
 
-                const stackId = contract.methods["enter"].cacheSend( value,
+                const stackId = contract.methods["deposit"].cacheSend(1, value,
                     { from: drizzleState.accounts[0]}
                 );
                 this.setState({ stackId });

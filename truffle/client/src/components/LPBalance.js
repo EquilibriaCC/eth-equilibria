@@ -1,33 +1,39 @@
 import React from "react";
+/* global BigInt */
 
 class LPBalance extends React.Component {
-    state = { dataKeyXEQ: null, dataKeyStaking: null, dataKeyStakingv2: null};
+    state = { dataKeyXEQ: null, dataKeyStaking: null, dataKeyStakingv2: null, stakingv2DataKey: null};
 
     componentDidMount() {
         const { drizzle } = this.props;
         const contract = drizzle.contracts.IERC20;
         const stakingContract = drizzle.contracts.SoftStaking
+        const stakingv2 = drizzle.contracts.StakingPools
+
+        let dataKey = stakingv2.methods["getStakeTotalUnclaimed"].cacheCall(drizzle.store.getState().accounts[0], 1)
+        stakingv2.methods["getStakeTotalDeposited"].cacheCall(drizzle.store.getState().accounts[0], 1)
+        stakingv2.methods["getPoolTotalDeposited"].cacheCall(1)
+
 
         // let drizzle know we want to watch the `myString` method
         let dataKeyXEQ = contract.methods["balanceOf"].cacheCall(drizzle.store.getState().accounts[0]);
         let dataKeyStaking = 0//stakingContract.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
-        drizzle.contracts.IERC20.methods["allowance"].cacheCall(drizzle.store.getState().accounts[0], drizzle.contracts.SoftStakingv2.address);
+        drizzle.contracts.IERC20.methods["allowance"].cacheCall(drizzle.store.getState().accounts[0], drizzle.contracts.StakingPools.address);
 
-        const stakingContractv2 = drizzle.contracts.SoftStakingv2
+        const stakingv2DataKey = drizzle.contracts.SoftStakingv2
 
         // let drizzle know we want to watch the `myString` method
         // let dataKeyXEQ = contract.methods["balanceOf"].cacheCall(drizzle.store.getState().accounts[0]);
         let dataKeyStakingv2 = stakingContract.methods["userInfo"].cacheCall(drizzle.store.getState().accounts[0]);
 
         // save the `dataKey` to local component state for later reference
-        this.setState({ dataKeyXEQ, dataKeyStaking, dataKeyStakingv2 });
+        this.setState({ dataKeyXEQ, dataKeyStaking, dataKeyStakingv2, stakingv2DataKey });
     }
 
     render() {
         let stakingBal = 0;
         try {
-            console.log(("TEST", this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStakingv2].value.amount)/(10**18))
-            stakingBal = Number(this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStakingv2].value.amount)/(10**18) + Number(this.props.drizzleState.contracts.SoftStakingv2["userInfo"][this.state.dataKeyStakingv2].value.claimedBalance)/(10**18)
+            stakingBal = Number(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited[Object.keys(this.props.drizzleState.contracts.StakingPools.getStakeTotalDeposited)[0]].value)/(10**18)
         } catch {
 
         }
